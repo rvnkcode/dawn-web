@@ -1,0 +1,22 @@
+{
+  "recommendations": [
+    "sirmspencer.vscode-autohide",
+    "formulahendry.auto-rename-tag",
+    "alefragnani.bookmarks",
+    "ms-vscode-remote.remote-containers",
+    "ms-azuretools.vscode-docker",
+    "pkief.material-icon-theme",
+    "asvetliakov.vscode-neovim",
+    "wayou.vscode-todo-highlight",
+    "github.vscode-github-actions",
+    "ritwickdey.liveserver",
+    "ecmel.vscode-html-css",
+    "pranaygp.vscode-css-peek",
+    "styled-components.vscode-styled-components",
+    "folke.vscode-monorepo-workspace",
+    "wix.vscode-import-cost",
+    "Prisma.prisma",
+    "svelte.svelte-vscode",
+    "humao.rest-client"
+  ]
+}
