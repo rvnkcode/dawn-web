@@ -29,7 +29,8 @@
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-yaml",
 				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"svelte.svelte-vscode"
 			],
 			"settings": {
 				"editor.formatOnPaste": true,
