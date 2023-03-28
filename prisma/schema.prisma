@@ -9,3 +9,10 @@ datasource db {
   provider = "sqlite"
   url      = "file:/memo/dawn.db"
 }
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  title     String
+  isDone    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
