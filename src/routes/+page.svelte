@@ -6,13 +6,28 @@
 	$: ({ tasks } = data);
 </script>
 
-<form action="?/createTask" method="post">
-	<input type="text" name="title" required />
-	<button type="submit">submit</button>
-</form>
+<svelte:head>
+	<title>Dawn: Inbox</title>
+</svelte:head>
 
-<ul>
-	{#each tasks as task (task.id)}
-		<li>{task.id}: {task.title} ({task.createdAt}) {task.isDone}</li>
-	{/each}
-</ul>
+<header>
+	<h1>Inbox</h1>
+</header>
+
+<main>
+	<form action="?/createTask" method="post">
+		<input type="text" name="title" required placeholder="New To-Do" />
+		<button type="submit">submit</button>
+	</form>
+
+	<ul>
+		{#each tasks as task (task.id)}
+			<li>
+				<input type="checkbox" id={task.id.toString()} />
+				<label for={task.id.toString()}>
+					<input type="checkbox" checked={task.isDone} />{task.id}: {task.title} ({task.createdAt})
+				</label>
+			</li>
+		{/each}
+	</ul>
+</main>
