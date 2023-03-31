@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import List from '$lib/components/list.svelte';
+	import NewInput from '$lib/components/newInput.svelte';
 
 	export let data: PageData;
 
@@ -20,10 +21,7 @@
 <main>
 	<List {tasks} />
 	{#if showNewInput}
-		<form action="?/createTask" method="post">
-			<input type="text" name="title" required placeholder="New To-Do" autocomplete="off" />
-			<button type="submit">submit</button>
-		</form>
+		<NewInput />
 	{/if}
 </main>
 
