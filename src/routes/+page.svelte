@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import List from '../lib/components/list.svelte';
 
 	export let data: PageData;
 
@@ -16,18 +17,8 @@
 
 <main>
 	<form action="?/createTask" method="post">
-		<input type="text" name="title" required placeholder="New To-Do" />
+		<input type="text" name="title" required placeholder="New To-Do" autocomplete="off" />
 		<button type="submit">submit</button>
 	</form>
-
-	<ul>
-		{#each tasks as task (task.id)}
-			<li>
-				<input type="checkbox" id={task.id.toString()} />
-				<label for={task.id.toString()}>
-					<input type="checkbox" checked={task.isDone} />{task.id}: {task.title} ({task.createdAt})
-				</label>
-			</li>
-		{/each}
-	</ul>
+	<List {tasks} />
 </main>
