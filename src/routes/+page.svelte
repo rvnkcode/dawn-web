@@ -2,11 +2,11 @@
 	import type { PageData } from './$types';
 	import List from '$lib/components/list.svelte';
 
-	let showNewInput = false;
-
 	export let data: PageData;
 
 	$: ({ tasks } = data);
+
+	let showNewInput: boolean = false;
 </script>
 
 <svelte:head>
@@ -33,5 +33,4 @@
 			showNewInput = !showNewInput;
 		}}>+</button
 	>
-	<button type="submit" form="list">Trash</button>
 </footer>
