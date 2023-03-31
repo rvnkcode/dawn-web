@@ -26,5 +26,25 @@ export const actions: Actions = {
 			console.error(error);
 			return fail(500, { message: `Could not create the task` });
 		}
+	},
+
+	updateTask: async ({ request }) => {
+		const { id, title } = Object.fromEntries(await request.formData()) as {
+			id: string;
+			title: string;
+		};
+
+		try {
+			await prisma.task.update({
+				where: { id: +id },
+				data: {
+					title
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
+
+		console.log(id, title);
 	}
 } satisfies Actions;

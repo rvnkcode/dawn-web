@@ -16,6 +16,8 @@
 			body: JSON.stringify({ id, checked })
 		});
 	};
+
+	let showEdit: boolean = false;
 </script>
 
 <li>
@@ -35,6 +37,13 @@
 				await toggleCompleted(task.id, e.currentTarget.checked);
 			}}
 		/>{task.id}:
-		<button>{task.title}</button>({task.createdAt})
+		<button on:click={() => (showEdit = !showEdit)}>{task.title}</button>({task.createdAt})
 	</label>
 </li>
+
+{#if showEdit}
+	<form action="?/updateTask" method="post">
+		<input type="hidden" value={task.id} name="id" />
+		<input type="text" bind:value={task.title} required autocomplete="off" name="title" />
+	</form>
+{/if}
