@@ -33,4 +33,5 @@
 			showNewInput = !showNewInput;
 		}}>+</button
 	>
+	<button type="submit" form="list">Trash</button>
 </footer>

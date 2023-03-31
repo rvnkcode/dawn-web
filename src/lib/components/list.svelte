@@ -14,21 +14,23 @@
 {#if tasks.length < 1}
 	<p>Your Inbox is empty - time to celebrate!</p>
 {:else}
-	<ul>
-		{#each tasks as task (task.id)}
-			<li>
-				<input type="checkbox" id={task.id.toString()} />
-				<label for={task.id.toString()}>
-					<input
-						type="checkbox"
-						checked={task.isDone}
-						on:change={async (e) => {
-							await toggleCompleted(task.id, e.currentTarget.checked);
-						}}
-					/>{task.id}:
-					<button>{task.title}</button>({task.createdAt}){task.trash}
-				</label>
-			</li>
-		{/each}
-	</ul>
+	<form id="list" action="?/trashSelectedTasks" method="post">
+		<ul>
+			{#each tasks as task (task.id)}
+				<li>
+					<input type="checkbox" id={task.id.toString()} name={task.id.toString()} />
+					<label for={task.id.toString()}>
+						<input
+							type="checkbox"
+							checked={task.isDone}
+							on:change={async (e) => {
+								await toggleCompleted(task.id, e.currentTarget.checked);
+							}}
+						/>{task.id}:
+						<button>{task.title}</button>({task.createdAt})
+					</label>
+				</li>
+			{/each}
+		</ul>
+	</form>
 {/if}
