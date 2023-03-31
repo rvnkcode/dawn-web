@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import List from '../lib/components/list.svelte';
+	import List from '$lib/components/list.svelte';
 
 	export let data: PageData;
 
