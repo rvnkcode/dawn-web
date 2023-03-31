@@ -36,7 +36,7 @@
 			on:change={async (e) => {
 				await toggleCompleted(task.id, e.currentTarget.checked);
 			}}
-		/>{task.id}:
+		/>
 		<button on:click={() => (showEdit = !showEdit)}>{task.title}</button>
 	</label>
 </li>
@@ -47,3 +47,33 @@
 		<input type="text" bind:value={task.title} required autocomplete="off" name="title" />
 	</form>
 {/if}
+
+<style>
+	li {
+		padding: 0.125rem 0;
+		border-radius: 0.25rem;
+		margin: 0.5rem 0;
+	}
+
+	li:has(> input[type='checkbox']:checked) {
+		background-color: aqua;
+	}
+
+	label {
+		width: 100%;
+		display: flex;
+	}
+
+	li > input[type='checkbox'] {
+		display: none;
+	}
+
+	button {
+		background: none;
+		border: none;
+	}
+
+	button:hover {
+		cursor: pointer;
+	}
+</style>
