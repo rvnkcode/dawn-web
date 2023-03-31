@@ -1,22 +1,11 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import type { Task } from '@prisma/client';
+	import EachTask from './eachTask.svelte';
 
 	export let tasks: Task[];
 
-	const toggleCompleted = async (id: number, checked: boolean) => {
-		await fetch('/api', {
-			method: 'PATCH',
-			body: JSON.stringify({ id, checked })
-		});
-	};
-
-	export let selected: Set<number> = new Set();
-
-	const handleSelected = (id: number) => {
-		selected.has(id) ? selected.delete(id) : selected.add(id);
-		console.log(selected);
-	};
+	let selected: Set<number> = new Set();
 
 	const trashSelectedTasks = async (e: KeyboardEvent) => {
 		if (selected.size < 1) {
@@ -42,26 +31,7 @@
 {:else}
 	<ul>
 		{#each tasks as task (task.id)}
-			<li>
-				<input
-					type="checkbox"
-					id={task.id.toString()}
-					checked={selected.has(task.id)}
-					on:change={() => {
-						handleSelected(task.id);
-					}}
-				/>
-				<label for={task.id.toString()}>
-					<input
-						type="checkbox"
-						checked={task.isDone}
-						on:change={async (e) => {
-							await toggleCompleted(task.id, e.currentTarget.checked);
-						}}
-					/>{task.id}:
-					<button>{task.title}</button>({task.createdAt})
-				</label>
-			</li>
+			<EachTask {task} {selected} />
 		{/each}
 	</ul>
 {/if}
