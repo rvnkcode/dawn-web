@@ -15,4 +15,5 @@ model Task {
   title     String
   isDone    Boolean  @default(false)
   createdAt DateTime @default(now())
+  trash     Boolean  @default(false)
 }
