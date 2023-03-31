@@ -3,7 +3,13 @@ import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async () => {
-	return { tasks: await prisma.task.findMany() };
+	return {
+		tasks: await prisma.task.findMany({
+			where: {
+				trash: false
+			}
+		})
+	};
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
