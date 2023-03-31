@@ -37,7 +37,7 @@
 				await toggleCompleted(task.id, e.currentTarget.checked);
 			}}
 		/>{task.id}:
-		<button on:click={() => (showEdit = !showEdit)}>{task.title}</button>({task.createdAt})
+		<button on:click={() => (showEdit = !showEdit)}>{task.title}</button>
 	</label>
 </li>
 

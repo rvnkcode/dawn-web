@@ -1,5 +1,4 @@
 import { prisma } from '$lib/server/prisma';
-import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async () => {
@@ -24,7 +23,6 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			console.error(error);
-			return fail(500, { message: `Could not create the task` });
 		}
 	},
 
