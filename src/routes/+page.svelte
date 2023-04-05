@@ -18,9 +18,8 @@
 <!-- <aside>menu</aside> -->
 <section>
 	<header>
-		<!-- TODO: Add icon -->
 		<!-- TODO: Add today's date -->
-		<h1>Inbox</h1>
+		<h1><ion-icon name="file-tray" /><span>Inbox</span></h1>
 	</header>
 
 	<main>
@@ -31,6 +30,8 @@
 	</main>
 
 	<footer>
+		<!-- TODO: When press ESC key, hide input -->
+		<!-- TODO: When click outside of input(out of focus), hide input -->
 		<button
 			on:click={() => {
 				showNewInput = !showNewInput;
@@ -52,16 +53,24 @@
 		position: sticky;
 		top: 0;
 		/* Debug */
-		border: 2px solid violet;
+		/* border: 2px solid violet; */
 	}
 
 	header > h1 {
 		font-size: x-large;
+		font-weight: bold;
+	}
+
+	ion-icon {
+		/* Bug? */
+		visibility: inherit;
+		vertical-align: bottom;
+		margin-right: 0.25rem;
 	}
 
 	main {
 		/* Fixed footer's height */
-		margin-bottom: 3rem;
+		margin: 1rem 0 3rem 0;
 	}
 
 	footer {
@@ -72,6 +81,6 @@
 		width: 100%;
 		background-color: white;
 		/* Debug */
-		border: 2px solid burlywood;
+		/* border: 2px solid burlywood; */
 	}
 </style>
