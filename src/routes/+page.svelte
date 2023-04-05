@@ -8,7 +8,7 @@
 
 	$: ({ tasks } = data);
 
-	let showNewInput: boolean = false;
+	let showNewInput = false;
 </script>
 
 <svelte:head>

@@ -19,7 +19,7 @@
 		});
 	};
 
-	let showEdit: boolean = false;
+	let showEdit = false;
 </script>
 
 <li>
