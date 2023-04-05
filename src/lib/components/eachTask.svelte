@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
+	import EditInput from './editInput.svelte';
 
 	export let task: Task;
 
@@ -42,10 +43,7 @@
 </li>
 
 {#if showEdit}
-	<form action="?/updateTask" method="post">
-		<input type="hidden" value={task.id} name="id" />
-		<input type="text" bind:value={task.title} required autocomplete="off" name="title" />
-	</form>
+	<EditInput {task} />
 {/if}
 
 <style>
@@ -56,6 +54,7 @@
 	}
 
 	li:has(> input[type='checkbox']:checked) {
+		/* TODO: Change bg color */
 		background-color: aqua;
 	}
 
