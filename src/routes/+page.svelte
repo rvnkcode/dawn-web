@@ -14,9 +14,12 @@
 	<title>Dawn: Inbox</title>
 </svelte:head>
 
+<!-- TODO: Add side menu -->
 <!-- <aside>menu</aside> -->
 <section>
 	<header>
+		<!-- TODO: Add icon -->
+		<!-- TODO: Add today's date -->
 		<h1>Inbox</h1>
 	</header>
 
@@ -45,10 +48,11 @@
 
 	header {
 		background-color: white;
-		border: 2px solid violet;
 		padding-top: 3rem;
 		position: sticky;
 		top: 0;
+		/* Debug */
+		border: 2px solid violet;
 	}
 
 	header > h1 {
@@ -56,6 +60,7 @@
 	}
 
 	main {
+		/* Fixed footer's height */
 		margin-bottom: 3rem;
 	}
 
@@ -66,6 +71,7 @@
 		left: 0;
 		width: 100%;
 		background-color: white;
+		/* Debug */
 		border: 2px solid burlywood;
 	}
 </style>
