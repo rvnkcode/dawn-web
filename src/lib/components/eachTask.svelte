@@ -8,7 +8,8 @@
 
 	const handleSelected = (id: number) => {
 		selected.has(id) ? selected.delete(id) : selected.add(id);
-		console.log(selected);
+		// Debug
+		// console.log(selected);
 	};
 
 	const toggleCompleted = async (id: number, checked: boolean) => {

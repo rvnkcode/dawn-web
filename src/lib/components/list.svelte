@@ -12,7 +12,8 @@
 			return;
 		}
 		if (e.key === 'Delete') {
-			console.log(e.key);
+			// Debug
+			// console.log(e.key);
 			try {
 				await fetch('/api', {
 					method: 'DELETE',
