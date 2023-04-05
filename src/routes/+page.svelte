@@ -68,8 +68,7 @@
 	h1 > ion-icon {
 		vertical-align: bottom;
 		margin-right: 0.25rem;
-		/* TODO: Change color */
-		color: blue;
+		color: #1aa9f8;
 	}
 
 	main {

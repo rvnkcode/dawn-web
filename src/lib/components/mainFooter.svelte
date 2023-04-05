@@ -39,16 +39,17 @@
 
 		footer > button:hover {
 			cursor: pointer;
-			/* TODO: Change color */
-			border: 1px solid gray;
-			background-color: lightgray;
+			border: 1px solid #eeeef0;
+		}
+
+		ion-icon {
+			color: #404950;
 		}
 	}
 
 	@media (max-width: 480px) {
 		footer {
-			/* TODO: Change color */
-			background-color: blue;
+			background-color: #469ffc;
 			width: 3rem;
 			height: 3rem;
 			border-radius: 100%;

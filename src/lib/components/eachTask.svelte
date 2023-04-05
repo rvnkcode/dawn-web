@@ -39,7 +39,7 @@
 				await toggleCompleted(task.id, e.currentTarget.checked);
 			}}
 		/>
-		<button on:click={() => (showEdit = !showEdit)}>{task.title}</button>
+		<button on:click={() => (showEdit = !showEdit)}><span>{task.title}</span></button>
 	</label>
 </li>
 
@@ -50,14 +50,11 @@
 <style>
 	li {
 		border-radius: 0.25rem;
-		/* TODO: Check each item's margin and padding */
-		padding: 0.125rem 0;
-		margin: 0.25rem 0;
+		padding: 0.3rem 0;
 	}
 
 	li:has(> input[type='checkbox']:checked) {
-		/* TODO: Change bg color */
-		background-color: aqua;
+		background-color: #cae2ff;
 	}
 
 	label {
@@ -69,9 +66,16 @@
 		display: none;
 	}
 
+	label > input[type='checkbox']:checked + button > span {
+		font-style: italic;
+		text-decoration: line-through;
+		color: #b0b4b7;
+	}
+
 	button {
 		background: none;
 		border: none;
+		font-size: 15px;
 	}
 
 	button:hover {
