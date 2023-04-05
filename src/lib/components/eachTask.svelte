@@ -48,8 +48,9 @@
 
 <style>
 	li {
-		padding: 0.125rem 0;
 		border-radius: 0.25rem;
+		/* TODO: Check each item's margin and padding */
+		padding: 0.125rem 0;
 		margin: 0.5rem 0;
 	}
 
