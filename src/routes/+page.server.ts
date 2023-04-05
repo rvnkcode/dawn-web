@@ -42,7 +42,5 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error(error);
 		}
-
-		console.log(id, title);
 	}
 } satisfies Actions;
