@@ -11,6 +11,6 @@
 
 <style>
 	input[type='text'] {
-		width: 100%;
+		width: 95%;
 	}
 </style>
