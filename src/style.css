@@ -2,3 +2,8 @@ body {
 	display: flex;
 	font-family: sans-serif;
 }
+
+ion-icon {
+	/* Bug? */
+	visibility: inherit;
+}

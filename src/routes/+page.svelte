@@ -35,7 +35,7 @@
 		<button
 			on:click={() => {
 				showNewInput = !showNewInput;
-			}}>+</button
+			}}><ion-icon name="add" /></button
 		>
 	</footer>
 </section>
@@ -61,11 +61,11 @@
 		font-weight: bold;
 	}
 
-	ion-icon {
-		/* Bug? */
-		visibility: inherit;
+	h1 > ion-icon {
 		vertical-align: bottom;
 		margin-right: 0.25rem;
+		/* TODO: Change color */
+		color: blue;
 	}
 
 	main {
@@ -77,10 +77,53 @@
 		position: fixed;
 		z-index: 1;
 		bottom: 0;
-		left: 0;
 		width: 100%;
-		background-color: white;
-		/* Debug */
-		/* border: 2px solid burlywood; */
+	}
+
+	footer > button {
+		border: none;
+		background: none;
+		width: 100%;
+		padding: 0.5rem 0;
+	}
+
+	@media (min-width: 481px) {
+		footer {
+			left: 0;
+			background-color: white;
+			display: flex;
+			justify-content: space-evenly;
+			/* Debug */
+			/* border: 2px solid burlywood; */
+		}
+
+		footer > button:hover {
+			cursor: pointer;
+			/* TODO: Change color */
+			border: 1px solid gray;
+			background-color: lightgray;
+		}
+	}
+
+	@media (max-width: 480px) {
+		section {
+			padding: 0 1rem;
+		}
+
+		footer {
+			/* TODO: Change color */
+			background-color: blue;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 100%;
+			right: 0;
+			margin-right: 0.5rem;
+			margin-bottom: 0.5rem;
+		}
+
+		footer > button > ion-icon {
+			color: white;
+			font-size: xx-large;
+		}
 	}
 </style>
