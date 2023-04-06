@@ -6,6 +6,7 @@
 build
 node_modules
 README.md
+img
 *.log
 .env.example
 .eslint*
