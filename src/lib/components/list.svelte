@@ -28,6 +28,7 @@
 </script>
 
 {#if tasks.length < 1}
+	<!-- TODO: update style: centering, gray out -->
 	<p>Your Inbox is empty - time to celebrate!</p>
 {:else}
 	<ul>

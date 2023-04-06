@@ -1,5 +1,18 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
+
 	export let value: boolean;
+
+	const trashAll = async () => {
+		try {
+			await fetch('/api/list', {
+				method: 'DELETE'
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
 </script>
 
 <footer>
@@ -10,17 +23,16 @@
 			value = !value;
 		}}><ion-icon name="add" /></button
 	>
+	<button
+		on:click={async () => {
+			await trashAll();
+		}}
+		class="hide"><ion-icon name="trash-bin" /></button
+	>
 </footer>
 
 <style>
-	footer {
-		position: fixed;
-		z-index: 1;
-		bottom: 0;
-		width: 100%;
-	}
-
-	footer > button {
+	button {
 		border: none;
 		background: none;
 		width: 100%;
@@ -29,6 +41,10 @@
 
 	@media (min-width: 481px) {
 		footer {
+			position: fixed;
+			z-index: 1;
+			bottom: 0;
+			width: 100%;
 			left: 0;
 			background-color: white;
 			display: flex;
@@ -44,15 +60,18 @@
 
 		ion-icon {
 			color: #404950;
+			font-size: large;
 		}
 	}
 
 	@media (max-width: 480px) {
-		footer {
+		footer > button {
 			background-color: #469ffc;
 			width: 3rem;
 			height: 3rem;
 			border-radius: 100%;
+			position: fixed;
+			bottom: 0;
 			right: 0;
 			margin-right: 0.5rem;
 			margin-bottom: 0.5rem;
@@ -61,6 +80,10 @@
 		footer > button > ion-icon {
 			color: white;
 			font-size: xx-large;
+		}
+
+		.hide {
+			display: none;
 		}
 	}
 </style>
