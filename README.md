@@ -24,3 +24,9 @@ Provided `docker-compose.yml` is [here](./docker-compose.yml).
 ```bash
 docker-compose down && docker image rm rvnk/dawn:latest && docker-compose up -d
 ```
+
+## Keyboard Shortcuts
+
+| Keyboard shortcut | Description           |
+| ----------------- | --------------------- |
+| <kbd>Delete</kbd> | Delete selected tasks |
