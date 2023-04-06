@@ -7,3 +7,8 @@ ion-icon {
 	/* Bug? */
 	visibility: inherit;
 }
+
+.inputTitle {
+	width: 95%;
+	margin-left: 1.25rem;
+}
