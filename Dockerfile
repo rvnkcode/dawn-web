@@ -16,14 +16,15 @@ FROM node:lts-alpine AS prod
 WORKDIR /app
 RUN rm -rf ./*
 COPY --from=build /app/package.json .
-COPY --from=build /app/prisma .
-COPY --from=build /app/build .
+COPY --from=build /app/prisma ./prisma
+COPY --from=build /app/build ./build
 
 RUN yarn --prod 
 RUN yarn cache clean
 
 RUN mkdir /memo && chown node /memo
 
+ENV ORIGIN=http://localhost:3000
 EXPOSE 3000
 
 CMD [ "yarn", "start" ]

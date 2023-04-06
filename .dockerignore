@@ -7,8 +7,10 @@ build
 node_modules
 README.md
 *.log
+.env.example
 .eslint*
 .git*
 .prettier*
 Dockerfile*
 docker-compose.yml
+prisma/seed.ts
