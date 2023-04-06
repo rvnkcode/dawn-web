@@ -31,7 +31,8 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"Prisma.prisma",
-				"svelte.svelte-vscode"
+				"svelte.svelte-vscode",
+				"github.vscode-github-actions"
 			],
 			"settings": {
 				"editor.formatOnPaste": true,
