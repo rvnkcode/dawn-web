@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
 	import EditInput from './editInput.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	export let task: Task;
 
@@ -17,6 +18,18 @@
 			method: 'PATCH',
 			body: JSON.stringify({ id, checked })
 		});
+	};
+
+	const deleteTask = async (id: number) => {
+		try {
+			await fetch('/api/item', {
+				method: 'DELETE',
+				body: JSON.stringify({ id })
+			});
+			invalidateAll(); // refresh all load function(loaded data though load function?)
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	let showEdit = false;
@@ -39,7 +52,14 @@
 				await toggleCompleted(task.id, e.currentTarget.checked);
 			}}
 		/>
-		<button on:click={() => (showEdit = !showEdit)}><span>{task.title}</span></button>
+		<div>
+			<button on:click={() => (showEdit = !showEdit)} class="title"
+				><span>{task.title}</span></button
+			>
+			<button on:click={async () => await deleteTask(task.id)} class="trash"
+				><ion-icon name="trash" /></button
+			>
+		</div>
 	</label>
 </li>
 
@@ -53,20 +73,17 @@
 		padding: 0.3rem 0;
 	}
 
-	li:has(> input[type='checkbox']:checked) {
-		background-color: #cae2ff;
-	}
-
-	label {
-		width: 100%;
-		display: flex;
-	}
-
 	li > input[type='checkbox'] {
 		display: none;
 	}
 
-	label > input[type='checkbox']:checked + button > span {
+	label {
+		display: flex;
+		/* Debug */
+		/* border: 2px solid red; */
+	}
+
+	label > input[type='checkbox']:checked + div > button > span {
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
@@ -75,10 +92,37 @@
 	button {
 		background: none;
 		border: none;
+	}
+
+	button > span {
 		font-size: 15px;
 	}
 
-	button:hover {
-		cursor: pointer;
+	.trash {
+		display: none;
+	}
+
+	@media (min-width: 481px) {
+		label > div {
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		li:has(> input[type='checkbox']:checked) {
+			background-color: #cae2ff;
+		}
+
+		li:hover > label > div > .trash {
+			display: unset;
+		}
+
+		div > button > ion-icon {
+			color: #404950;
+		}
+
+		button:hover {
+			cursor: pointer;
+		}
 	}
 </style>
