@@ -38,13 +38,10 @@
 		max-width: 960px;
 		width: 100%;
 		margin: 0 auto;
+		padding: 0 1rem;
 	}
 
-	@media (max-width: 480px) {
-		section {
-			padding: 0 1rem;
-		}
-
+	@media (min-width: 481px) {
 		main {
 			/* Fixed footer's height */
 			margin-bottom: 3rem;
