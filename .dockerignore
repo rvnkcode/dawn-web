@@ -1,12 +1,14 @@
 .git
 .devcontainer
+.github
 .svelte-kit
 .vscode
+build
 node_modules
 README.md
-.github
 *.log
 .eslint*
-.prettier*
 .git*
-build
+.prettier*
+Dockerfile*
+docker-compose.yml
