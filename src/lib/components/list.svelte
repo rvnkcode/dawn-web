@@ -5,6 +5,7 @@
 	import { selected } from '$lib/stores';
 
 	export let tasks: Task[];
+	export let showNewInput: boolean;
 
 	const trashSelectedTasks = async (e: KeyboardEvent) => {
 		if ($selected.size < 1) {
@@ -27,8 +28,9 @@
 </script>
 
 {#if tasks.length < 1}
-	<!-- TODO: update style: centering, gray out -->
-	<p>Your Inbox is empty - time to celebrate!</p>
+	{#if !showNewInput}
+		<p>Your Inbox is empty - time to celebrate!</p>
+	{/if}
 {:else}
 	<ul>
 		{#each tasks as task (task.id)}
@@ -38,3 +40,10 @@
 {/if}
 
 <svelte:window on:keydown={trashSelectedTasks} />
+
+<style>
+	p {
+		text-align: center;
+		color: #b0b4b7;
+	}
+</style>

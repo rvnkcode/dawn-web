@@ -24,7 +24,7 @@
 	</header>
 
 	<main>
-		<List {tasks} />
+		<List {tasks} {showNewInput} />
 		{#if showNewInput}
 			<NewInput />
 		{/if}
