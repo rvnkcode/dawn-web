@@ -2,13 +2,12 @@
 	import type { Task } from '@prisma/client';
 	import EditInput from './editInput.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { selected } from '$lib/stores';
 
 	export let task: Task;
 
-	export let selected: Set<number>;
-
 	const handleSelected = (id: number) => {
-		selected.has(id) ? selected.delete(id) : selected.add(id);
+		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
 		// Debug
 		// console.log(selected);
 	};
@@ -39,7 +38,7 @@
 	<input
 		type="checkbox"
 		id={task.id.toString()}
-		checked={selected.has(task.id)}
+		checked={$selected.has(task.id)}
 		on:change={() => {
 			handleSelected(task.id);
 		}}
