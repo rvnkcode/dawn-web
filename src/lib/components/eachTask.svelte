@@ -78,6 +78,7 @@
 
 	label {
 		display: flex;
+		align-items: flex-start;
 		/* Debug */
 		/* border: 2px solid red; */
 	}
@@ -97,8 +98,12 @@
 		font-size: 15px;
 	}
 
+	.title {
+		text-align: start;
+	}
+
 	.trash {
-		display: none;
+		visibility: hidden;
 	}
 
 	@media (min-width: 481px) {
@@ -113,11 +118,12 @@
 		}
 
 		li:hover > label > div > .trash {
-			display: unset;
+			visibility: visible;
 		}
 
 		div > button > ion-icon {
 			color: #404950;
+			font-size: large;
 		}
 
 		button:hover {
