@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { selected } from '$lib/stores';
 
 	export let value: boolean;
 
-	const trashAll = async () => {
+	const trashSelectedTasks = async () => {
+		if ($selected.size < 1) {
+			return;
+		}
+
 		try {
-			await fetch('/api/list', {
-				method: 'DELETE'
+			await fetch('/api', {
+				method: 'DELETE',
+				body: JSON.stringify(Array.from($selected))
 			});
-			invalidateAll();
+			invalidateAll(); // refresh all loaded data from load function
 		} catch (error) {
 			console.error(error);
 		}
@@ -25,7 +31,7 @@
 	>
 	<button
 		on:click={async () => {
-			await trashAll();
+			await trashSelectedTasks();
 		}}
 		class="hide"><ion-icon name="trash-bin" /></button
 	>
