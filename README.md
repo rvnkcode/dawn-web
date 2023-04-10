@@ -1,6 +1,6 @@
 # Dawn
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/rvnk/dawn)](https://hub.docker.com/repository/docker/rvnk/dawn/general)
+[![Docker Pulls](https://img.shields.io/docker/pulls/rvnk/dawn)](https://hub.docker.com/r/rvnk/dawn)
 [![Release Docker Image](https://github.com/rvnkcode/dawn-web/actions/workflows/release-docker-image.yml/badge.svg)](https://github.com/rvnkcode/dawn-web/actions/workflows/release-docker-image.yml)
 [![Test Docker Image](https://github.com/rvnkcode/dawn-web/actions/workflows/test-image.yml/badge.svg)](https://github.com/rvnkcode/dawn-web/actions/workflows/test-image.yml)
 
