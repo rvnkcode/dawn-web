@@ -16,13 +16,11 @@
 	<title>Dawn: Inbox</title>
 </svelte:head>
 
-<!-- TODO: Add side menu -->
-<!-- <aside>menu</aside> -->
 <section>
 	<header>
 		<!-- TODO: Add today's date -->
 		<MobileOnlyButton />
-		<h1><ion-icon name="file-tray" /><span>Inbox</span></h1>
+		<h1><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></h1>
 	</header>
 
 	<main>
@@ -37,7 +35,7 @@
 
 <style>
 	section {
-		max-width: 960px;
+		max-width: 1020px;
 		width: 100%;
 		margin: 0 auto;
 		padding: 0 1rem;
@@ -60,12 +58,6 @@
 	header > h1 {
 		font-size: x-large;
 		font-weight: bold;
-	}
-
-	h1 > ion-icon {
-		vertical-align: bottom;
-		margin-right: 0.25rem;
-		color: #1aa9f8;
 	}
 
 	main {

@@ -3,9 +3,20 @@ body {
 	font-family: sans-serif;
 }
 
+button {
+	border: none;
+	background: none;
+}
+
 ion-icon {
 	/* Bug? */
 	visibility: inherit;
+}
+
+ion-icon.inbox {
+	vertical-align: text-top;
+	margin-right: 0.25rem;
+	color: #1aa9f8;
 }
 
 .inputTitle {
