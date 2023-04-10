@@ -45,8 +45,6 @@
 
 <style>
 	button {
-		border: none;
-		background: none;
 		width: 100%;
 		padding: 0.5rem 0;
 	}
@@ -56,8 +54,9 @@
 			position: fixed;
 			z-index: 1;
 			bottom: 0;
+			max-width: 1020px;
 			width: 100%;
-			left: 0;
+			right: 0;
 			background-color: white;
 			display: flex;
 			justify-content: space-evenly;
