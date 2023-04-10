@@ -46,10 +46,4 @@
 		text-align: center;
 		color: #b0b4b7;
 	}
-
-	@media (max-width: 480px) {
-		ul {
-			margin-bottom: 3rem;
-		}
-	}
 </style>

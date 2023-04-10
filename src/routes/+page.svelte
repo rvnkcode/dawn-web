@@ -43,11 +43,9 @@
 		padding: 0 1rem;
 	}
 
-	@media (min-width: 481px) {
-		main {
-			/* Fixed footer's height */
-			margin-bottom: 3rem;
-		}
+	main {
+		/* Fixed footer's height */
+		margin-bottom: 3rem;
 	}
 
 	header {
