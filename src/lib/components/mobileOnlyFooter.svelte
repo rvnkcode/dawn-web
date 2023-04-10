@@ -36,7 +36,7 @@
 	div {
 		background-color: #292c37;
 		border-radius: 0.25rem;
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
