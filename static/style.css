@@ -19,6 +19,12 @@ ion-icon.inbox {
 	color: #1aa9f8;
 }
 
+ion-icon.trashIcon {
+	vertical-align: text-top;
+	margin-right: 0.25rem;
+	color: #c2c6cc;
+}
+
 .inputTitle {
 	width: 95%;
 	margin-left: 1.25rem;
