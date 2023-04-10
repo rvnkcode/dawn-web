@@ -95,11 +95,6 @@
 		color: #b0b4b7;
 	}
 
-	button {
-		background: none;
-		border: none;
-	}
-
 	button > span {
 		font-size: 15px;
 		word-break: break-word;

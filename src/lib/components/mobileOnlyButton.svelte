@@ -34,11 +34,6 @@
 {/if}
 
 <style>
-	button {
-		background: none;
-		border: none;
-	}
-
 	button.outer {
 		position: fixed;
 		top: 0;

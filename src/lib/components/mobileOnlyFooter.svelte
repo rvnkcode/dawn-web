@@ -28,11 +28,6 @@
 </div>
 
 <style>
-	button {
-		background: none;
-		border: none;
-	}
-
 	div {
 		background-color: #292c37;
 		border-radius: 0.25rem;
