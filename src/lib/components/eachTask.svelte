@@ -3,6 +3,7 @@
 	import EditInput from './editInput.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
+	import { isSelectModeOnMobile } from '$lib/stores';
 
 	export let task: Task;
 
@@ -35,15 +36,7 @@
 </script>
 
 <li>
-	<input
-		type="checkbox"
-		id={task.id.toString()}
-		checked={$selected.has(task.id)}
-		on:change={() => {
-			handleSelected(task.id);
-		}}
-	/>
-	<label for={task.id.toString()}>
+	<label class={$isSelectModeOnMobile ? 'fullWidth' : ''} for={task.id.toString()}>
 		<input
 			type="checkbox"
 			checked={task.isDone}
@@ -60,6 +53,16 @@
 			>
 		</div>
 	</label>
+	<input
+		type="checkbox"
+		id={task.id.toString()}
+		checked={!$isSelectModeOnMobile ? false : null}
+		class={$isSelectModeOnMobile ? 'show' : 'hide'}
+		on:change={() => {
+			handleSelected(task.id);
+			console.log($selected);
+		}}
+	/>
 </li>
 
 {#if showEdit}
@@ -70,17 +73,20 @@
 	li {
 		border-radius: 0.25rem;
 		padding: 0.3rem 0;
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
 	}
 
-	li > input[type='checkbox'] {
-		display: none;
+	li:has(> input[type='checkbox']:checked) {
+		background-color: #cae2ff;
 	}
 
 	label {
 		display: flex;
 		align-items: flex-start;
 		/* Debug */
-		/* border: 2px solid red; */
+		/* border: 1px solid red; */
 	}
 
 	label > input[type='checkbox']:checked + div > button > span {
@@ -102,19 +108,23 @@
 		text-align: start;
 	}
 
-	.trash {
-		visibility: hidden;
-	}
-
 	@media (min-width: 481px) {
+		li > input[type='checkbox'] {
+			display: none;
+		}
+
+		label {
+			width: 100%;
+		}
+
 		label > div {
 			display: flex;
 			width: 100%;
 			justify-content: space-between;
 		}
 
-		li:has(> input[type='checkbox']:checked) {
-			background-color: #cae2ff;
+		.trash {
+			visibility: hidden;
 		}
 
 		li:hover > label > div > .trash {
@@ -128,6 +138,24 @@
 
 		button:hover {
 			cursor: pointer;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.trash {
+			display: none;
+		}
+
+		.show {
+			display: inherit;
+		}
+
+		.hide {
+			display: none;
+		}
+
+		.fullWidth {
+			width: 100%;
 		}
 	}
 </style>

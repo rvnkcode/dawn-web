@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
+	import { isSelectModeOnMobile } from '$lib/stores';
+	import MobileOnlyFooter from './mobileOnlyFooter.svelte';
 
 	export let value: boolean;
 
@@ -25,6 +27,7 @@
 	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
 	<button
+		class={$isSelectModeOnMobile ? 'hide' : ''}
 		on:click={() => {
 			value = !value;
 		}}><ion-icon name="add" /></button
@@ -35,6 +38,9 @@
 		}}
 		class="hide"><ion-icon name="trash-bin" /></button
 	>
+	{#if $isSelectModeOnMobile}
+		<MobileOnlyFooter />
+	{/if}
 </footer>
 
 <style>
