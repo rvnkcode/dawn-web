@@ -3,6 +3,7 @@
 	import List from '$lib/components/list.svelte';
 	import NewInput from '$lib/components/newInput.svelte';
 	import MainFooter from '$lib/components/mainFooter.svelte';
+	import MobileOnlyButton from '$lib/components/mobileOnlyButton.svelte';
 
 	export let data: PageData;
 
@@ -20,6 +21,7 @@
 <section>
 	<header>
 		<!-- TODO: Add today's date -->
+		<MobileOnlyButton />
 		<h1><ion-icon name="file-tray" /><span>Inbox</span></h1>
 	</header>
 
