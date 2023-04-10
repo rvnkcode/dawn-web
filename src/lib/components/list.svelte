@@ -2,13 +2,13 @@
 	import { invalidateAll } from '$app/navigation';
 	import type { Task } from '@prisma/client';
 	import EachTask from './eachTask.svelte';
+	import { selected } from '$lib/stores';
 
 	export let tasks: Task[];
-
-	let selected: Set<number> = new Set();
+	export let showNewInput: boolean;
 
 	const trashSelectedTasks = async (e: KeyboardEvent) => {
-		if (selected.size < 1) {
+		if ($selected.size < 1) {
 			return;
 		}
 		if (e.key === 'Delete') {
@@ -17,7 +17,7 @@
 			try {
 				await fetch('/api', {
 					method: 'DELETE',
-					body: JSON.stringify(Array.from(selected))
+					body: JSON.stringify(Array.from($selected))
 				});
 				invalidateAll(); // refresh all load function(loaded data though load function?)
 			} catch (error) {
@@ -28,13 +28,22 @@
 </script>
 
 {#if tasks.length < 1}
-	<p>Your Inbox is empty - time to celebrate!</p>
+	{#if !showNewInput}
+		<p>Your Inbox is empty - time to celebrate!</p>
+	{/if}
 {:else}
 	<ul>
 		{#each tasks as task (task.id)}
-			<EachTask {task} {selected} />
+			<EachTask {task} />
 		{/each}
 	</ul>
 {/if}
 
 <svelte:window on:keydown={trashSelectedTasks} />
+
+<style>
+	p {
+		text-align: center;
+		color: #b0b4b7;
+	}
+</style>

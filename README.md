@@ -4,10 +4,9 @@
 [![Release Docker Image](https://github.com/rvnkcode/dawn-web/actions/workflows/release-docker-image.yml/badge.svg)](https://github.com/rvnkcode/dawn-web/actions/workflows/release-docker-image.yml)
 [![Test Docker Image](https://github.com/rvnkcode/dawn-web/actions/workflows/test-image.yml/badge.svg)](https://github.com/rvnkcode/dawn-web/actions/workflows/test-image.yml)
 
-Self-hosted to-do application
+Self-hosted Things 3 clone to-do application
 
-![pc](./img/pc.png)
-![mobile](./img/mobile.png)
+![mockup](./img/mockup.png)
 
 ## Deploy with Docker
 

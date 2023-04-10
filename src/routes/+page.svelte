@@ -3,6 +3,7 @@
 	import List from '$lib/components/list.svelte';
 	import NewInput from '$lib/components/newInput.svelte';
 	import MainFooter from '$lib/components/mainFooter.svelte';
+	import MobileOnlyButton from '$lib/components/mobileOnlyButton.svelte';
 
 	export let data: PageData;
 
@@ -20,11 +21,12 @@
 <section>
 	<header>
 		<!-- TODO: Add today's date -->
+		<MobileOnlyButton />
 		<h1><ion-icon name="file-tray" /><span>Inbox</span></h1>
 	</header>
 
 	<main>
-		<List {tasks} />
+		<List {tasks} {showNewInput} />
 		{#if showNewInput}
 			<NewInput />
 		{/if}
@@ -38,17 +40,12 @@
 		max-width: 960px;
 		width: 100%;
 		margin: 0 auto;
+		padding: 0 1rem;
 	}
 
-	@media (max-width: 480px) {
-		section {
-			padding: 0 1rem;
-		}
-
-		main {
-			/* Fixed footer's height */
-			margin-bottom: 3rem;
-		}
+	main {
+		/* Fixed footer's height */
+		margin-bottom: 3rem;
 	}
 
 	header {
