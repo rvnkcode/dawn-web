@@ -102,6 +102,7 @@
 
 	button > span {
 		font-size: 15px;
+		word-break: break-word;
 	}
 
 	.title {
