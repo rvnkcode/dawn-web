@@ -16,31 +16,22 @@
 	<title>Dawn: Inbox</title>
 </svelte:head>
 
-<section>
-	<header>
-		<!-- TODO: Add today's date -->
-		<MobileOnlyButton />
-		<h1><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></h1>
-	</header>
+<header>
+	<!-- TODO: Add today's date -->
+	<MobileOnlyButton />
+	<h1><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></h1>
+</header>
 
-	<main>
-		<List {tasks} {showNewInput} />
-		{#if showNewInput}
-			<NewInput />
-		{/if}
-	</main>
+<main>
+	<List {tasks} {showNewInput} />
+	{#if showNewInput}
+		<NewInput />
+	{/if}
+</main>
 
-	<MainFooter bind:value={showNewInput} />
-</section>
+<MainFooter bind:value={showNewInput} />
 
 <style>
-	section {
-		max-width: 1020px;
-		width: 100%;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
 	main {
 		/* Fixed footer's height */
 		margin-bottom: 3rem;
