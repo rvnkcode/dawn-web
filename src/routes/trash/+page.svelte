@@ -16,5 +16,14 @@
 </header>
 
 <main>
+	{#if tasks.length > 0}
+		<button class="blue">Empty Trash</button>
+	{/if}
 	<List {tasks} showNewInput={false} />
 </main>
+
+<style>
+	button {
+		margin-bottom: 1.5rem;
+	}
+</style>

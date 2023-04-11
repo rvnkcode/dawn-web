@@ -7,7 +7,7 @@
 
 <Nav {showSidebar} />
 <MobileOnlyButton bind:value={showSidebar} />
-<section>
+<section class={showSidebar ? 'height' : ''}>
 	<slot />
 </section>
 
@@ -17,5 +17,12 @@
 		width: 100%;
 		margin: 0 auto;
 		padding: 0 1rem;
+	}
+
+	@media (max-width: 480px) {
+		section.height {
+			height: 100vh;
+			overflow-y: hidden;
+		}
 	}
 </style>

@@ -12,14 +12,14 @@
 	const handleDone = () => {
 		$isSelectModeOnMobile = !$isSelectModeOnMobile;
 		$selected.clear();
-		console.log($selected);
+		// console.log($selected);
 	};
 
 	export let value: boolean;
 </script>
 
 {#if $isSelectModeOnMobile}
-	<button class="outer done right" on:click={() => handleDone()}>Done</button>
+	<button class="outer blue right done" on:click={() => handleDone()}>Done</button>
 {:else}
 	<button class="outer left" on:click={() => (value = !value)}
 		><ion-icon name="chevron-back" class="big" /></button
@@ -55,12 +55,7 @@
 	}
 
 	button.done {
-		background-color: #469ffc;
-		border-radius: 0.25rem;
-		color: white;
 		margin-right: 0.25rem;
-		padding: 0.5rem 0.75rem;
-		font-weight: bold;
 	}
 
 	ion-icon.big {

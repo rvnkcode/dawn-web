@@ -65,7 +65,6 @@
 		}
 
 		footer > button:hover {
-			cursor: pointer;
 			border: 1px solid #eeeef0;
 		}
 

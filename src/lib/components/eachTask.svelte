@@ -4,8 +4,11 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
+	import { page } from '$app/stores';
 
 	export let task: Task;
+
+	$: current = $page.url.pathname;
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
@@ -48,9 +51,11 @@
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span>{task.title}</span></button
 			>
-			<button on:click={async () => await deleteTask(task.id)} class="trash"
-				><ion-icon name="trash" /></button
-			>
+			{#if current != '/trash'}
+				<button on:click={async () => await deleteTask(task.id)} class="trash"
+					><ion-icon name="trash" /></button
+				>
+			{/if}
 		</div>
 	</label>
 	<input
@@ -60,7 +65,7 @@
 		class={$isSelectModeOnMobile ? 'show' : 'hide'}
 		on:change={() => {
 			handleSelected(task.id);
-			console.log($selected);
+			// console.log($selected);
 		}}
 	/>
 </li>
@@ -130,10 +135,6 @@
 		div > button > ion-icon {
 			color: #404950;
 			font-size: large;
-		}
-
-		button:hover {
-			cursor: pointer;
 		}
 	}
 

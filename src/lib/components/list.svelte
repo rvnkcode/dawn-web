@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import type { Task } from '@prisma/client';
 	import EachTask from './eachTask.svelte';
 	import { selected } from '$lib/stores';
@@ -7,10 +8,16 @@
 	export let tasks: Task[];
 	export let showNewInput: boolean;
 
+	$: current = $page.url.pathname;
+
 	const trashSelectedTasks = async (e: KeyboardEvent) => {
 		if ($selected.size < 1) {
 			return;
 		}
+		if (current === '/trash') {
+			return;
+		}
+
 		if (e.key === 'Delete') {
 			// Debug
 			// console.log(e.key);
