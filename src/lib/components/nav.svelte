@@ -17,7 +17,12 @@
 			>
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
-			<ion-icon name="trash-bin" class="trashIcon" /><a href="/trash">Trash</a>
+			<ion-icon name="trash-bin" class="trashIcon" /><a
+				href="/trash"
+				on:click={() => {
+					showSidebar = false;
+				}}>Trash</a
+			>
 		</li>
 	</ul>
 </nav>
@@ -61,7 +66,10 @@
 		}
 
 		nav.show {
+			position: absolute;
+			left: 0;
 			display: block;
+			z-index: 1;
 		}
 	}
 </style>

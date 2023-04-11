@@ -7,12 +7,9 @@
 
 <Nav {showSidebar} />
 <MobileOnlyButton bind:value={showSidebar} />
-<!-- FIXME: reactively -->
-{#if !showSidebar}
-	<section>
-		<slot />
-	</section>
-{/if}
+<section>
+	<slot />
+</section>
 
 <style>
 	section {
