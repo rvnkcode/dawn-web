@@ -28,28 +28,3 @@
 </main>
 
 <MainFooter bind:value={showNewInput} />
-
-<style>
-	main {
-		/* Fixed footer's height */
-		margin-bottom: 3rem;
-	}
-
-	header {
-		background-color: white;
-		padding-top: 3rem;
-		position: sticky;
-		top: 0;
-		/* Debug */
-		/* border: 2px solid violet; */
-	}
-
-	header > h1 {
-		font-size: x-large;
-		font-weight: bold;
-	}
-
-	main {
-		margin-top: 2rem;
-	}
-</style>

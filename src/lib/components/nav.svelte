@@ -18,7 +18,7 @@
 <style>
 	nav {
 		background-color: #f9fafb;
-		height: 100vh;
+		min-height: 100vh;
 		width: 100%;
 		/* border: 2px solid red; */
 	}
