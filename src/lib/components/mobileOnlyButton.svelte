@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { isSelectModeOnMobile } from '$lib/stores';
-	import { selected } from '$lib/stores';
+	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
 
 	let menuEnabled = false;
 
@@ -14,14 +13,12 @@
 		$selected.clear();
 		// console.log($selected);
 	};
-
-	export let value: boolean;
 </script>
 
 {#if $isSelectModeOnMobile}
 	<button class="outer blue right done" on:click={() => handleDone()}>Done</button>
 {:else}
-	<button class="outer left" on:click={() => (value = !value)}
+	<button class="outer left" on:click={() => ($showSidebar = !$showSidebar)}
 		><ion-icon name="chevron-back" class="big" /></button
 	>
 	<button class="outer right" on:click={() => (menuEnabled = !menuEnabled)}

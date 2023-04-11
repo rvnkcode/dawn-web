@@ -1,18 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { showSidebar } from '$lib/stores';
 
 	$: current = $page.url.pathname;
-
-	export let showSidebar: boolean;
 </script>
 
-<nav class={showSidebar ? 'show' : ''}>
+<nav class={$showSidebar ? 'show' : ''}>
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
 			<ion-icon name="file-tray" class="inbox" /><a
 				href="/"
 				on:click={() => {
-					showSidebar = false;
+					$showSidebar = false;
 				}}>Inbox</a
 			>
 		</li>
@@ -20,7 +19,7 @@
 			<ion-icon name="trash-bin" class="trashIcon" /><a
 				href="/trash"
 				on:click={() => {
-					showSidebar = false;
+					$showSidebar = false;
 				}}>Trash</a
 			>
 		</li>

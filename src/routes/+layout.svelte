@@ -1,15 +1,16 @@
 <script>
 	import Nav from '$lib/components/nav.svelte';
 	import MobileOnlyButton from '$lib/components/mobileOnlyButton.svelte';
-
-	let showSidebar = false;
+	import { showSidebar } from '$lib/stores';
 </script>
 
-<Nav {showSidebar} />
-<MobileOnlyButton bind:value={showSidebar} />
-<section class={showSidebar ? 'height' : ''}>
-	<slot />
-</section>
+<Nav />
+{#if !$showSidebar}
+	<MobileOnlyButton />
+	<section>
+		<slot />
+	</section>
+{/if}
 
 <style>
 	section {
@@ -17,12 +18,5 @@
 		width: 100%;
 		margin: 0 auto;
 		padding: 0 1rem;
-	}
-
-	@media (max-width: 480px) {
-		section.height {
-			height: 100vh;
-			overflow-y: hidden;
-		}
 	}
 </style>
