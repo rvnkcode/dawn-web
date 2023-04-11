@@ -1,13 +1,18 @@
 <script>
 	import Nav from '$lib/components/nav.svelte';
 	import MobileOnlyButton from '$lib/components/mobileOnlyButton.svelte';
+
+	let showSidebar = false;
 </script>
 
-<Nav />
-<section>
-	<MobileOnlyButton />
-	<slot />
-</section>
+<Nav {showSidebar} />
+<MobileOnlyButton bind:value={showSidebar} />
+<!-- FIXME: reactively -->
+{#if !showSidebar}
+	<section>
+		<slot />
+	</section>
+{/if}
 
 <style>
 	section {

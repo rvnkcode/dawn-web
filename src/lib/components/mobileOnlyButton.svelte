@@ -14,12 +14,17 @@
 		$selected.clear();
 		console.log($selected);
 	};
+
+	export let value: boolean;
 </script>
 
 {#if $isSelectModeOnMobile}
-	<button class="outer done" on:click={() => handleDone()}>Done</button>
+	<button class="outer done right" on:click={() => handleDone()}>Done</button>
 {:else}
-	<button class="outer" on:click={() => (menuEnabled = !menuEnabled)}
+	<button class="outer left" on:click={() => (value = !value)}
+		><ion-icon name="chevron-back" class="big" /></button
+	>
+	<button class="outer right" on:click={() => (menuEnabled = !menuEnabled)}
 		><ion-icon name="chevron-down-circle-outline" class="big" /></button
 	>
 	{#if menuEnabled}
@@ -37,9 +42,16 @@
 	button.outer {
 		position: fixed;
 		top: 0;
-		right: 0;
 		margin-top: 0.5rem;
 		z-index: 1;
+	}
+
+	button.right {
+		right: 0;
+	}
+
+	button.left {
+		left: 0;
 	}
 
 	button.done {

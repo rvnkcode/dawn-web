@@ -2,12 +2,19 @@
 	import { page } from '$app/stores';
 
 	$: current = $page.url.pathname;
+
+	export let showSidebar: boolean;
 </script>
 
-<nav>
+<nav class={showSidebar ? 'show' : ''}>
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
-			<ion-icon name="file-tray" class="inbox" /><a href="/">Inbox</a>
+			<ion-icon name="file-tray" class="inbox" /><a
+				href="/"
+				on:click={() => {
+					showSidebar = false;
+				}}>Inbox</a
+			>
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<ion-icon name="trash-bin" class="trashIcon" /><a href="/trash">Trash</a>
@@ -20,7 +27,6 @@
 		background-color: #f9fafb;
 		min-height: 100vh;
 		width: 100%;
-		/* border: 2px solid red; */
 	}
 
 	ul {
@@ -52,6 +58,10 @@
 	@media (max-width: 480px) {
 		nav {
 			display: none;
+		}
+
+		nav.show {
+			display: block;
 		}
 	}
 </style>
