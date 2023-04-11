@@ -39,6 +39,7 @@
 		top: 0;
 		right: 0;
 		margin-top: 0.5rem;
+		z-index: 1;
 	}
 
 	button.done {
@@ -62,6 +63,8 @@
 		position: absolute;
 		right: 0;
 		padding: 0.6rem;
+		margin-top: 2.8rem;
+		margin-right: 0.5rem;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
 

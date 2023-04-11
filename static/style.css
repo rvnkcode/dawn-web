@@ -14,13 +14,13 @@ ion-icon {
 }
 
 ion-icon.inbox {
-	vertical-align: text-top;
+	vertical-align: bottom;
 	margin-right: 0.25rem;
 	color: #1aa9f8;
 }
 
 ion-icon.trashIcon {
-	vertical-align: text-top;
+	vertical-align: bottom;
 	margin-right: 0.25rem;
 	color: #c2c6cc;
 }

@@ -56,7 +56,6 @@
 			bottom: 0;
 			max-width: 1020px;
 			width: 100%;
-			right: 0;
 			background-color: white;
 			display: flex;
 			justify-content: space-evenly;

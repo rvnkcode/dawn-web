@@ -20,7 +20,6 @@
 		background-color: #f9fafb;
 		height: 100vh;
 		width: 100%;
-		max-width: 233px;
 		/* border: 2px solid red; */
 	}
 
@@ -42,5 +41,17 @@
 		text-decoration: none;
 		color: #292e34;
 		font-weight: bold;
+	}
+
+	@media (min-width: 481px) {
+		nav {
+			max-width: 233px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		nav {
+			display: none;
+		}
 	}
 </style>

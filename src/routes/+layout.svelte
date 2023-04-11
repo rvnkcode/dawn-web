@@ -1,9 +1,11 @@
 <script>
 	import Nav from '$lib/components/nav.svelte';
+	import MobileOnlyButton from '$lib/components/mobileOnlyButton.svelte';
 </script>
 
 <Nav />
 <section>
+	<MobileOnlyButton />
 	<slot />
 </section>
 
