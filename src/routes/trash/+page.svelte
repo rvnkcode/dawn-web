@@ -1,9 +1,8 @@
 <script lang="ts">
-	import List from '../../lib/components/list.svelte';
+	import List from '$lib/components/list.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
 	$: ({ tasks } = data);
 </script>
 
