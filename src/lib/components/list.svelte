@@ -36,7 +36,7 @@
 
 {#if tasks.length < 1}
 	{#if !showNewInput}
-		<p>Your Inbox is empty - time to celebrate!</p>
+		<p>Your list is empty - time to celebrate!</p>
 	{/if}
 {:else}
 	<ul>
