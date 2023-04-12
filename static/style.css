@@ -36,12 +36,44 @@ ion-icon.trashIcon {
 	margin-left: 1.25rem;
 }
 
+button.general {
+	border-radius: 0.25rem;
+	padding: 0.5rem 0.75rem;
+}
+
 button.blue {
 	background-color: #469ffc;
-	border-radius: 0.25rem;
 	color: white;
-	padding: 0.5rem 0.75rem;
+}
+
+.bold {
 	font-weight: bold;
+}
+
+button.cancel {
+	background-color: #c3c3c3;
+	color: #404950;
+}
+
+dialog {
+	position: fixed;
+	top: 0;
+	margin-top: 50%;
+	z-index: 2;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: none;
+	border-radius: 0.5rem;
+	text-align: center;
+}
+
+div.backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1;
 }
 
 @media (min-width: 481px) {

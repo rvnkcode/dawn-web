@@ -16,7 +16,7 @@
 </script>
 
 {#if $isSelectModeOnMobile}
-	<button class="outer blue right done" on:click={() => handleDone()}>Done</button>
+	<button class="general outer blue right done bold" on:click={() => handleDone()}>Done</button>
 {:else}
 	<button class="outer left" on:click={() => ($showSidebar = !$showSidebar)}
 		><ion-icon name="chevron-back" class="big" /></button
