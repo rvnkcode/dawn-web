@@ -9,20 +9,6 @@ main {
 	margin-top: 2rem;
 }
 
-header {
-	background-color: white;
-	padding-top: 3rem;
-	position: sticky;
-	top: 0;
-	/* Debug */
-	/* border: 2px solid violet; */
-}
-
-header > h1 {
-	font-size: x-large;
-	font-weight: bold;
-}
-
 button {
 	border: none;
 	background: none;

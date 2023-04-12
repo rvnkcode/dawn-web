@@ -1,5 +1,6 @@
 <script lang="ts">
 	import List from '$lib/components/list.svelte';
+	import Header from '$lib/components/header.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -10,9 +11,9 @@
 	<title>Dawn: Trash</title>
 </svelte:head>
 
-<header>
-	<h1><ion-icon name="trash-bin" class="trashIcon" /><span>Trash</span></h1>
-</header>
+<Header>
+	<ion-icon name="trash-bin" class="trashIcon" /><span>Trash</span>
+</Header>
 
 <main>
 	{#if tasks.length > 0}

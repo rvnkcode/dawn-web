@@ -3,6 +3,7 @@
 	import List from '$lib/components/list.svelte';
 	import NewInput from '$lib/components/newInput.svelte';
 	import MainFooter from '$lib/components/mainFooter.svelte';
+	import Header from '$lib/components/header.svelte';
 
 	export let data: PageData;
 
@@ -15,10 +16,9 @@
 	<title>Dawn: Inbox</title>
 </svelte:head>
 
-<header>
-	<!-- TODO: Add today's date? -->
-	<h1><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></h1>
-</header>
+<Header>
+	<ion-icon name="file-tray" class="inbox" /><span>Inbox</span>
+</Header>
 
 <main>
 	<List {tasks} {showNewInput} />
