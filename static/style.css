@@ -3,12 +3,90 @@ body {
 	font-family: sans-serif;
 }
 
+main {
+	/* Fixed footer's height */
+	margin-bottom: 3rem;
+	margin-top: 2rem;
+}
+
+button {
+	border: none;
+	background: none;
+}
+
 ion-icon {
 	/* Bug? */
 	visibility: inherit;
 }
 
+ion-icon.inbox {
+	vertical-align: bottom;
+	margin-right: 0.25rem;
+	color: #1aa9f8;
+}
+
+ion-icon.trashIcon {
+	vertical-align: bottom;
+	margin-right: 0.25rem;
+	color: #c2c6cc;
+}
+
 .inputTitle {
 	width: 95%;
 	margin-left: 1.25rem;
+}
+
+button.general {
+	border-radius: 0.25rem;
+	padding: 0.5rem 0.75rem;
+}
+
+button.blue {
+	background-color: #469ffc;
+	color: white;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+button.cancel {
+	background-color: #c3c3c3;
+	color: #404950;
+}
+
+dialog {
+	position: fixed;
+	top: 0;
+	margin-top: 50%;
+	z-index: 2;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: none;
+	border-radius: 0.5rem;
+	text-align: center;
+}
+
+div.backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1;
+}
+
+.popup {
+	background-color: #292c37;
+	border-radius: 0.25rem;
+	z-index: 1;
+	position: fixed;
+	padding: 0.6rem;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media (min-width: 481px) {
+	button:hover {
+		cursor: pointer;
+	}
 }

@@ -4,13 +4,16 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
+	import { page } from '$app/stores';
 
 	export let task: Task;
+
+	$: current = $page.url.pathname;
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
 		// Debug
-		// console.log(selected);
+		// console.log($selected);
 	};
 
 	const toggleCompleted = async (id: number, checked: boolean) => {
@@ -48,9 +51,11 @@
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span>{task.title}</span></button
 			>
-			<button on:click={async () => await deleteTask(task.id)} class="trash"
-				><ion-icon name="trash" /></button
-			>
+			{#if current != '/trash'}
+				<button on:click={async () => await deleteTask(task.id)} class="trash"
+					><ion-icon name="trash" /></button
+				>
+			{/if}
 		</div>
 	</label>
 	<input
@@ -60,7 +65,7 @@
 		class={$isSelectModeOnMobile ? 'show' : 'hide'}
 		on:change={() => {
 			handleSelected(task.id);
-			console.log($selected);
+			// console.log($selected);
 		}}
 	/>
 </li>
@@ -93,11 +98,6 @@
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
-	}
-
-	button {
-		background: none;
-		border: none;
 	}
 
 	button > span {
@@ -135,10 +135,6 @@
 		div > button > ion-icon {
 			color: #404950;
 			font-size: large;
-		}
-
-		button:hover {
-			cursor: pointer;
 		}
 	}
 
