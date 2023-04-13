@@ -50,7 +50,7 @@
 	a {
 		text-decoration: none;
 		color: #292e34;
-		font-weight: bold;
+		/* font-weight: bold; */
 	}
 
 	@media (min-width: 481px) {

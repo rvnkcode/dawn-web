@@ -22,7 +22,7 @@
 <main>
 	{#if tasks.length > 0}
 		<button
-			class="general blue bold"
+			class="general blue"
 			on:click={() => {
 				open = true;
 			}}>Empty Trash</button
