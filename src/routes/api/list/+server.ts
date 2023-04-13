@@ -11,3 +11,17 @@ export const DELETE = (async () => {
 
 	return json({}); // return nothing
 }) satisfies RequestHandler;
+
+export const PATCH = (async ({ request }) => {
+	const ids = await request.json();
+	await prisma.task.updateMany({
+		where: {
+			id: { in: ids }
+		},
+		data: {
+			trash: false
+		}
+	});
+
+	return json({}); //return nothing
+}) satisfies RequestHandler;

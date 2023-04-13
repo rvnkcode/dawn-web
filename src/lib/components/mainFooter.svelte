@@ -64,7 +64,7 @@
 </footer>
 
 {#if showMoveMenu}
-	<MoveMenu />
+	<MoveMenu bind:value={showMoveMenu} />
 {/if}
 
 <style>

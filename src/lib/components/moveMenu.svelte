@@ -1,7 +1,45 @@
+<script lang="ts">
+	import { invalidateAll } from '$app/navigation';
+	import { selected } from '$lib/stores';
+	import { page } from '$app/stores';
+
+	export let value: boolean;
+
+	$: current = $page.url.pathname;
+
+	const sendBackFromTrash = async () => {
+		if ($selected.size < 1) {
+			return;
+		}
+
+		// TODO: Add another category
+		if (current === '/') {
+			return;
+		}
+
+		value = false;
+
+		try {
+			await fetch('/api/list', {
+				method: 'PATCH',
+				body: JSON.stringify(Array.from($selected))
+			});
+			$selected.clear();
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+</script>
+
 <div class="popup">
 	<header><span>Move</span></header>
 	<ul>
-		<li><button><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></button></li>
+		<li>
+			<button on:click={async () => await sendBackFromTrash()}
+				><ion-icon name="file-tray" class="inbox" /><span>Inbox</span></button
+			>
+		</li>
 	</ul>
 </div>
 
