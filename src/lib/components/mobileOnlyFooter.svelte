@@ -12,6 +12,7 @@
 				method: 'DELETE',
 				body: JSON.stringify(Array.from($selected))
 			});
+			$selected.clear();
 			invalidateAll(); // refresh all loaded data from load function
 		} catch (error) {
 			console.error(error);
