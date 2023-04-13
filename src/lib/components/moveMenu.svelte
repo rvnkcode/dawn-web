@@ -49,7 +49,6 @@
 		margin-bottom: 3rem;
 		text-align: center;
 		left: 0;
-		margin-left: 55%;
 	}
 
 	header {
@@ -70,8 +69,36 @@
 	}
 
 	@media (min-width: 481px) {
+		div {
+			margin-left: 55%;
+		}
+
 		li:hover {
 			background-color: #519cff;
+		}
+	}
+
+	@media (max-width: 480px) {
+		div {
+			width: 80%;
+			height: 85%;
+			border-radius: 1rem;
+			left: 0;
+			right: 0;
+			margin: 0 auto 3rem auto;
+		}
+
+		header {
+			margin: 0.5rem 0;
+		}
+
+		ion-icon {
+			font-size: large;
+			vertical-align: text-bottom;
+		}
+
+		span {
+			font-size: large;
 		}
 	}
 </style>
