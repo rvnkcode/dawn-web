@@ -25,7 +25,7 @@
 		><ion-icon name="chevron-down-circle-outline" class="big" /></button
 	>
 	{#if menuEnabled}
-		<ul>
+		<ul class="popup">
 			<li>
 				<button on:click={() => handleClick()}
 					><ion-icon name="list" class="small" /><span>Select</span></button
@@ -61,15 +61,9 @@
 	}
 
 	ul {
-		background-color: #292c37;
-		border-radius: 0.25rem;
-		z-index: 1;
-		position: absolute;
 		right: 0;
-		padding: 0.6rem;
 		margin-top: 2.8rem;
 		margin-right: 0.5rem;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
 
 	ion-icon.small {

@@ -30,7 +30,7 @@
 	};
 
 	const handleClick = () => {
-		console.log($selected.size);
+		// console.log($selected.size);
 		if ($selected.size > 0) {
 			showMoveMenu = !showMoveMenu;
 		}
