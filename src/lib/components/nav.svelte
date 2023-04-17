@@ -18,7 +18,9 @@
 					}}>Inbox</a
 				>
 			</div>
-			<span>{count}</span>
+			{#if count > 0}
+				<span>{count}</span>
+			{/if}
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<div>
