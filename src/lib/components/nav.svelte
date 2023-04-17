@@ -3,25 +3,32 @@
 	import { showSidebar } from '$lib/stores';
 
 	$: current = $page.url.pathname;
+
+	export let count: number;
 </script>
 
 <nav class={$showSidebar ? 'show' : ''}>
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
-			<ion-icon name="file-tray" class="inbox" /><a
-				href="/"
-				on:click={() => {
-					$showSidebar = false;
-				}}>Inbox</a
-			>
+			<div>
+				<ion-icon name="file-tray" class="inbox" /><a
+					href="/"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Inbox</a
+				>
+			</div>
+			<span>{count}</span>
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
-			<ion-icon name="trash-bin" class="trashIcon" /><a
-				href="/trash"
-				on:click={() => {
-					$showSidebar = false;
-				}}>Trash</a
-			>
+			<div>
+				<ion-icon name="trash-bin" class="trashIcon" /><a
+					href="/trash"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Trash</a
+				>
+			</div>
 		</li>
 	</ul>
 </nav>
@@ -41,6 +48,8 @@
 		margin-bottom: 0.25rem;
 		border-radius: 0.25rem;
 		padding: 0.4rem 0.25rem;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	li.current {
@@ -51,6 +60,11 @@
 		text-decoration: none;
 		color: #292e34;
 		/* font-weight: bold; */
+	}
+
+	span {
+		margin-right: 0.5rem;
+		color: #989ea5;
 	}
 
 	@media (min-width: 481px) {
