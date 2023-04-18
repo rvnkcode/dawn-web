@@ -22,6 +22,17 @@
 				<span>{count}</span>
 			{/if}
 		</li>
+		<li class={current === '/archive' ? 'current' : ''}>
+			<div>
+				<ion-icon name="save" class="archive" />
+				<a
+					href="/archive"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Archive</a
+				>
+			</div>
+		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<div>
 				<ion-icon name="trash-bin" class="trashIcon" /><a
