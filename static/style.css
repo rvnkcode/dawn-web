@@ -6,7 +6,7 @@ body {
 main {
 	/* Fixed footer's height */
 	margin-bottom: 3rem;
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 }
 
 button {
@@ -20,7 +20,7 @@ ion-icon {
 }
 
 ion-icon.inbox {
-	vertical-align: bottom;
+	vertical-align: text-top;
 	margin-right: 0.25rem;
 	color: #1aa9f8;
 }

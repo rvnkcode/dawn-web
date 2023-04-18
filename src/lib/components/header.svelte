@@ -9,6 +9,7 @@
 	header {
 		background-color: white;
 		padding-top: 3rem;
+		padding-bottom: 0.5rem;
 		position: sticky;
 		top: 0;
 		/* Debug */

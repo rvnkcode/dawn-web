@@ -41,7 +41,7 @@
 	let showEdit = false;
 </script>
 
-<li>
+<li class={!$isSelectModeOnMobile ? 'uncheckedItem' : ''}>
 	<label class={$isSelectModeOnMobile ? 'fullWidth' : ''} for={task.id.toString()}>
 		<input
 			type="checkbox"
@@ -108,6 +108,7 @@
 
 	button > span {
 		font-size: 15px;
+		word-break: break-all;
 		/* border: 1px solid red; */
 	}
 
@@ -155,10 +156,15 @@
 
 		.hide {
 			display: none;
+			opacity: 0;
 		}
 
 		.fullWidth {
 			width: 100%;
+		}
+
+		.uncheckedItem:has(> input[type='checkbox']:checked) {
+			background: none;
 		}
 	}
 </style>
