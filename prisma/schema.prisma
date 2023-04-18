@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Task {
-  id        Int      @id @default(autoincrement())
-  title     String
-  isDone    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  trash     Boolean  @default(false)
+  id          Int       @id @default(autoincrement())
+  title       String
+  isDone      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+  trash       Boolean   @default(false)
 }
