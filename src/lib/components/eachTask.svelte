@@ -9,6 +9,9 @@
 	export let task: Task;
 
 	$: current = $page.url.pathname;
+	$: if ($isSelectModeOnMobile) {
+		$selected.clear();
+	}
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
@@ -79,7 +82,6 @@
 		border-radius: 0.25rem;
 		padding: 0.3rem 0;
 		display: flex;
-		align-items: flex-start;
 		justify-content: space-between;
 	}
 
@@ -89,9 +91,13 @@
 
 	label {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		/* Debug */
 		/* border: 1px solid red; */
+	}
+
+	label > input[type='checkbox'] {
+		min-width: 1rem;
 	}
 
 	label > input[type='checkbox']:checked + div > button > span {
@@ -102,7 +108,7 @@
 
 	button > span {
 		font-size: 15px;
-		word-break: break-word;
+		/* border: 1px solid red; */
 	}
 
 	.title {
