@@ -1,7 +1,7 @@
 import { prisma } from '$lib/server/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = (async () => {
+export const load = (async () => {
 	return {
 		tasks: await prisma.task.findMany({
 			where: {
@@ -11,7 +11,7 @@ export const load: PageServerLoad = (async () => {
 	};
 }) satisfies PageServerLoad;
 
-export const actions: Actions = {
+export const actions = {
 	createTask: async ({ request }) => {
 		const { title } = Object.fromEntries(await request.formData()) as {
 			title: string;

@@ -3,8 +3,14 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import MobileOnlyFooter from './mobileOnlyFooter.svelte';
+	import { page } from '$app/stores';
+	import MoveMenu from './moveMenu.svelte';
 
 	export let value: boolean;
+
+	$: current = $page.url.pathname;
+
+	let showMoveMenu = false;
 
 	const trashSelectedTasks = async () => {
 		if ($selected.size < 1) {
@@ -16,9 +22,17 @@
 				method: 'DELETE',
 				body: JSON.stringify(Array.from($selected))
 			});
+			$selected.clear();
 			invalidateAll(); // refresh all loaded data from load function
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const handleClick = () => {
+		// console.log($selected.size);
+		if ($selected.size > 0) {
+			showMoveMenu = !showMoveMenu;
 		}
 	};
 </script>
@@ -26,27 +40,35 @@
 <footer>
 	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
-	<button
-		class={$isSelectModeOnMobile ? 'hide' : ''}
-		on:click={() => {
-			value = !value;
-		}}><ion-icon name="add" /></button
-	>
-	<button
-		on:click={async () => {
-			await trashSelectedTasks();
-		}}
-		class="hide"><ion-icon name="trash-bin" /></button
-	>
+	{#if current != '/trash'}
+		<button
+			class={$isSelectModeOnMobile ? 'hide' : ''}
+			on:click={() => {
+				value = !value;
+			}}><ion-icon name="add" /></button
+		>
+	{/if}
+	<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+	{#if current != '/trash'}
+		<button
+			on:click={async () => {
+				await trashSelectedTasks();
+			}}
+			class="hide"><ion-icon name="trash-bin" /></button
+		>
+	{/if}
+
 	{#if $isSelectModeOnMobile}
 		<MobileOnlyFooter />
 	{/if}
 </footer>
 
+{#if showMoveMenu}
+	<MoveMenu bind:value={showMoveMenu} />
+{/if}
+
 <style>
 	button {
-		border: none;
-		background: none;
 		width: 100%;
 		padding: 0.5rem 0;
 	}
@@ -56,8 +78,9 @@
 			position: fixed;
 			z-index: 1;
 			bottom: 0;
+			max-width: calc(100% - 233px); /* nav width */
 			width: 100%;
-			left: 0;
+			right: 0;
 			background-color: white;
 			display: flex;
 			justify-content: space-evenly;
@@ -66,7 +89,6 @@
 		}
 
 		footer > button:hover {
-			cursor: pointer;
 			border: 1px solid #eeeef0;
 		}
 

@@ -4,13 +4,19 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
+	import { page } from '$app/stores';
 
 	export let task: Task;
+
+	$: current = $page.url.pathname;
+	$: if ($isSelectModeOnMobile) {
+		$selected.clear();
+	}
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
 		// Debug
-		// console.log(selected);
+		// console.log($selected);
 	};
 
 	const toggleCompleted = async (id: number, checked: boolean) => {
@@ -35,7 +41,7 @@
 	let showEdit = false;
 </script>
 
-<li>
+<li class={!$isSelectModeOnMobile ? 'uncheckedItem' : ''}>
 	<label class={$isSelectModeOnMobile ? 'fullWidth' : ''} for={task.id.toString()}>
 		<input
 			type="checkbox"
@@ -48,9 +54,11 @@
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span>{task.title}</span></button
 			>
-			<button on:click={async () => await deleteTask(task.id)} class="trash"
-				><ion-icon name="trash" /></button
-			>
+			{#if current != '/trash'}
+				<button on:click={async () => await deleteTask(task.id)} class="trash"
+					><ion-icon name="trash" /></button
+				>
+			{/if}
 		</div>
 	</label>
 	<input
@@ -60,7 +68,7 @@
 		class={$isSelectModeOnMobile ? 'show' : 'hide'}
 		on:change={() => {
 			handleSelected(task.id);
-			console.log($selected);
+			// console.log($selected);
 		}}
 	/>
 </li>
@@ -74,7 +82,6 @@
 		border-radius: 0.25rem;
 		padding: 0.3rem 0;
 		display: flex;
-		align-items: flex-start;
 		justify-content: space-between;
 	}
 
@@ -84,9 +91,13 @@
 
 	label {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		/* Debug */
 		/* border: 1px solid red; */
+	}
+
+	label > input[type='checkbox'] {
+		min-width: 1rem;
 	}
 
 	label > input[type='checkbox']:checked + div > button > span {
@@ -95,14 +106,10 @@
 		color: #b0b4b7;
 	}
 
-	button {
-		background: none;
-		border: none;
-	}
-
 	button > span {
 		font-size: 15px;
-		word-break: break-word;
+		word-break: break-all;
+		/* border: 1px solid red; */
 	}
 
 	.title {
@@ -136,10 +143,6 @@
 			color: #404950;
 			font-size: large;
 		}
-
-		button:hover {
-			cursor: pointer;
-		}
 	}
 
 	@media (max-width: 480px) {
@@ -153,10 +156,15 @@
 
 		.hide {
 			display: none;
+			opacity: 0;
 		}
 
 		.fullWidth {
 			width: 100%;
+		}
+
+		.uncheckedItem:has(> input[type='checkbox']:checked) {
+			background: none;
 		}
 	}
 </style>
