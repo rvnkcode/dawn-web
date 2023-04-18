@@ -4,8 +4,7 @@ const prisma = new PrismaClient();
 
 const sample: Prisma.TaskCreateInput = {
 	title: `This is the sample task.`,
-	isDone: false,
-	trash: false
+	isDone: false
 };
 
 async function main() {

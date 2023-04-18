@@ -29,7 +29,7 @@ export const DELETE = (async ({ request }) => {
 			id: { in: ids }
 		},
 		data: {
-			trash: true
+			category: 'trash'
 		}
 	});
 

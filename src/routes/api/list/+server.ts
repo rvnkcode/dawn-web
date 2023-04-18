@@ -5,7 +5,7 @@ import { prisma } from '$lib/server/prisma';
 export const DELETE = (async () => {
 	await prisma.task.deleteMany({
 		where: {
-			trash: true
+			category: 'trash'
 		}
 	});
 
@@ -19,7 +19,7 @@ export const PATCH = (async ({ request }) => {
 			id: { in: ids }
 		},
 		data: {
-			trash: false
+			category: 'inbox'
 		}
 	});
 
