@@ -56,6 +56,7 @@
 	let showEdit = false;
 </script>
 
+<!-- TODO: Add completed date on archive page -->
 <li class={!$isSelectModeOnMobile ? 'uncheckedItem' : ''}>
 	<label class={$isSelectModeOnMobile ? 'fullWidth' : ''} for={task.id.toString()}>
 		<input

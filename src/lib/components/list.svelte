@@ -42,6 +42,7 @@
 
 {#if tasks.length < 1}
 	{#if !showNewInput && current === '/'}
+		<!-- TODO: Add empty list image -->
 		<p>Your list is empty - time to celebrate!</p>
 	{/if}
 {:else}
