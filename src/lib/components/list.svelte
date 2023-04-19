@@ -41,7 +41,7 @@
 </script>
 
 {#if tasks.length < 1}
-	{#if !showNewInput}
+	{#if !showNewInput && current === '/'}
 		<p>Your list is empty - time to celebrate!</p>
 	{/if}
 {:else}

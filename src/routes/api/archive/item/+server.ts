@@ -2,14 +2,13 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
-// Delete a selected item(task)
-export const DELETE = (async ({ request }) => {
+export const PATCH = (async ({ request }) => {
 	const { id } = await request.json();
 
 	await prisma.task.update({
 		where: { id },
-		data: { status: 'trash' }
+		data: { status: 'archive' }
 	});
 
-	return json({}); // return nothing
+	return json({});
 }) satisfies RequestHandler;

@@ -9,9 +9,12 @@
 	export let task: Task;
 
 	$: current = $page.url.pathname;
+
 	$: if ($isSelectModeOnMobile) {
 		$selected.clear();
 	}
+
+	$: done = task.isDone;
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
@@ -38,6 +41,18 @@
 		}
 	};
 
+	const archiveTask = async (id: number) => {
+		try {
+			await fetch('/api/archive/item', {
+				method: 'PATCH',
+				body: JSON.stringify({ id })
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	let showEdit = false;
 </script>
 
@@ -48,17 +63,25 @@
 			checked={task.isDone}
 			on:change={async (e) => {
 				await toggleCompleted(task.id, e.currentTarget.checked);
+				done = !done;
 			}}
 		/>
 		<div>
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span>{task.title}</span></button
 			>
-			{#if current != '/trash'}
-				<button on:click={async () => await deleteTask(task.id)} class="trash"
-					><ion-icon name="trash" /></button
-				>
-			{/if}
+			<div>
+				{#if current != '/archive' && done}
+					<button class="overlay" disabled={!done} on:click={async () => await archiveTask(task.id)}
+						><ion-icon name="save" /></button
+					>
+				{/if}
+				{#if current != '/trash'}
+					<button on:click={async () => await deleteTask(task.id)} class="overlay"
+						><ion-icon name="trash" /></button
+					>
+				{/if}
+			</div>
 		</div>
 	</label>
 	<input
@@ -80,7 +103,7 @@
 <style>
 	li {
 		border-radius: 0.25rem;
-		padding: 0.3rem 0;
+		padding: 0.15rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -131,11 +154,11 @@
 			justify-content: space-between;
 		}
 
-		.trash {
+		.overlay {
 			visibility: hidden;
 		}
 
-		li:hover > label > div > .trash {
+		li:hover > label > div > div > .overlay {
 			visibility: visible;
 		}
 
@@ -146,7 +169,7 @@
 	}
 
 	@media (max-width: 480px) {
-		.trash {
+		.overlay {
 			display: none;
 		}
 
