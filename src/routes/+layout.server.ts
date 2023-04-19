@@ -5,8 +5,7 @@ export const load = (async () => {
 	return {
 		count: await prisma.task.count({
 			where: {
-				category: 'inbox',
-				trash: false
+				status: 'inbox'
 			}
 		})
 	};

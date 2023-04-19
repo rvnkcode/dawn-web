@@ -2,6 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
+// check item
 export const PATCH = (async ({ request }) => {
 	const { id, checked } = await request.json();
 	let completedAt: Date | null;
@@ -29,7 +30,7 @@ export const DELETE = (async ({ request }) => {
 			id: { in: ids }
 		},
 		data: {
-			trash: true
+			status: 'trash'
 		}
 	});
 
