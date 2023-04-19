@@ -16,7 +16,7 @@ model Task {
   isDone      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   completedAt DateTime?
-  // inbox archive trash
+  // inbox archive
   category    String    @default("inbox")
-  // trash       Boolean   @default(false)
+  trash       Boolean   @default(false)
 }
