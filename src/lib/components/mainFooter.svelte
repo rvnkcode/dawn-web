@@ -35,12 +35,23 @@
 			showMoveMenu = !showMoveMenu;
 		}
 	};
+
+	const archiveChecked = async () => {
+		try {
+			await fetch('/api/archive', {
+				method: 'PATCH'
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
 </script>
 
 <footer>
 	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
-	{#if current != '/trash'}
+	{#if current !== '/trash' && current !== '/archive'}
 		<button
 			class={$isSelectModeOnMobile ? 'hide' : ''}
 			on:click={() => {
@@ -49,6 +60,9 @@
 		>
 	{/if}
 	<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+	{#if current !== '/trash' && current !== '/archive'}
+		<button class="hide" on:click={archiveChecked}><ion-icon name="save" /></button>
+	{/if}
 	{#if current != '/trash'}
 		<button
 			on:click={async () => {
@@ -70,7 +84,7 @@
 <style>
 	button {
 		width: 100%;
-		padding: 0.5rem 0;
+		padding: 0.25rem 0;
 	}
 
 	@media (min-width: 481px) {
