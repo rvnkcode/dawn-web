@@ -10,6 +10,14 @@ const sample: Prisma.TaskCreateInput = {
 	trash: false
 };
 
+const completed: Prisma.TaskCreateInput = {
+	title: 'Completed task sample',
+	isDone: true,
+	archive: false,
+	trash: false,
+	completedAt: new Date('2023-04-20')
+};
+
 const archivedTask: Prisma.TaskCreateInput = {
 	title: 'Archived task',
 	isDone: true,
@@ -25,7 +33,30 @@ const trashedTask: Prisma.TaskCreateInput = {
 	trash: true
 };
 
-const tasks: Prisma.TaskCreateInput[] = [sample, archivedTask, trashedTask];
+const trashedCompletedTask: Prisma.TaskCreateInput = {
+	title: 'Completed task in trash',
+	isDone: true,
+	archive: false,
+	trash: true,
+	completedAt: new Date('2023-03-01')
+};
+
+const archivedAndTrashedTask: Prisma.TaskCreateInput = {
+	title: 'Archive and also trashed task',
+	isDone: true,
+	archive: true,
+	trash: true,
+	completedAt: new Date('2022-02-02')
+};
+
+const tasks: Prisma.TaskCreateInput[] = [
+	sample,
+	completed,
+	archivedTask,
+	trashedTask,
+	trashedCompletedTask,
+	archivedAndTrashedTask
+];
 
 async function main() {
 	for (let i = 0; i < tasks.length; i++) {
