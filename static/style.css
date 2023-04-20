@@ -24,7 +24,7 @@ ion-icon {
 }
 
 ion-icon.inbox {
-	vertical-align: text-top;
+	vertical-align: middle;
 	margin-right: 0.25rem;
 	color: #1aa9f8;
 }
