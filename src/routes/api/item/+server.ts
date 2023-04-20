@@ -8,7 +8,7 @@ export const DELETE = (async ({ request }) => {
 
 	await prisma.task.update({
 		where: { id },
-		data: { status: 'trash' }
+		data: { trash: true }
 	});
 
 	return json({}); // return nothing

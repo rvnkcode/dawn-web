@@ -4,13 +4,12 @@ import { prisma } from '$lib/server/prisma';
 
 // check item
 export const PATCH = (async ({ request }) => {
-	const { id, checked } = await request.json();
+	const { id, checked, isArchived } = await request.json();
 	let completedAt: Date | null;
-	let archive = false;
+	let archive = isArchived;
 
 	if (checked) {
 		completedAt = new Date();
-		archive = true;
 	} else {
 		completedAt = null;
 		archive = false;
@@ -36,7 +35,7 @@ export const DELETE = (async ({ request }) => {
 			id: { in: ids }
 		},
 		data: {
-			status: 'trash'
+			trash: true
 		}
 	});
 

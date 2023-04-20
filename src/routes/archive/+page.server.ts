@@ -6,8 +6,8 @@ export const load = (async () => {
 		tasks: await prisma.task.findMany({
 			where: {
 				isDone: true,
-				archive: true
-				// status: 'archive'
+				archive: true,
+				trash: false
 			},
 			orderBy: {
 				completedAt: 'desc'

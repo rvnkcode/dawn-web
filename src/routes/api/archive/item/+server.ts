@@ -9,7 +9,7 @@ export const PATCH = (async ({ request }) => {
 	await prisma.task.update({
 		where: { id },
 		// data: { status: 'archive' }
-		data: { archive: true }
+		data: { archive: true, trash: false }
 	});
 
 	return json({});

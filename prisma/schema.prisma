@@ -19,5 +19,5 @@ model Task {
   // inbox 
   status      String    @default("inbox")
   archive     Boolean   @default(false)
-  // trash       Boolean   @default(false)
+  trash       Boolean   @default(false)
 }

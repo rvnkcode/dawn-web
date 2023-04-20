@@ -6,7 +6,8 @@ export const load = (async () => {
 		tasks: await prisma.task.findMany({
 			where: {
 				status: 'inbox',
-				archive: false
+				archive: false,
+				trash: false
 			}
 		})
 	};

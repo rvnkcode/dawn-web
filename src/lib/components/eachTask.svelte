@@ -23,10 +23,10 @@
 		// console.log($selected);
 	};
 
-	const toggleCompleted = async (id: number, checked: boolean) => {
+	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
 		await fetch('/api', {
 			method: 'PATCH',
-			body: JSON.stringify({ id, checked })
+			body: JSON.stringify({ id, checked, archive })
 		});
 		invalidateAll();
 	};
@@ -65,7 +65,7 @@
 			type="checkbox"
 			checked={task.isDone}
 			on:change={async (e) => {
-				await toggleCompleted(task.id, e.currentTarget.checked);
+				await toggleCompleted(task.id, e.currentTarget.checked, task.archive);
 				done = !done;
 			}}
 		/>
