@@ -8,7 +8,8 @@ export const PATCH = (async ({ request }) => {
 
 	await prisma.task.update({
 		where: { id },
-		data: { status: 'archive' }
+		// data: { status: 'archive' }
+		data: { archive: true }
 	});
 
 	return json({});

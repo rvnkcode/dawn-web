@@ -10,7 +10,8 @@ export const PATCH = (async () => {
 			status: 'inbox'
 		},
 		data: {
-			status: 'archive'
+			// status: 'archive'
+			archive: true
 		}
 	});
 

@@ -5,6 +5,7 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { format } from 'date-fns';
 
 	export let task: Task;
 
@@ -27,6 +28,7 @@
 			method: 'PATCH',
 			body: JSON.stringify({ id, checked })
 		});
+		invalidateAll();
 	};
 
 	const deleteTask = async (id: number) => {
@@ -67,9 +69,12 @@
 				done = !done;
 			}}
 		/>
-		<div>
+		{#if current === '/archive' && task.completedAt != null}
+			<span class="date">{format(task.completedAt, 'MMM d')}</span>
+		{/if}
+		<div class="titleDiv">
 			<button on:click={() => (showEdit = !showEdit)} class="title"
-				><span>{task.title}</span></button
+				><span class="title">{task.title}</span></button
 			>
 			<div>
 				{#if current != '/archive' && done}
@@ -124,7 +129,15 @@
 		min-width: 1rem;
 	}
 
-	label > input[type='checkbox']:checked + div > button > span {
+	span.date {
+		color: #0061c2;
+		font-size: 14px;
+		max-width: max-content;
+		width: 100%;
+		margin-left: 0.5rem;
+	}
+
+	label > input[type='checkbox']:checked ~ div > button > span.title {
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
@@ -136,7 +149,7 @@
 		/* border: 1px solid red; */
 	}
 
-	.title {
+	button.title {
 		text-align: start;
 	}
 

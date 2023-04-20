@@ -6,16 +6,22 @@ import { prisma } from '$lib/server/prisma';
 export const PATCH = (async ({ request }) => {
 	const { id, checked } = await request.json();
 	let completedAt: Date | null;
+	let archive = false;
 
 	if (checked) {
 		completedAt = new Date();
-	} else completedAt = null;
+		archive = true;
+	} else {
+		completedAt = null;
+		archive = false;
+	}
 
 	await prisma.task.update({
 		where: { id },
 		data: {
 			isDone: checked,
-			completedAt
+			completedAt,
+			archive
 		}
 	});
 

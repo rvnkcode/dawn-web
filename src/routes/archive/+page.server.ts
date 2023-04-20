@@ -5,7 +5,12 @@ export const load = (async () => {
 	return {
 		tasks: await prisma.task.findMany({
 			where: {
-				status: 'archive'
+				isDone: true,
+				archive: true
+				// status: 'archive'
+			},
+			orderBy: {
+				completedAt: 'desc'
 			}
 		})
 	};
