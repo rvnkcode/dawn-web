@@ -7,7 +7,8 @@ export const load = (async () => {
 			where: {
 				status: 'inbox',
 				archive: false,
-				trash: false
+				trash: false,
+				isDone: false
 			}
 		})
 	};
