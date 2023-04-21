@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
 
 	let menuEnabled = false;
@@ -12,6 +13,18 @@
 		$isSelectModeOnMobile = !$isSelectModeOnMobile;
 		$selected.clear();
 		// console.log($selected);
+	};
+
+	const archiveChecked = async () => {
+		try {
+			await fetch('/api/archive', {
+				method: 'PATCH'
+			});
+			invalidateAll();
+			menuEnabled = !menuEnabled;
+		} catch (error) {
+			console.error(error);
+		}
 	};
 </script>
 
@@ -29,6 +42,11 @@
 			<li>
 				<button on:click={() => handleClick()}
 					><ion-icon name="list" class="small" /><span>Select</span></button
+				>
+			</li>
+			<li>
+				<button on:click={() => archiveChecked()}
+					><ion-icon name="save" class="small" /><span>Archive completed</span></button
 				>
 			</li>
 		</ul>
@@ -71,6 +89,10 @@
 		margin-right: 0.25rem;
 		font-size: 15px;
 		vertical-align: text-bottom;
+	}
+
+	li {
+		margin-bottom: 0.5rem;
 	}
 
 	li > button > span {
