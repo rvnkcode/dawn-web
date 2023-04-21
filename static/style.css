@@ -19,25 +19,24 @@ button:disabled > ion-icon {
 }
 
 ion-icon {
-	/* Bug? */
-	visibility: inherit;
+	visibility: inherit; /* Bug? */
+}
+
+ion-icon.title {
+	vertical-align: bottom;
+	margin-right: 0.25rem;
+	font-size: smaller;
 }
 
 ion-icon.inbox {
-	vertical-align: middle;
-	margin-right: 0.25rem;
 	color: #1aa9f8;
 }
 
 ion-icon.archive {
-	vertical-align: text-top;
-	margin-right: 0.25rem;
 	color: #4bbd5e;
 }
 
 ion-icon.trashIcon {
-	vertical-align: text-top;
-	margin-right: 0.25rem;
 	color: #c2c6cc;
 }
 

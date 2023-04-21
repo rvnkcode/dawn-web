@@ -13,7 +13,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="save" class="archive" />
+	<ion-icon name="save" class="archive title" />
 	<span>Archive</span>
 </Header>
 

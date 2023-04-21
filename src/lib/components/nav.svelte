@@ -11,7 +11,7 @@
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
 			<div>
-				<ion-icon name="file-tray" class="inbox" /><a
+				<ion-icon name="file-tray" class="inbox title" /><a
 					href="/"
 					on:click={() => {
 						$showSidebar = false;
@@ -24,7 +24,7 @@
 		</li>
 		<li class={current === '/archive' ? 'current' : ''}>
 			<div>
-				<ion-icon name="save" class="archive" />
+				<ion-icon name="save" class="archive title" />
 				<a
 					href="/archive"
 					on:click={() => {
@@ -35,7 +35,7 @@
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<div>
-				<ion-icon name="trash-bin" class="trashIcon" /><a
+				<ion-icon name="trash-bin" class="trashIcon title" /><a
 					href="/trash"
 					on:click={() => {
 						$showSidebar = false;

@@ -17,7 +17,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="file-tray" class="inbox" /><span>Inbox</span>
+	<ion-icon name="file-tray" class="inbox title" /><span>Inbox</span>
 </Header>
 
 <main>
