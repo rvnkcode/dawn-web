@@ -26,6 +26,14 @@ const archivedTask: Prisma.TaskCreateInput = {
 	completedAt: new Date()
 };
 
+const archivedTask2: Prisma.TaskCreateInput = {
+	title: 'Archived task',
+	isDone: true,
+	archive: true,
+	trash: false,
+	completedAt: new Date('2023-03-05')
+};
+
 const trashedTask: Prisma.TaskCreateInput = {
 	title: 'Trashed task',
 	isDone: false,
@@ -53,6 +61,7 @@ const tasks: Prisma.TaskCreateInput[] = [
 	sample,
 	completed,
 	archivedTask,
+	archivedTask2,
 	trashedTask,
 	trashedCompletedTask,
 	archivedAndTrashedTask
