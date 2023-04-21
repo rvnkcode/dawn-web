@@ -7,11 +7,11 @@ export const PATCH = (async () => {
 	await prisma.task.updateMany({
 		where: {
 			isDone: true,
+			trash: false,
 			status: 'inbox'
 		},
 		data: {
-			archive: true,
-			trash: false
+			archive: true
 		}
 	});
 
