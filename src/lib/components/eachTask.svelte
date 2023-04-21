@@ -55,6 +55,18 @@
 		}
 	};
 
+	const undoTrash = async (id: number) => {
+		try {
+			await fetch('/api/trash', {
+				method: 'PATCH',
+				body: JSON.stringify({ id })
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	let showEdit = false;
 </script>
 
@@ -76,18 +88,28 @@
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span class="title">{task.title}</span></button
 			>
+			<!-- Hover button div starts(instead of mouse right click) -->
 			<div>
-				{#if current != '/archive' && done}
+				<!-- archive single task button -->
+				{#if current != '/archive' && current != '/trash' && done}
 					<button class="overlay" disabled={!done} on:click={async () => await archiveTask(task.id)}
 						><ion-icon name="save" /></button
 					>
 				{/if}
+				<!-- Trash single task button -->
 				{#if current != '/trash'}
 					<button on:click={async () => await deleteTask(task.id)} class="overlay"
 						><ion-icon name="trash" /></button
 					>
 				{/if}
+				<!-- Undo trash button -->
+				{#if current === '/trash'}
+					<button on:click={async () => await undoTrash(task.id)} class="overlay"
+						><ion-icon name="arrow-undo" /></button
+					>
+				{/if}
 			</div>
+			<!-- Hover button div ends (instead of mouse right click) -->
 		</div>
 	</label>
 	<input
