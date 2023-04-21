@@ -66,6 +66,7 @@
 
 	ion-icon {
 		color: #cbced6;
+		margin-right: 0.25rem;
 	}
 
 	@media (min-width: 481px) {
