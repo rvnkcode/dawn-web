@@ -297,9 +297,9 @@
     rollup "^3.7.0"
 
 "@sveltejs/kit@^1.5.0":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.15.1.tgz#241f1d7e6cf457112b8c098ca26fd2eb85f8db5f"
-  integrity "sha1-JB8dfmz0VxErjAmMom/S64X4218= sha512-Wexy3N+COoClTuRawVJRbLoH5HFxNrXG3uoHt/Yd5IGx8WAcJM9Nj/CcBLw/tjCR9uDDYMnx27HxuPy3YIYQUA=="
+  version "1.15.7"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.15.7.tgz#2183437632fb06c0e8fd76cfe9978da43178a8b3"
+  integrity "sha1-IYNDdjL7BsDo/XbP6ZeNpDF4qLM= sha512-dgdKExsMJ16X3q8tEcuDlv+QIWAlJcf7IqCU2HWV13nmtTzwSA2n4VtEx9Gy5OGhH0SUAGNIupmlf0TdFSMXbw=="
   dependencies:
     "@sveltejs/vite-plugin-svelte" "^2.0.0"
     "@types/cookie" "^0.5.1"
@@ -760,6 +760,11 @@ cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+date-fns@^2.29.3:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
 debug@^4.1.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"

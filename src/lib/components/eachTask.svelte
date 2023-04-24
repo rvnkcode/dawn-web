@@ -5,13 +5,17 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { format } from 'date-fns';
 
 	export let task: Task;
 
 	$: current = $page.url.pathname;
+
 	$: if ($isSelectModeOnMobile) {
 		$selected.clear();
 	}
+
+	$: done = task.isDone;
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
@@ -19,11 +23,12 @@
 		// console.log($selected);
 	};
 
-	const toggleCompleted = async (id: number, checked: boolean) => {
+	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
 		await fetch('/api', {
 			method: 'PATCH',
-			body: JSON.stringify({ id, checked })
+			body: JSON.stringify({ id, checked, archive })
 		});
+		invalidateAll();
 	};
 
 	const deleteTask = async (id: number) => {
@@ -38,6 +43,30 @@
 		}
 	};
 
+	const archiveTask = async (id: number) => {
+		try {
+			await fetch('/api/archive/item', {
+				method: 'PATCH',
+				body: JSON.stringify({ id })
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const undoTrash = async (id: number) => {
+		try {
+			await fetch('/api/trash', {
+				method: 'PATCH',
+				body: JSON.stringify({ id })
+			});
+			invalidateAll();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	let showEdit = false;
 </script>
 
@@ -47,18 +76,39 @@
 			type="checkbox"
 			checked={task.isDone}
 			on:change={async (e) => {
-				await toggleCompleted(task.id, e.currentTarget.checked);
+				await toggleCompleted(task.id, e.currentTarget.checked, task.archive);
+				done = !done;
 			}}
 		/>
-		<div>
+		{#if current === '/archive' && task.completedAt != null}
+			<span class="date">{format(task.completedAt, 'MMM d')}</span>
+		{/if}
+		<div class="titleDiv">
 			<button on:click={() => (showEdit = !showEdit)} class="title"
-				><span>{task.title}</span></button
+				><span class="title">{task.title}</span></button
 			>
-			{#if current != '/trash'}
-				<button on:click={async () => await deleteTask(task.id)} class="trash"
-					><ion-icon name="trash" /></button
-				>
-			{/if}
+			<!-- Hover button div starts(instead of mouse right click) -->
+			<div>
+				<!-- archive single task button -->
+				{#if current != '/archive' && current != '/trash' && done}
+					<button class="overlay" disabled={!done} on:click={async () => await archiveTask(task.id)}
+						><ion-icon name="save" /></button
+					>
+				{/if}
+				<!-- Trash single task button -->
+				{#if current != '/trash'}
+					<button on:click={async () => await deleteTask(task.id)} class="overlay"
+						><ion-icon name="trash" /></button
+					>
+				{/if}
+				<!-- Undo trash button -->
+				{#if current === '/trash'}
+					<button on:click={async () => await undoTrash(task.id)} class="overlay"
+						><ion-icon name="arrow-undo" /></button
+					>
+				{/if}
+			</div>
+			<!-- Hover button div ends (instead of mouse right click) -->
 		</div>
 	</label>
 	<input
@@ -80,7 +130,7 @@
 <style>
 	li {
 		border-radius: 0.25rem;
-		padding: 0.3rem 0;
+		padding: 0.15rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -100,7 +150,15 @@
 		min-width: 1rem;
 	}
 
-	label > input[type='checkbox']:checked + div > button > span {
+	span.date {
+		color: #0061c2;
+		font-size: 14px;
+		max-width: max-content;
+		width: 100%;
+		margin-left: 0.5rem;
+	}
+
+	label > input[type='checkbox']:checked ~ div > button > span.title {
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
@@ -112,7 +170,7 @@
 		/* border: 1px solid red; */
 	}
 
-	.title {
+	button.title {
 		text-align: start;
 	}
 
@@ -131,11 +189,11 @@
 			justify-content: space-between;
 		}
 
-		.trash {
+		.overlay {
 			visibility: hidden;
 		}
 
-		li:hover > label > div > .trash {
+		li:hover > label > div > div > .overlay {
 			visibility: visible;
 		}
 
@@ -146,7 +204,7 @@
 	}
 
 	@media (max-width: 480px) {
-		.trash {
+		.overlay {
 			display: none;
 		}
 

@@ -2,6 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
+// empty trash
 export const DELETE = (async () => {
 	await prisma.task.deleteMany({
 		where: {
@@ -12,6 +13,7 @@ export const DELETE = (async () => {
 	return json({}); // return nothing
 }) satisfies RequestHandler;
 
+// move to inbox
 export const PATCH = (async ({ request }) => {
 	const ids = await request.json();
 	await prisma.task.updateMany({
@@ -19,7 +21,9 @@ export const PATCH = (async ({ request }) => {
 			id: { in: ids }
 		},
 		data: {
-			trash: false
+			status: 'inbox',
+			trash: false,
+			archive: false
 		}
 	});
 

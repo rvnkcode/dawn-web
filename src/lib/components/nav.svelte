@@ -11,7 +11,7 @@
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
 			<div>
-				<ion-icon name="file-tray" class="inbox" /><a
+				<ion-icon name="file-tray" class="inbox title" /><a
 					href="/"
 					on:click={() => {
 						$showSidebar = false;
@@ -22,9 +22,20 @@
 				<span>{count}</span>
 			{/if}
 		</li>
+		<li class={current === '/archive' ? 'current' : ''}>
+			<div>
+				<ion-icon name="save" class="archive title" />
+				<a
+					href="/archive"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Archive</a
+				>
+			</div>
+		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<div>
-				<ion-icon name="trash-bin" class="trashIcon" /><a
+				<ion-icon name="trash-bin" class="trashIcon title" /><a
 					href="/trash"
 					on:click={() => {
 						$showSidebar = false;
@@ -49,7 +60,7 @@
 	li {
 		margin-bottom: 0.25rem;
 		border-radius: 0.25rem;
-		padding: 0.4rem 0.25rem;
+		padding: 0.25rem 0.25rem;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -72,6 +83,9 @@
 	@media (min-width: 481px) {
 		nav {
 			max-width: 233px;
+			position: fixed;
+			top: 0;
+			left: 0;
 		}
 	}
 
