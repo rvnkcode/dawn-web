@@ -6,7 +6,7 @@
 	import { format } from 'date-fns';
 
 	export let data: PageData;
-	$: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, years } =
+	$: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, pastMonth } =
 		data);
 
 	$: showMore = false;
@@ -47,24 +47,33 @@
 				<hr />
 				{#each monthOfThisYear as m}
 					<h2 class="month">{m}</h2>
-					<!-- FIXME -->
 					<List
-						tasks={thisYear.filter((t) => format(t.completedAt, 'MMM') === m)}
+						tasks={thisYear.filter((t) =>
+							t.completedAt ? format(t.completedAt, 'MMM') === m : null
+						)}
 						showNewInput={false}
 					/>
 				{/each}
 			{/if}
+
 			{#if others.length > 0}
-				{#each years as y}
-					<h2>{y}</h2>
+				{#each pastMonth as p}
+					<h2>{p.year}</h2>
 					<hr />
-					<!-- FIXME -->
-					<List
-						tasks={others.filter((t) => format(t.completedAt, 'y') === y)}
-						showNewInput={false}
-					/>
+					{#each p.month as m}
+						<h2 class="month">{m}</h2>
+						<List
+							tasks={others.filter((t) =>
+								t.completedAt
+									? format(t.completedAt, 'y') === p.year && format(t.completedAt, 'MMM') === m
+									: null
+							)}
+							showNewInput={false}
+						/>
+					{/each}
 				{/each}
 			{/if}
+
 			{#if nulls.length > 0}
 				<h2>NaN</h2>
 				<hr />

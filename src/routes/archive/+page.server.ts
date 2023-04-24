@@ -95,25 +95,15 @@ export const load = (async () => {
 		});
 	}
 
-	const monthOfThisYearArr = thisYear.map((item: Task) => {
-		if (item.completedAt) {
-			return format(item.completedAt, 'MMM');
-		}
-	});
-	const monthOfThisYearSet = new Set(monthOfThisYearArr);
-	const monthOfThisYear = Array.from(monthOfThisYearSet);
+	const monthOfThisYear = [
+		...new Set(
+			thisYear.map((task: Task) => (task.completedAt ? format(task.completedAt, 'MMM') : ''))
+		)
+	];
 
-	// console.log(monthOfThisYear);
-
-	// const otherYears = tasks.map((item: Task) => {
-	// 	if (item.completedAt) {
-	// 		return format(item.completedAt, 'y');
-	// 	} else return '';
-	// });
-	// const yearsSet = new Set(otherYears);
-	// const years: string[] = Array.from(yearsSet);
-
-	const years = [...new Set(tasks.map((task: Task) => format(task.completedAt!, 'y')))];
+	const years = [
+		...new Set(tasks.map((task: Task) => (task.completedAt ? format(task.completedAt, 'y') : '')))
+	];
 
 	const pastMonth: pastMonthType[] = [];
 
@@ -121,29 +111,23 @@ export const load = (async () => {
 		for (let i = 0; i < years.length; i++) {
 			pastMonth.push({
 				year: years[i],
-				month: Array.from(
-					new Set(
+				month: [
+					...new Set(
 						tasks
 							.filter((t: Task) => {
 								if (t.completedAt) {
 									return getYear(t.completedAt) === +years[i];
 								}
 							})
-							.map((t: Task) => {
-								if (t.completedAt) {
-									return format(t.completedAt, 'MMM');
-								} else return '';
-							})
+							.map((t: Task) => (t.completedAt ? format(t.completedAt, 'MMM') : ''))
 					)
-				)
+				]
 			});
 		}
 	}
 
+	// [0: {year: 2023, month: [Jan, Feb, Mar...]}]
 	console.log(pastMonth);
-
-	// [0: {year: 2023, month: [1, 2, 3...]}]
-	console.log(years); // Debug
 
 	// Debug
 	if (
@@ -155,8 +139,8 @@ export const load = (async () => {
 			nulls.length +
 			tasks.length
 	) {
-		console.log(`Result of Calc is: ${true}`);
-	} else console.log(`Result of Calc is: ${false}`);
+		console.log(`Result of calculation is: ${true}`);
+	} else console.log(`Result of calculation is: ${false}`);
 
 	return {
 		today,
@@ -167,6 +151,6 @@ export const load = (async () => {
 		monthOfThisYear,
 		others: tasks,
 		nulls,
-		years
+		pastMonth
 	};
 }) satisfies PageServerLoad;
