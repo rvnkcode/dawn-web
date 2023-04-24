@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
+	import { page } from '$app/stores';
+
+	$: current = $page.url.pathname;
 
 	let menuEnabled = false;
 
@@ -44,11 +47,13 @@
 					><ion-icon name="list" class="small" /><span>Select</span></button
 				>
 			</li>
-			<li>
-				<button on:click={() => archiveChecked()}
-					><ion-icon name="save" class="small" /><span>Archive completed</span></button
-				>
-			</li>
+			{#if current !== '/trash' && current !== '/archive'}
+				<li>
+					<button on:click={() => archiveChecked()}
+						><ion-icon name="save" class="small" /><span>Archive completed</span></button
+					>
+				</li>
+			{/if}
 		</ul>
 	{/if}
 {/if}
@@ -91,7 +96,7 @@
 		vertical-align: text-bottom;
 	}
 
-	li {
+	li:not(:last-child) {
 		margin-bottom: 0.5rem;
 	}
 
