@@ -29,18 +29,22 @@
 		<hr />
 		<List tasks={today} showNewInput={false} />
 	{/if}
+
 	{#if yesterday.length > 0}
 		<h2>Yesterday</h2>
 		<hr />
 		<List tasks={yesterday} showNewInput={false} />
 	{/if}
+
 	{#if thisMonth.length > 0}
 		<h2>{format(date, 'MMM')}</h2>
 		<hr />
 		<List tasks={thisMonth} showNewInput={false} />
 	{/if}
+
 	{#if more > 0}
 		<button class="general" on:click={() => (showMore = !showMore)}>More</button>
+
 		{#if showMore}
 			{#if thisYear.length > 0}
 				<h2>{format(date, 'y')}</h2>
