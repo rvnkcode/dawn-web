@@ -83,9 +83,17 @@
 	@media (min-width: 481px) {
 		nav {
 			max-width: 233px;
+		}
+
+		ul {
 			position: fixed;
+			width: inherit;
+			max-width: calc(233px - 2rem);
 			top: 0;
 			left: 0;
+			z-index: 1;
+			/* Debug */
+			/* border: 2px solid violet; */
 		}
 	}
 
