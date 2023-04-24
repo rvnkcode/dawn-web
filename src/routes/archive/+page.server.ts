@@ -127,7 +127,7 @@ export const load = (async () => {
 	}
 
 	// [0: {year: 2023, month: [Jan, Feb, Mar...]}]
-	console.log(pastMonth);
+	// console.log(pastMonth); // Debug
 
 	// Debug
 	if (
