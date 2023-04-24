@@ -83,6 +83,9 @@
 	@media (min-width: 481px) {
 		nav {
 			max-width: 233px;
+			position: fixed;
+			top: 0;
+			left: 0;
 		}
 	}
 
