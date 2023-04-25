@@ -7,7 +7,7 @@
 
 	export let data: PageData;
 
-	$: ({ inbox } = data);
+	$: ({ tasks } = data);
 
 	let showNewInput = false;
 </script>
@@ -21,7 +21,7 @@
 </Header>
 
 <main>
-	<List tasks={inbox} {showNewInput} />
+	<List {tasks} {showNewInput} />
 	{#if showNewInput}
 		<NewInput />
 	{/if}

@@ -4,7 +4,7 @@ import { createContext } from '$lib/trpc/context';
 import { appRouter } from '$lib/trpc/router/index';
 
 export const load: PageServerLoad = async () => ({
-	inbox: appRouter.createCaller(await createContext()).inbox.getInbox()
+	tasks: appRouter.createCaller(await createContext()).inbox.getInbox()
 });
 
 export const actions = {
