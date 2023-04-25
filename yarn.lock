@@ -327,6 +327,16 @@
     svelte-hmr "^0.15.1"
     vitefu "^0.2.4"
 
+"@trpc/client@^10.21.1":
+  version "10.21.1"
+  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-10.21.1.tgz#1cc86ffddaabd7368b43b50070f2ca98bbfc460d"
+  integrity sha512-oZgPbghs9y2frTCA9mZPSAlVknV9stCTKYO5nsvRr0aX+oaA0URoXJTKZTSpLZxLfuwWgxBj4iTiCWWWmaVelw==
+
+"@trpc/server@^10.21.1":
+  version "10.21.1"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-10.21.1.tgz#42a321d8199b4ad800b9e786b4249a9b6df45d6c"
+  integrity sha512-4E4upTD2/Aq0Dm9HW4nbKSoIlqbV/ajRqNl1MCFBd9FjTv47qq2ncmAWMbb0AIVh2UV87PJlTjpPNNecRm6g9Q==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
@@ -1913,6 +1923,11 @@ totalist@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/totalist/-/totalist-3.0.0.tgz#4ef9c58c5f095255cdc3ff2a0a55091c57a3a1bd"
   integrity sha512-eM+pCBxXO/njtF7vdFsHuqb+ElbxqtI4r5EAvk6grfAFyJ6IvWlSkfZ5T9ozC6xWw3Fj1fGoSmrl0gUs46JVIw==
+
+trpc-sveltekit@^3.5.5:
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/trpc-sveltekit/-/trpc-sveltekit-3.5.5.tgz#4d7e1943b8e91357ca28c44a3a2029a23de3d2da"
+  integrity sha512-FxIIz+5Qlhi97S6Uli66A+4cNJ3XkbOwQ93POzWZNiKhB5qERNI8YEh3yyoaExuZeD0KfhhRoG3/jEkfXL+ZVw==
 
 ts-node@^10.9.1:
   version "10.9.1"
