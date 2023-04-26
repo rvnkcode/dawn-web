@@ -30,15 +30,8 @@
 	};
 
 	const deleteTask = async (id: number) => {
-		try {
-			await fetch('/api/item', {
-				method: 'DELETE',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll(); // refresh all load function(loaded data though load function?)
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.deleteTask.mutate(id);
+		invalidateAll();
 	};
 
 	const archiveTask = async (id: number) => {
