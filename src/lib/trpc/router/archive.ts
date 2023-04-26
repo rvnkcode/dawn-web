@@ -155,5 +155,18 @@ export const archiveRouter = router({
 			nulls,
 			pastMonth
 		};
+	}),
+
+	archiveTask: publicProcedure.input(z.number()).mutation(async (opt) => {
+		const { input } = opt;
+
+		try {
+			await prisma.task.update({
+				where: { id: input },
+				data: { archive: true, trash: false }
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
