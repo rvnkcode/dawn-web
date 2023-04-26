@@ -40,7 +40,8 @@
 		"@trpc/client": "^10.21.1",
 		"@trpc/server": "^10.21.1",
 		"date-fns": "^2.29.3",
-		"trpc-sveltekit": "^3.5.5"
+		"trpc-sveltekit": "^3.5.5",
+		"zod": "^3.21.4"
 	},
 	"prisma": {
 		"seed": "ts-node --esm prisma/seed.ts"
