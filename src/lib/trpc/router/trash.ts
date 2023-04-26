@@ -51,5 +51,18 @@ export const trashRouter = router({
 		} catch (error) {
 			console.error(error);
 		}
+	}),
+
+	deleteTask: publicProcedure.input(z.number()).mutation(async (opts) => {
+		const { input } = opts;
+
+		try {
+			await prisma.task.update({
+				where: { id: input },
+				data: { trash: true }
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
