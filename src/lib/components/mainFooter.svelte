@@ -31,14 +31,8 @@
 	};
 
 	const archiveChecked = async () => {
-		try {
-			await fetch('/api/archive', {
-				method: 'PATCH'
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().archive.archiveChecked.mutate();
+		invalidateAll();
 	};
 </script>
 
