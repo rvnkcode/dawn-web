@@ -25,10 +25,7 @@
 	};
 
 	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
-		await fetch('/api', {
-			method: 'PATCH',
-			body: JSON.stringify({ id, checked, archive })
-		});
+		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
 		invalidateAll();
 	};
 
