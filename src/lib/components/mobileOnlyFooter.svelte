@@ -3,6 +3,7 @@
 	import { selected } from '$lib/stores';
 	import { page } from '$app/stores';
 	import MoveMenu from './moveMenu.svelte';
+	import { trpc } from '../trpc/client';
 
 	$: current = $page.url.pathname;
 
@@ -13,16 +14,9 @@
 			return;
 		}
 
-		try {
-			await fetch('/api', {
-				method: 'DELETE',
-				body: JSON.stringify(Array.from($selected))
-			});
-			$selected.clear();
-			invalidateAll(); // refresh all loaded data from load function
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.trashSelected.mutate([...$selected]);
+		$selected.clear();
+		invalidateAll();
 	};
 
 	const handleClick = () => {
