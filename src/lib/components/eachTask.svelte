@@ -6,6 +6,7 @@
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
 	import { format } from 'date-fns';
+	import { trpc } from '$lib/trpc/client';
 
 	export let task: Task;
 
@@ -56,15 +57,8 @@
 	};
 
 	const undoTrash = async (id: number) => {
-		try {
-			await fetch('/api/trash', {
-				method: 'PATCH',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.undoTrash.mutate(id);
+		invalidateAll();
 	};
 
 	let showEdit = false;
