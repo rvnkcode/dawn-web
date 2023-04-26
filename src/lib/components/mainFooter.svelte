@@ -39,6 +39,7 @@
 <footer>
 	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
+	<!-- Add button -->
 	{#if current !== '/trash' && current !== '/archive'}
 		<button
 			class={$isSelectModeOnMobile ? 'hide' : ''}
@@ -47,10 +48,16 @@
 			}}><ion-icon name="add" /></button
 		>
 	{/if}
+
+	<!-- Move button -->
 	<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+
+	<!-- Archive button -->
 	{#if current !== '/trash' && current !== '/archive'}
 		<button class="hide" on:click={archiveChecked}><ion-icon name="save" /></button>
 	{/if}
+
+	<!-- Trash button -->
 	{#if current != '/trash'}
 		<button
 			on:click={async () => {
