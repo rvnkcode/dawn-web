@@ -17,7 +17,7 @@
 			return;
 		}
 
-		value = false;
+		value = false; // close popup move menu
 
 		try {
 			await fetch('/api/list', {
