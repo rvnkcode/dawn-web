@@ -168,5 +168,22 @@ export const archiveRouter = router({
 		} catch (error) {
 			console.error(error);
 		}
+	}),
+
+	archiveChecked: publicProcedure.mutation(async () => {
+		try {
+			await prisma.task.updateMany({
+				where: {
+					isDone: true,
+					trash: false,
+					status: 'inbox'
+				},
+				data: {
+					archive: true
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
