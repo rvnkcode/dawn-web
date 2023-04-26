@@ -22,5 +22,17 @@ export const trashRouter = router({
 		} catch (error) {
 			console.error(error);
 		}
+	}),
+
+	emptyTrash: publicProcedure.mutation(async () => {
+		try {
+			await prisma.task.deleteMany({
+				where: {
+					trash: true
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
