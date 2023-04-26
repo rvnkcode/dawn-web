@@ -34,5 +34,22 @@ export const trashRouter = router({
 		} catch (error) {
 			console.error(error);
 		}
+	}),
+
+	trashSelected: publicProcedure.input(z.array(z.number())).mutation(async (opts) => {
+		const { input } = opts;
+
+		try {
+			await prisma.task.updateMany({
+				where: {
+					id: { in: input }
+				},
+				data: {
+					trash: true
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
