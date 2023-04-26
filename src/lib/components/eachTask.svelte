@@ -35,15 +35,8 @@
 	};
 
 	const archiveTask = async (id: number) => {
-		try {
-			await fetch('/api/archive/item', {
-				method: 'PATCH',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().archive.archiveTask.mutate(id);
+		invalidateAll();
 	};
 
 	const undoTrash = async (id: number) => {
