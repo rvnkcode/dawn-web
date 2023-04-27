@@ -2,10 +2,10 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { Task } from '@prisma/client';
-	import EachTask from './eachTask.svelte';
+	import EachTask from '$lib/components/molecules/eachTask.svelte';
 	import { selected } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { trpc } from '../trpc/client';
+	import { trpc } from '$lib/trpc/client';
 
 	export let tasks: Task[];
 	export let showNewInput: boolean;

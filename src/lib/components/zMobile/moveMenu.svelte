@@ -2,7 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { page } from '$app/stores';
-	import { trpc } from '../trpc/client';
+	import { trpc } from '$lib/trpc/client';
 
 	export let value: boolean;
 

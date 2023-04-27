@@ -2,7 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
-	import { trpc } from '../trpc/client';
+	import { trpc } from '$lib/trpc/client';
 
 	$: current = $page.url.pathname;
 
@@ -27,11 +27,15 @@
 </script>
 
 {#if $isSelectModeOnMobile}
+	<!-- Button: Done -->
 	<button class="general outer blue right done" on:click={() => handleDone()}>Done</button>
 {:else}
+	<!-- Button: <  -->
 	<button class="outer left" on:click={() => ($showSidebar = !$showSidebar)}
 		><ion-icon name="chevron-back" class="big" /></button
 	>
+
+	<!-- Button: Show menu  -->
 	<button class="outer right" on:click={() => (menuEnabled = !menuEnabled)}
 		><ion-icon name="chevron-down-circle-outline" class="big" /></button
 	>
