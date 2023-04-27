@@ -44,7 +44,8 @@
 		{/if}
 		<div class="titleDiv">
 			<button on:click={() => (showEdit = !showEdit)} class="title"
-				><span class="title">{task.title}</span></button
+				><span class="title {current === '/archive' ? 'noLineThrough' : ''}">{task.title}</span
+				></button
 			>
 			<HoverButtonsOnList id={task.id} done={task.isDone} />
 		</div>
@@ -102,6 +103,12 @@
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
+	}
+
+	span.noLineThrough {
+		font-style: normal !important;
+		text-decoration: none !important;
+		color: #000000 !important;
 	}
 
 	button > span {
