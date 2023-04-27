@@ -5,6 +5,7 @@
 	import EachTask from './eachTask.svelte';
 	import { selected } from '$lib/stores';
 	import { onMount } from 'svelte';
+	import { trpc } from '../trpc/client';
 
 	export let tasks: Task[];
 	export let showNewInput: boolean;
@@ -22,16 +23,9 @@
 		if (e.key === 'Delete') {
 			// Debug
 			// console.log(e.key);
-			try {
-				await fetch('/api', {
-					method: 'DELETE',
-					body: JSON.stringify(Array.from($selected))
-				});
-				$selected.clear();
-				invalidateAll(); // refresh all load function(loaded data though load function?)
-			} catch (error) {
-				console.error(error);
-			}
+			await trpc().trash.trashSelected.mutate([...$selected]);
+			$selected.clear();
+			invalidateAll();
 		} else return;
 	};
 

@@ -2,7 +2,7 @@
 	import List from '$lib/components/list.svelte';
 	import Header from '$lib/components/header.svelte';
 	import type { PageData } from './$types';
-	import DeleteConfirmModal from '$lib/components/deleteConfirmModal.svelte';
+	import EmptyTrashConfirmModal from '$lib/components/emptyTrashConfirmModal.svelte';
 	import MainFooter from '$lib/components/mainFooter.svelte';
 
 	export let data: PageData;
@@ -33,7 +33,7 @@
 
 <MainFooter value={false} />
 
-<DeleteConfirmModal bind:value={open} />
+<EmptyTrashConfirmModal bind:value={open} />
 
 <style>
 	button {

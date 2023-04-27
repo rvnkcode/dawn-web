@@ -1,21 +1,16 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { trpc } from '$lib/trpc/client';
 
 	export let value: boolean;
 
 	const emptyTrash = async () => {
-		try {
-			await fetch('/api/list', {
-				method: 'DELETE'
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.emptyTrash.mutate();
+		invalidateAll();
 	};
 
 	const handleOk = async () => {
-		value = false;
+		value = false; // close modal
 		await emptyTrash();
 	};
 </script>

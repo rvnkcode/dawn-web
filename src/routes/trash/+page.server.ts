@@ -1,12 +1,7 @@
-import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
+import { createContext } from '$lib/trpc/context';
+import { appRouter } from '$lib/trpc/router/index';
 
-export const load = (async () => {
-	return {
-		tasks: await prisma.task.findMany({
-			where: {
-				trash: true
-			}
-		})
-	};
-}) satisfies PageServerLoad;
+export const load: PageServerLoad = async () => ({
+	tasks: appRouter.createCaller(await createContext()).trash.getTrash()
+});

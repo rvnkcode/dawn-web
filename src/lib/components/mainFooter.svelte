@@ -5,6 +5,7 @@
 	import MobileOnlyFooter from './mobileOnlyFooter.svelte';
 	import { page } from '$app/stores';
 	import MoveMenu from './moveMenu.svelte';
+	import { trpc } from '../trpc/client';
 
 	export let value: boolean;
 
@@ -17,16 +18,9 @@
 			return;
 		}
 
-		try {
-			await fetch('/api', {
-				method: 'DELETE',
-				body: JSON.stringify(Array.from($selected))
-			});
-			$selected.clear();
-			invalidateAll(); // refresh all loaded data from load function
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.trashSelected.mutate([...$selected]);
+		$selected.clear();
+		invalidateAll();
 	};
 
 	const handleClick = () => {
@@ -37,20 +31,15 @@
 	};
 
 	const archiveChecked = async () => {
-		try {
-			await fetch('/api/archive', {
-				method: 'PATCH'
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().archive.archiveChecked.mutate();
+		invalidateAll();
 	};
 </script>
 
 <footer>
 	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
+	<!-- Add button -->
 	{#if current !== '/trash' && current !== '/archive'}
 		<button
 			class={$isSelectModeOnMobile ? 'hide' : ''}
@@ -59,10 +48,16 @@
 			}}><ion-icon name="add" /></button
 		>
 	{/if}
+
+	<!-- Move button -->
 	<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+
+	<!-- Archive button -->
 	{#if current !== '/trash' && current !== '/archive'}
 		<button class="hide" on:click={archiveChecked}><ion-icon name="save" /></button>
 	{/if}
+
+	<!-- Trash button -->
 	{#if current != '/trash'}
 		<button
 			on:click={async () => {

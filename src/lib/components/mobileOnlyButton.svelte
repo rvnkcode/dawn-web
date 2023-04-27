@@ -2,6 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { trpc } from '../trpc/client';
 
 	$: current = $page.url.pathname;
 
@@ -19,15 +20,9 @@
 	};
 
 	const archiveChecked = async () => {
-		try {
-			await fetch('/api/archive', {
-				method: 'PATCH'
-			});
-			invalidateAll();
-			menuEnabled = !menuEnabled;
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().archive.archiveChecked.mutate();
+		invalidateAll();
+		menuEnabled = !menuEnabled;
 	};
 </script>
 

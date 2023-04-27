@@ -6,6 +6,7 @@
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
 	import { format } from 'date-fns';
+	import { trpc } from '$lib/trpc/client';
 
 	export let task: Task;
 
@@ -24,47 +25,23 @@
 	};
 
 	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
-		await fetch('/api', {
-			method: 'PATCH',
-			body: JSON.stringify({ id, checked, archive })
-		});
+		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
 		invalidateAll();
 	};
 
 	const deleteTask = async (id: number) => {
-		try {
-			await fetch('/api/item', {
-				method: 'DELETE',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll(); // refresh all load function(loaded data though load function?)
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.deleteTask.mutate(id);
+		invalidateAll();
 	};
 
 	const archiveTask = async (id: number) => {
-		try {
-			await fetch('/api/archive/item', {
-				method: 'PATCH',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().archive.archiveTask.mutate(id);
+		invalidateAll();
 	};
 
 	const undoTrash = async (id: number) => {
-		try {
-			await fetch('/api/trash', {
-				method: 'PATCH',
-				body: JSON.stringify({ id })
-			});
-			invalidateAll();
-		} catch (error) {
-			console.error(error);
-		}
+		await trpc().trash.undoTrash.mutate(id);
+		invalidateAll();
 	};
 
 	let showEdit = false;
