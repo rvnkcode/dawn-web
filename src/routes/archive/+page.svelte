@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
-	import MainFooter from '$lib/components/mainFooter.svelte';
-	import List from '$lib/components/list.svelte';
+	import Header from '$lib/components/organisms/header.svelte';
+	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+	import List from '$lib/components/organisms/list.svelte';
 	import type { PageData } from './$types';
 	import { format } from 'date-fns';
 

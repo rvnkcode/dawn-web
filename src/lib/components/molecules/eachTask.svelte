@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
-	import EditInput from './editInput.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
 	import { format } from 'date-fns';
 	import { trpc } from '$lib/trpc/client';
+	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
+	import EditInput from './editInput.svelte';
 
 	export let task: Task;
 
@@ -15,8 +16,6 @@
 	$: if ($isSelectModeOnMobile) {
 		$selected.clear();
 	}
-
-	$: done = task.isDone;
 
 	const handleSelected = (id: number) => {
 		$selected.has(id) ? $selected.delete(id) : $selected.add(id);
@@ -28,22 +27,6 @@
 		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
 		invalidateAll();
 	};
-
-	const deleteTask = async (id: number) => {
-		await trpc().trash.deleteTask.mutate(id);
-		invalidateAll();
-	};
-
-	const archiveTask = async (id: number) => {
-		await trpc().archive.archiveTask.mutate(id);
-		invalidateAll();
-	};
-
-	const undoTrash = async (id: number) => {
-		await trpc().trash.undoTrash.mutate(id);
-		invalidateAll();
-	};
-
 	let showEdit = false;
 </script>
 
@@ -54,7 +37,6 @@
 			checked={task.isDone}
 			on:change={async (e) => {
 				await toggleCompleted(task.id, e.currentTarget.checked, task.archive);
-				done = !done;
 			}}
 		/>
 		{#if current === '/archive' && task.completedAt != null}
@@ -64,30 +46,11 @@
 			<button on:click={() => (showEdit = !showEdit)} class="title"
 				><span class="title">{task.title}</span></button
 			>
-			<!-- Hover button div starts(instead of mouse right click) -->
-			<div>
-				<!-- archive single task button -->
-				{#if current != '/archive' && current != '/trash' && done}
-					<button class="overlay" disabled={!done} on:click={async () => await archiveTask(task.id)}
-						><ion-icon name="save" /></button
-					>
-				{/if}
-				<!-- Trash single task button -->
-				{#if current != '/trash'}
-					<button on:click={async () => await deleteTask(task.id)} class="overlay"
-						><ion-icon name="trash" /></button
-					>
-				{/if}
-				<!-- Undo trash button -->
-				{#if current === '/trash'}
-					<button on:click={async () => await undoTrash(task.id)} class="overlay"
-						><ion-icon name="arrow-undo" /></button
-					>
-				{/if}
-			</div>
-			<!-- Hover button div ends (instead of mouse right click) -->
+			<HoverButtonsOnList id={task.id} done={task.isDone} />
 		</div>
 	</label>
+
+	<!-- Checkbox for select tasks -->
 	<input
 		type="checkbox"
 		id={task.id.toString()}
@@ -166,25 +129,12 @@
 			justify-content: space-between;
 		}
 
-		.overlay {
-			visibility: hidden;
-		}
-
-		li:hover > label > div > div > .overlay {
-			visibility: visible;
-		}
-
-		div > button > ion-icon {
-			color: #404950;
-			font-size: large;
+		:global(li:hover > label > div > div > .overlay) {
+			visibility: visible !important;
 		}
 	}
 
 	@media (max-width: 480px) {
-		.overlay {
-			display: none;
-		}
-
 		.show {
 			display: inherit;
 		}

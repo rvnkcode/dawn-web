@@ -2,10 +2,10 @@
 	import { invalidateAll } from '$app/navigation';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
-	import MobileOnlyFooter from './mobileOnlyFooter.svelte';
+	import MobileOnlyFooter from '$lib/components/zMobile/mobileOnlyFooter.svelte';
 	import { page } from '$app/stores';
-	import MoveMenu from './moveMenu.svelte';
-	import { trpc } from '../trpc/client';
+	import MoveMenu from '$lib/components/zMobile/moveMenu.svelte';
+	import { trpc } from '$lib/trpc/client';
 
 	export let value: boolean;
 

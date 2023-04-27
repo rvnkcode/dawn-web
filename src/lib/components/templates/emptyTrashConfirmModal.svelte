@@ -2,7 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { trpc } from '$lib/trpc/client';
 
-	export let value: boolean;
+	export let value: boolean; // Is modal opened?
 
 	const emptyTrash = async () => {
 		await trpc().trash.emptyTrash.mutate();
