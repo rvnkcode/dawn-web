@@ -4,14 +4,32 @@
 	import List from '$lib/components/organisms/list.svelte';
 	import type { PageData } from './$types';
 	import { format } from 'date-fns';
+	import type { Task } from '@prisma/client';
+	import { trpc } from '../../lib/trpc/client';
+	import type { SerializeObject } from '@trpc/server/shared';
 
 	export let data: PageData;
-	$: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, pastMonth } =
-		data);
+	// $: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, pastMonth } =
+	// 	data);
+
+	$: ({ todayList, yesterdayList, thisMonthList, more } = data);
 
 	$: showMore = false;
 
-	const date = new Date();
+	let thisYear: any = undefined;
+
+	const today = new Date();
+	const handleMore = async () => {
+		showMore = !showMore;
+
+		if (showMore) {
+			try {
+				thisYear = (await trpc().archive.getMoreArchives.query()).thisYear;
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
 </script>
 
 <svelte:head>
@@ -23,6 +41,36 @@
 	<span>Archive</span>
 </Header>
 
+<main>
+	{#if todayList.length > 0}
+		<h2>Today</h2>
+		<hr />
+		<List tasks={todayList} showNewInput={false} />
+	{/if}
+
+	{#if yesterdayList.length > 0}
+		<h2>Yesterday</h2>
+		<hr />
+		<List tasks={yesterdayList} showNewInput={false} />
+	{/if}
+
+	{#if thisMonthList.length > 0}
+		<h2>{format(today, 'MMM')}</h2>
+		<hr />
+		<List tasks={thisMonthList} showNewInput={false} />
+	{/if}
+
+	{#if more > 0}
+		<button class="general" on:click={async () => await handleMore()}>More</button>
+
+		{#if thisYear.length > 0}
+			<h2>{format(today, 'y')}</h2>
+			<hr />
+		{/if}
+	{/if}
+</main>
+
+<!-- 
 <main>
 	{#if today.length > 0}
 		<h2>Today</h2>
@@ -85,7 +133,7 @@
 			{/if}
 		{/if}
 	{/if}
-</main>
+</main> -->
 
 <MainFooter value={false} />
 
@@ -98,12 +146,12 @@
 		font-size: large;
 		font-weight: bold;
 	}
-
+	/* 
 	h2.month {
 		font-size: medium;
 		margin-top: 1rem !important;
 	}
-
+  */
 	button {
 		border: 1px solid black;
 		margin-top: 1.5rem;
