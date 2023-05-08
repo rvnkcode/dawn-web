@@ -40,9 +40,13 @@ ion-icon.trashIcon {
 	color: #c2c6cc;
 }
 
-.inputTitle {
-	width: 95%;
+form {
 	margin-left: 1.25rem;
+}
+
+.inputTitle {
+	width: 100%;
+	margin-top: 0.15rem;
 }
 
 button.general {
