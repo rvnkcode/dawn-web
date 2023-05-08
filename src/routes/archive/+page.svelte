@@ -11,8 +11,6 @@
 	const today = new Date();
 
 	export let data: PageData;
-	// $: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, pastMonth } =
-	// 	data);
 	$: ({ todayList, yesterdayList, thisMonthList, more } = data);
 
 	$: showMore = false;
@@ -123,6 +121,9 @@
 
 	button {
 		border: 1px solid black;
+	}
+
+	button:not(:first-child) {
 		margin-top: 1.5rem;
 	}
 </style>
