@@ -97,6 +97,7 @@
 		max-width: max-content;
 		width: 100%;
 		margin-left: 0.5rem;
+		margin-right: 0.5rem;
 	}
 
 	label > input[type='checkbox']:checked ~ div > button > span.title {

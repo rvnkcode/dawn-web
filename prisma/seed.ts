@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import { subDays } from 'date-fns';
 
 const prisma = new PrismaClient();
 
@@ -26,12 +27,28 @@ const archivedTask: Prisma.TaskCreateInput = {
 	completedAt: new Date()
 };
 
+const archivedTask4: Prisma.TaskCreateInput = {
+	title: 'Archived task yesterday',
+	isDone: true,
+	archive: true,
+	trash: false,
+	completedAt: subDays(new Date(), 1)
+};
+
 const archivedTask2: Prisma.TaskCreateInput = {
-	title: 'Archived task',
+	title: 'Archived task last month',
 	isDone: true,
 	archive: true,
 	trash: false,
 	completedAt: new Date('2023-03-05')
+};
+
+const archivedTask3: Prisma.TaskCreateInput = {
+	title: 'Archived task last year',
+	isDone: true,
+	archive: true,
+	trash: false,
+	completedAt: new Date('2022-02-05')
 };
 
 const trashedTask: Prisma.TaskCreateInput = {
@@ -62,6 +79,8 @@ const tasks: Prisma.TaskCreateInput[] = [
 	completed,
 	archivedTask,
 	archivedTask2,
+	archivedTask3,
+	archivedTask4,
 	trashedTask,
 	trashedCompletedTask,
 	archivedAndTrashedTask

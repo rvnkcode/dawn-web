@@ -1,7 +1,17 @@
 import { publicProcedure, router } from '$lib/trpc/trpc';
 import { prisma } from '$lib/server/prisma';
 import type { Task } from '@prisma/client';
-import { format, getYear, isThisMonth, isThisYear, isToday, isYesterday } from 'date-fns';
+import {
+	endOfDay,
+	endOfMonth,
+	format,
+	getYear,
+	startOfDay,
+	startOfMonth,
+	startOfYear,
+	subDays,
+	subMonths
+} from 'date-fns';
 import { z } from 'zod';
 
 type pastMonthType = {
@@ -9,93 +19,139 @@ type pastMonthType = {
 	month: string[];
 };
 
+const today = new Date();
+const yesterday = subDays(today, 1);
+const lastMonth = subMonths(today, 1);
+const startOfThisYear = startOfYear(today);
+
+const defaultArchiveFilter = {
+	isDone: true,
+	archive: true,
+	trash: false
+};
+
 export const archiveRouter = router({
 	getArchive: publicProcedure.query(async () => {
-		const tasks = await prisma.task.findMany({
-			where: {
-				isDone: true,
-				archive: true,
-				trash: false
-			},
-			orderBy: {
-				completedAt: 'desc'
-			}
-		});
+		const [todayList, yesterdayList, thisMonthList, more] = await Promise.all([
+			// Today
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					completedAt: {
+						gte: startOfDay(today)
+					}
+				},
+				orderBy: {
+					completedAt: 'desc'
+				}
+			}),
 
-		const archiveTotal = tasks.length; // Debug
+			// Yesterday
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					AND: [
+						{
+							completedAt: {
+								gte: startOfDay(yesterday)
+							}
+						},
+						{
+							completedAt: {
+								lte: endOfDay(yesterday)
+							}
+						}
+					]
+				},
+				orderBy: {
+					completedAt: 'desc'
+				}
+			}),
 
-		const nulls = tasks.filter((task: Task) => task.completedAt == null);
+			// This month
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					AND: [
+						{
+							completedAt: {
+								gte: startOfMonth(today)
+							}
+						},
+						{
+							completedAt: {
+								lt: startOfDay(yesterday)
+							}
+						}
+					]
+				},
+				orderBy: {
+					completedAt: 'desc'
+				}
+			}),
 
-		if (nulls.length > 0) {
-			nulls.forEach((t: Task) => {
-				tasks.splice(
-					tasks.findIndex((task: Task) => task.id === t.id),
-					1
-				);
-			});
-		}
+			await prisma.task.count({
+				where: {
+					...defaultArchiveFilter,
+					OR: [
+						{
+							completedAt: null
+						},
+						{
+							completedAt: {
+								lt: startOfMonth(lastMonth)
+							}
+						}
+					]
+				}
+			})
+		]);
 
-		const today = tasks.filter((task: Task) => {
-			if (task.completedAt) {
-				return isToday(task.completedAt);
-			}
-		});
+		return { todayList, yesterdayList, thisMonthList, more };
+	}),
 
-		if (today.length > 0) {
-			today.forEach((t: Task) => {
-				tasks.splice(
-					tasks.findIndex((task: Task) => task.id === t.id),
-					1
-				);
-			});
-		}
+	getMoreArchives: publicProcedure.query(async () => {
+		const [thisYear, nulls, others] = await Promise.all([
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					AND: [
+						{
+							completedAt: {
+								gte: startOfThisYear
+							}
+						},
+						{
+							completedAt: {
+								lte: endOfMonth(lastMonth)
+							}
+						}
+					]
+				},
+				orderBy: {
+					completedAt: 'desc'
+				}
+			}),
 
-		const yesterday = tasks.filter((task: Task) => {
-			if (task.completedAt) {
-				return isYesterday(task.completedAt);
-			}
-		});
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					completedAt: null
+				}
+			}),
 
-		if (yesterday.length > 0) {
-			yesterday.forEach((y: Task) => {
-				tasks.splice(
-					tasks.findIndex((task: Task) => task.id === y.id),
-					1
-				);
-			});
-		}
-
-		const thisMonth = tasks.filter((task: Task) => {
-			if (task.completedAt) {
-				return isThisMonth(task.completedAt);
-			}
-		});
-
-		if (thisMonth.length > 0) {
-			thisMonth.forEach((m: Task) => {
-				tasks.splice(
-					tasks.findIndex((task: Task) => task.id === m.id),
-					1
-				);
-			});
-		}
-
-		const moreCount = tasks.length;
-
-		const thisYear = tasks.filter((task: Task) => {
-			if (task.completedAt) {
-				return isThisYear(task.completedAt);
-			}
-		});
-
-		if (thisYear.length > 0) {
-			thisYear.forEach((i: Task) => {
-				tasks.splice(
-					tasks.findIndex((task: Task) => task.id === i.id),
-					1
-				);
-			});
-		}
+			await prisma.task.findMany({
+				where: {
+					...defaultArchiveFilter,
+					completedAt: {
+						lt: startOfThisYear
+					}
+				},
+				orderBy: {
+					completedAt: 'desc'
+				}
+			})
+		]);
 
 		const monthOfThisYear = [
 			...new Set(
@@ -104,7 +160,9 @@ export const archiveRouter = router({
 		];
 
 		const years = [
-			...new Set(tasks.map((task: Task) => (task.completedAt ? format(task.completedAt, 'y') : '')))
+			...new Set(
+				others.map((task: Task) => (task.completedAt ? format(task.completedAt, 'y') : ''))
+			)
 		];
 
 		const pastMonth: pastMonthType[] = [];
@@ -115,7 +173,7 @@ export const archiveRouter = router({
 					year: years[i],
 					month: [
 						...new Set(
-							tasks
+							others
 								.filter((t: Task) => {
 									if (t.completedAt) {
 										return getYear(t.completedAt) === +years[i];
@@ -131,30 +189,7 @@ export const archiveRouter = router({
 		// [0: {year: 2023, month: [Jan, Feb, Mar...]}]
 		// console.log(pastMonth); // Debug
 
-		// Debug
-		if (
-			archiveTotal ===
-			today.length +
-				yesterday.length +
-				thisMonth.length +
-				thisYear.length +
-				nulls.length +
-				tasks.length
-		) {
-			console.log(`Result of calculation is: ${true}`);
-		} else console.log(`Result of calculation is: ${false}`);
-
-		return {
-			today,
-			yesterday,
-			thisMonth,
-			more: moreCount,
-			thisYear,
-			monthOfThisYear,
-			others: tasks,
-			nulls,
-			pastMonth
-		};
+		return { thisYear, monthOfThisYear, nulls, others, pastMonth };
 	}),
 
 	archiveTask: publicProcedure.input(z.number()).mutation(async (opt) => {
