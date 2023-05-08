@@ -7,7 +7,7 @@
 	import MoveMenu from '$lib/components/zMobile/moveMenu.svelte';
 	import { trpc } from '$lib/trpc/client';
 
-	export let value: boolean;
+	export let value: boolean; //showNewInput
 
 	$: current = $page.url.pathname;
 
@@ -34,10 +34,26 @@
 		await trpc().archive.archiveChecked.mutate();
 		invalidateAll();
 	};
+
+	const handleKeyboard = async (e: KeyboardEvent) => {
+		if (current === '/trash' || current === '/archive') {
+			return;
+		}
+
+		// console.log(e.key);
+
+		switch (e.key) {
+			case 'Escape':
+				value = false;
+				break;
+
+			default:
+				break;
+		}
+	};
 </script>
 
 <footer>
-	<!-- TODO: When press ESC key, hide input -->
 	<!-- TODO: When click outside of input(out of focus), hide input -->
 	<!-- Add button -->
 	{#if current !== '/trash' && current !== '/archive'}
@@ -75,6 +91,8 @@
 {#if showMoveMenu}
 	<MoveMenu bind:value={showMoveMenu} />
 {/if}
+
+<svelte:window on:keydown={handleKeyboard} />
 
 <style>
 	button {
