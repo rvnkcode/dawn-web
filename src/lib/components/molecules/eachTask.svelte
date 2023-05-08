@@ -143,10 +143,10 @@
 
 	.tooltip + .tooltipText {
 		visibility: hidden;
-		font-size: small;
+		font-size: smaller;
 		position: absolute;
 		z-index: 1;
-		background-color: #67676757;
+		background-color: #f2f3f5;
 		padding: 0.3rem;
 		border-radius: 0.25rem;
 		color: black;
