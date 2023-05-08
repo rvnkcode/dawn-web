@@ -9,13 +9,14 @@ export const load: PageServerLoad = async () => ({
 
 export const actions = {
 	createTask: async ({ request }) => {
-		const { title } = Object.fromEntries(await request.formData()) as {
+		const { title, urls } = Object.fromEntries(await request.formData()) as {
 			title: string;
+			urls: string;
 		};
 
 		try {
 			await prisma.task.create({
-				data: { title }
+				data: { title, urls }
 			});
 		} catch (error) {
 			console.error(error);
