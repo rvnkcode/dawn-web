@@ -1,10 +1,19 @@
 <script lang="ts">
 	import { z } from 'zod';
+	import type { Task } from '@prisma/client';
+
+	export let task: Task | undefined = undefined;
 
 	let showUrlInput = false;
+
 	let urlList: Array<string> = [];
-	let urlInput: string = '';
+	if (task && task.urls) {
+		urlList = task.urls.split(',');
+	}
+
 	$: urls = urlList.toString();
+
+	let urlInput: string = '';
 
 	const urlSchema = z.string().url();
 
@@ -21,17 +30,32 @@
 	};
 </script>
 
-<form action="?/createTask" method="post">
-	<!-- svelte-ignore a11y-autofocus -->
-	<input
-		type="text"
-		name="title"
-		required
-		placeholder="New To-Do"
-		autocomplete="off"
-		autofocus
-		class="inputTitle"
-	/>
+<form action={task ? '?/updateTask' : '?/createTask'} method="post">
+	{#if task}
+		<input type="hidden" value={task.id} name="id" />
+		<!-- svelte-ignore a11y-autofocus -->
+		<input
+			type="text"
+			name="title"
+			required
+			placeholder="New To-Do"
+			autocomplete="off"
+			autofocus
+			class="inputTitle"
+			bind:value={task.title}
+		/>
+	{:else}
+		<!-- svelte-ignore a11y-autofocus -->
+		<input
+			type="text"
+			name="title"
+			required
+			placeholder="New To-Do"
+			autocomplete="off"
+			autofocus
+			class="inputTitle"
+		/>
+	{/if}
 
 	{#if urlList.length > 0}
 		<ul>
@@ -66,7 +90,9 @@
 	</div>
 
 	{#if urls.length > 0 || showUrlInput}
-		<button type="submit" class="blue general">submit</button>
+		<div>
+			<button type="submit" class="blue general">submit</button>
+		</div>
 	{/if}
 </form>
 
@@ -86,7 +112,7 @@
 	}
 
 	ion-icon.button {
-		color: #d6d5d8;
+		color: #a9aeb2;
 	}
 
 	input[type='url'] {
@@ -96,5 +122,9 @@
 
 	a {
 		font-size: 14px;
+	}
+
+	button[type='submit'] {
+		text-align: right;
 	}
 </style>
