@@ -45,7 +45,7 @@
 				</li>
 			{/each}
 		</ul>
-		<input type="hidden" bind:value={urls} name="urls" />
+		<input type="hidden" bind:value={urls} name="rawUrls" />
 	{/if}
 
 	{#if showUrlInput}

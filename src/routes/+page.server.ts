@@ -9,10 +9,20 @@ export const load: PageServerLoad = async () => ({
 
 export const actions = {
 	createTask: async ({ request }) => {
-		const { title, urls } = Object.fromEntries(await request.formData()) as {
+		const { title, rawUrls, url } = Object.fromEntries(await request.formData()) as {
 			title: string;
-			urls: string;
+			rawUrls: string;
+			url: string;
 		};
+
+		let urls: null | string = null;
+
+		if (url) {
+			if (rawUrls) {
+				const rawUrlList = rawUrls.split(',');
+				urls = rawUrlList.includes(url) ? rawUrls : rawUrls.concat(',', url);
+			} else urls = url;
+		} else urls = rawUrls;
 
 		try {
 			await prisma.task.create({
