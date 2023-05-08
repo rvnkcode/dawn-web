@@ -118,6 +118,7 @@
 	h2.month {
 		font-size: medium;
 		margin-top: 1rem !important;
+		margin-bottom: 0.5rem;
 	}
 
 	button {
