@@ -7,7 +7,7 @@
 	import { format } from 'date-fns';
 	import { trpc } from '$lib/trpc/client';
 	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
-	import NewInput from './newInput.svelte';
+	import InputForm from './inputForm.svelte';
 
 	export let task: Task;
 
@@ -79,7 +79,7 @@
 </li>
 
 {#if showEdit}
-	<NewInput {task} />
+	<InputForm {task} />
 {/if}
 
 <style>
