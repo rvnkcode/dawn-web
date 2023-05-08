@@ -4,31 +4,39 @@
 	import List from '$lib/components/organisms/list.svelte';
 	import type { PageData } from './$types';
 	import { format } from 'date-fns';
+	import { trpc } from '$lib/trpc/client';
+	import type { RouterOutputs } from '$lib/trpc/router';
 	import type { Task } from '@prisma/client';
-	import { trpc } from '../../lib/trpc/client';
-	import type { SerializeObject } from '@trpc/server/shared';
+
+	const today = new Date();
 
 	export let data: PageData;
 	// $: ({ today, yesterday, thisMonth, monthOfThisYear, more, thisYear, others, nulls, pastMonth } =
 	// 	data);
-
 	$: ({ todayList, yesterdayList, thisMonthList, more } = data);
 
 	$: showMore = false;
+	// RouterOutputs['name of router']['name of procedure']
+	let moreResults: RouterOutputs['archive']['getMoreArchives'];
 
-	let thisYear: any = undefined;
-
-	const today = new Date();
 	const handleMore = async () => {
-		showMore = !showMore;
+		showMore = true;
 
 		if (showMore) {
 			try {
-				thisYear = (await trpc().archive.getMoreArchives.query()).thisYear;
+				moreResults = await trpc().archive.getMoreArchives.query();
 			} catch (error) {
 				console.error(error);
 			}
 		}
+	};
+
+	const handleFilter = (arr: Task[], month: string) => {
+		return arr.filter((t) => {
+			if (t.completedAt) {
+				return format(t.completedAt, 'MMM') === month;
+			} else return null;
+		});
 	};
 </script>
 
@@ -61,79 +69,39 @@
 	{/if}
 
 	{#if more > 0}
-		<button class="general" on:click={async () => await handleMore()}>More</button>
-
-		{#if thisYear.length > 0}
-			<h2>{format(today, 'y')}</h2>
-			<hr />
+		{#if !showMore}
+			<button class="general" on:click={async () => await handleMore()}>More</button>
 		{/if}
-	{/if}
-</main>
 
-<!-- 
-<main>
-	{#if today.length > 0}
-		<h2>Today</h2>
-		<hr />
-		<List tasks={today} showNewInput={false} />
-	{/if}
-
-	{#if yesterday.length > 0}
-		<h2>Yesterday</h2>
-		<hr />
-		<List tasks={yesterday} showNewInput={false} />
-	{/if}
-
-	{#if thisMonth.length > 0}
-		<h2>{format(date, 'MMM')}</h2>
-		<hr />
-		<List tasks={thisMonth} showNewInput={false} />
-	{/if}
-
-	{#if more > 0}
-		<button class="general" on:click={() => (showMore = !showMore)}>More</button>
-
-		{#if showMore}
-			{#if thisYear.length > 0}
-				<h2>{format(date, 'y')}</h2>
+		{#if moreResults}
+			{#if moreResults.thisYear.length > 0}
+				<h2>{format(today, 'y')}</h2>
 				<hr />
-				{#each monthOfThisYear as m}
+				{#each moreResults.monthOfThisYear as m}
 					<h2 class="month">{m}</h2>
-					<List
-						tasks={thisYear.filter((t) =>
-							t.completedAt ? format(t.completedAt, 'MMM') === m : null
-						)}
-						showNewInput={false}
-					/>
+					<List tasks={handleFilter(moreResults.thisYear, m)} showNewInput={false} />
 				{/each}
 			{/if}
 
-			{#if others.length > 0}
-				{#each pastMonth as p}
+			{#if moreResults.others.length > 0}
+				{#each moreResults.pastMonth as p}
 					<h2>{p.year}</h2>
 					<hr />
 					{#each p.month as m}
 						<h2 class="month">{m}</h2>
-						<List
-							tasks={others.filter((t) =>
-								t.completedAt
-									? format(t.completedAt, 'y') === p.year && format(t.completedAt, 'MMM') === m
-									: null
-							)}
-							showNewInput={false}
-						/>
+						<List tasks={handleFilter(moreResults.others, m)} showNewInput={false} />
 					{/each}
 				{/each}
 			{/if}
 
-			{#if nulls.length > 0}
+			{#if moreResults.nulls.length > 0}
 				<h2>NaN</h2>
 				<hr />
-				<List tasks={nulls} showNewInput={false} />
+				<List tasks={moreResults.nulls} showNewInput={false} />
 			{/if}
 		{/if}
 	{/if}
-</main> -->
+</main>
 
 <MainFooter value={false} />
 
@@ -146,12 +114,12 @@
 		font-size: large;
 		font-weight: bold;
 	}
-	/* 
+
 	h2.month {
 		font-size: medium;
 		margin-top: 1rem !important;
 	}
-  */
+
 	button {
 		border: 1px solid black;
 		margin-top: 1.5rem;
