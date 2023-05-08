@@ -5,11 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator zod {
-  provider  = "zod-prisma"
-  // output   = "../src/zod"
-  modelCase = "camelCase"
-}
+// only for dev
+// TODO: using .env?
+// generator zod {
+//   provider  = "zod-prisma"
+//   // output   = "../src/zod"
+//   modelCase = "camelCase"
+// }
 
 datasource db {
   provider = "sqlite"
@@ -26,4 +28,5 @@ model Task {
   status      String    @default("inbox")
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
+  urls        String?
 }

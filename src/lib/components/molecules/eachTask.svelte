@@ -7,7 +7,7 @@
 	import { format } from 'date-fns';
 	import { trpc } from '$lib/trpc/client';
 	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
-	import EditInput from './editInput.svelte';
+	import InputForm from './inputForm.svelte';
 
 	export let task: Task;
 
@@ -15,6 +15,12 @@
 
 	$: if ($isSelectModeOnMobile) {
 		$selected.clear();
+	}
+
+	let urls: Array<string> = [];
+
+	if (task.urls) {
+		urls = task.urls?.split(',');
 	}
 
 	const handleSelected = (id: number) => {
@@ -42,11 +48,19 @@
 		{#if current === '/archive' && task.completedAt != null}
 			<span class="date">{format(task.completedAt, 'MMM d')}</span>
 		{/if}
-		<div class="titleDiv">
-			<button on:click={() => (showEdit = !showEdit)} class="title"
-				><span class="title {current === '/archive' ? 'noLineThrough' : ''}">{task.title}</span
-				></button
-			>
+		<div>
+			<div class="titleDiv">
+				<button on:click={() => (showEdit = !showEdit)} class="title"
+					><span class="title {current === '/archive' ? 'noLineThrough' : ''}">{task.title}</span
+					></button
+				>
+				{#each urls as u}
+					<a href={u} target="_blank">
+						<ion-icon name="link-outline" class="tooltip" />
+						<span class="tooltipText">{u}</span>
+					</a>
+				{/each}
+			</div>
 			<HoverButtonsOnList id={task.id} done={task.isDone} />
 		</div>
 	</label>
@@ -65,7 +79,7 @@
 </li>
 
 {#if showEdit}
-	<EditInput {task} />
+	<InputForm {task} />
 {/if}
 
 <style>
@@ -100,7 +114,7 @@
 		margin-right: 0.5rem;
 	}
 
-	label > input[type='checkbox']:checked ~ div > button > span.title {
+	label > input[type='checkbox']:checked ~ div > div > button > span.title {
 		font-style: italic;
 		text-decoration: line-through;
 		color: #b0b4b7;
@@ -120,6 +134,26 @@
 
 	button.title {
 		text-align: start;
+	}
+
+	div.titleDiv > a > ion-icon {
+		font-size: smaller;
+		vertical-align: middle;
+	}
+
+	.tooltip + .tooltipText {
+		visibility: hidden;
+		font-size: smaller;
+		position: absolute;
+		z-index: 1;
+		background-color: #f2f3f5;
+		padding: 0.3rem;
+		border-radius: 0.25rem;
+		color: black;
+	}
+
+	.tooltip:hover + .tooltipText {
+		visibility: visible;
 	}
 
 	@media (min-width: 481px) {
