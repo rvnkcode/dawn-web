@@ -11,23 +11,20 @@
 	const today = new Date();
 
 	export let data: PageData;
-	$: ({ todayList, yesterdayList, thisMonthList, more } = data);
+	$: ({
+		todayList,
+		yesterdayList,
+		thisMonthList,
+		more,
+		thisYear,
+		monthOfThisYear,
+		nulls,
+		others,
+		pastMonth
+	} = data);
 
 	$: showMore = false;
 	// RouterOutputs['name of router']['name of procedure']
-	let moreResults: RouterOutputs['archive']['getMoreArchives'];
-
-	const handleMore = async () => {
-		showMore = true;
-
-		if (showMore) {
-			try {
-				moreResults = await trpc().archive.getMoreArchives.query();
-			} catch (error) {
-				console.error(error);
-			}
-		}
-	};
 
 	const handleFilter = (arr: Task[], month: string) => {
 		return arr.filter((t) => {
@@ -68,34 +65,32 @@
 
 	{#if more > 0}
 		{#if !showMore}
-			<button class="general" on:click={async () => await handleMore()}>More</button>
-		{/if}
-
-		{#if moreResults}
-			{#if moreResults.thisYear.length > 0}
+			<button class="general" on:click={() => (showMore = true)}>More</button>
+		{:else}
+			{#if thisYear.length > 0}
 				<h2>{format(today, 'y')}</h2>
 				<hr />
-				{#each moreResults.monthOfThisYear as m}
+				{#each monthOfThisYear as m}
 					<h2 class="month">{m}</h2>
-					<List tasks={handleFilter(moreResults.thisYear, m)} showNewInput={false} />
+					<List tasks={handleFilter(thisYear, m)} showNewInput={false} />
 				{/each}
 			{/if}
 
-			{#if moreResults.others.length > 0}
-				{#each moreResults.pastMonth as p}
+			{#if others.length > 0}
+				{#each pastMonth as p}
 					<h2>{p.year}</h2>
 					<hr />
 					{#each p.month as m}
 						<h2 class="month">{m}</h2>
-						<List tasks={handleFilter(moreResults.others, m)} showNewInput={false} />
+						<List tasks={handleFilter(others, m)} showNewInput={false} />
 					{/each}
 				{/each}
 			{/if}
 
-			{#if moreResults.nulls.length > 0}
+			{#if nulls.length > 0}
 				<h2>NaN</h2>
 				<hr />
-				<List tasks={moreResults.nulls} showNewInput={false} />
+				<List tasks={nulls} showNewInput={false} />
 			{/if}
 		{/if}
 	{/if}
