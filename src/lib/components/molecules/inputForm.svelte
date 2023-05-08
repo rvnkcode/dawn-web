@@ -30,6 +30,7 @@
 	};
 </script>
 
+<!-- FIXME: form POST action error on archive and trash page when update task -->
 <form action={task ? '?/updateTask' : '?/createTask'} method="post">
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
