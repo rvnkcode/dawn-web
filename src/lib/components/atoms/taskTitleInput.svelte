@@ -16,6 +16,7 @@
 
 <style>
 	input {
+		width: 100%;
 		border: none;
 		border-bottom: 0.5px solid gray;
 	}
