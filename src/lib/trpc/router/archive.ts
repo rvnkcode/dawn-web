@@ -32,126 +32,121 @@ const defaultArchiveFilter = {
 
 export const archiveRouter = router({
 	getArchive: publicProcedure.query(async () => {
-		const [todayList, yesterdayList, thisMonthList, more] = await Promise.all([
-			// Today
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					completedAt: {
-						gte: startOfDay(today)
+		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
+			await Promise.all([
+				// Today
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						completedAt: {
+							gte: startOfDay(today)
+						}
+					},
+					orderBy: {
+						completedAt: 'desc'
 					}
-				},
-				orderBy: {
-					completedAt: 'desc'
-				}
-			}),
+				}),
 
-			// Yesterday
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					AND: [
-						{
-							completedAt: {
-								gte: startOfDay(yesterday)
+				// Yesterday
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						AND: [
+							{
+								completedAt: {
+									gte: startOfDay(yesterday)
+								}
+							},
+							{
+								completedAt: {
+									lte: endOfDay(yesterday)
+								}
 							}
-						},
-						{
-							completedAt: {
-								lte: endOfDay(yesterday)
-							}
-						}
-					]
-				},
-				orderBy: {
-					completedAt: 'desc'
-				}
-			}),
-
-			// This month
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					AND: [
-						{
-							completedAt: {
-								gte: startOfMonth(today)
-							}
-						},
-						{
-							completedAt: {
-								lt: startOfDay(yesterday)
-							}
-						}
-					]
-				},
-				orderBy: {
-					completedAt: 'desc'
-				}
-			}),
-
-			await prisma.task.count({
-				where: {
-					...defaultArchiveFilter,
-					OR: [
-						{
-							completedAt: null
-						},
-						{
-							completedAt: {
-								lt: startOfMonth(lastMonth)
-							}
-						}
-					]
-				}
-			})
-		]);
-
-		return { todayList, yesterdayList, thisMonthList, more };
-	}),
-
-	getMoreArchives: publicProcedure.query(async () => {
-		const [thisYear, nulls, others] = await Promise.all([
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					AND: [
-						{
-							completedAt: {
-								gte: startOfThisYear
-							}
-						},
-						{
-							completedAt: {
-								lte: endOfMonth(lastMonth)
-							}
-						}
-					]
-				},
-				orderBy: {
-					completedAt: 'desc'
-				}
-			}),
-
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					completedAt: null
-				}
-			}),
-
-			await prisma.task.findMany({
-				where: {
-					...defaultArchiveFilter,
-					completedAt: {
-						lt: startOfThisYear
+						]
+					},
+					orderBy: {
+						completedAt: 'desc'
 					}
-				},
-				orderBy: {
-					completedAt: 'desc'
-				}
-			})
-		]);
+				}),
+
+				// This month
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						AND: [
+							{
+								completedAt: {
+									gte: startOfMonth(today)
+								}
+							},
+							{
+								completedAt: {
+									lt: startOfDay(yesterday)
+								}
+							}
+						]
+					},
+					orderBy: {
+						completedAt: 'desc'
+					}
+				}),
+
+				await prisma.task.count({
+					where: {
+						...defaultArchiveFilter,
+						OR: [
+							{
+								completedAt: null
+							},
+							{
+								completedAt: {
+									lt: startOfMonth(lastMonth)
+								}
+							}
+						]
+					}
+				}),
+
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						AND: [
+							{
+								completedAt: {
+									gte: startOfThisYear
+								}
+							},
+							{
+								completedAt: {
+									lte: endOfMonth(lastMonth)
+								}
+							}
+						]
+					},
+					orderBy: {
+						completedAt: 'desc'
+					}
+				}),
+
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						completedAt: null
+					}
+				}),
+
+				await prisma.task.findMany({
+					where: {
+						...defaultArchiveFilter,
+						completedAt: {
+							lt: startOfThisYear
+						}
+					},
+					orderBy: {
+						completedAt: 'desc'
+					}
+				})
+			]);
 
 		const monthOfThisYear = [
 			...new Set(
@@ -189,7 +184,17 @@ export const archiveRouter = router({
 		// [0: {year: 2023, month: [Jan, Feb, Mar...]}]
 		// console.log(pastMonth); // Debug
 
-		return { thisYear, monthOfThisYear, nulls, others, pastMonth };
+		return {
+			todayList,
+			yesterdayList,
+			thisMonthList,
+			more,
+			thisYear,
+			monthOfThisYear,
+			nulls,
+			others,
+			pastMonth
+		};
 	}),
 
 	archiveTask: publicProcedure.input(z.number()).mutation(async (opt) => {
