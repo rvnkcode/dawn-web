@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { z } from 'zod';
 	import type { Task } from '@prisma/client';
+	import { enhance } from '$app/forms';
 
 	export let task: Task | undefined = undefined;
 
@@ -28,10 +29,15 @@
 	const deleteUrl = (value: string) => {
 		urlList = urlList.filter((e: string) => e !== value);
 	};
+
+	export let value: boolean; //showEdit
+
+	const afterSubmit = () => {
+		value = false;
+	};
 </script>
 
-<!-- FIXME: form POST action error on archive and trash page when update task -->
-<form action={task ? '?/updateTask' : '?/createTask'} method="post">
+<form action={task ? '/?/updateTask' : '/?/createTask'} method="post" use:enhance={afterSubmit}>
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
 		<!-- svelte-ignore a11y-autofocus -->
