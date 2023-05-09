@@ -8,7 +8,8 @@ const sample: Prisma.TaskCreateInput = {
 	title: `This is the sample task.`,
 	isDone: false,
 	archive: false,
-	trash: false
+	trash: false,
+	urls: `https://github.com/users/rvnkcode/projects/3/views/1,https://github.com/rvnkcode/dawn-web`
 };
 
 const completed: Prisma.TaskCreateInput = {
