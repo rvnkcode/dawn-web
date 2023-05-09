@@ -68,6 +68,10 @@
 					><span class="title {current === '/archive' ? 'noLineThrough' : ''}">{task.title}</span
 					></button
 				>
+				{#if task.comments}
+					<ion-icon name="document-outline" class="tooltip" />
+					<span class="tooltipText">{task.comments}</span>
+				{/if}
 				{#each urls as u}
 					<a href={u} target="_blank">
 						<ion-icon name="link-outline" class="tooltip" />
@@ -152,7 +156,7 @@
 		text-align: start;
 	}
 
-	div.titleDiv > a > ion-icon {
+	ion-icon {
 		font-size: smaller;
 		vertical-align: middle;
 	}
