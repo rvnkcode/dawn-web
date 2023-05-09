@@ -33,7 +33,21 @@
 		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
 		invalidateAll();
 	};
+
 	let showEdit = false;
+
+	const handleKeyboard = async (e: KeyboardEvent) => {
+		// console.log(e.key)
+
+		switch (e.key) {
+			case 'Escape':
+				showEdit = false;
+				break;
+
+			default:
+				break;
+		}
+	};
 </script>
 
 <li class={!$isSelectModeOnMobile ? 'uncheckedItem' : ''}>
@@ -79,8 +93,10 @@
 </li>
 
 {#if showEdit}
-	<InputForm {task} />
+	<InputForm bind:value={showEdit} {task} />
 {/if}
+
+<svelte:window on:keydown={handleKeyboard} />
 
 <style>
 	li {
