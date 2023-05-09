@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import Header from '$lib/components/organisms/header.svelte';
 	import List from '$lib/components/organisms/list.svelte';
-	import InputForm from '$lib/components/molecules/inputForm.svelte';
+	import InputForm from '$lib/components/organisms/inputForm.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
 	export let data: PageData;
@@ -23,7 +23,7 @@
 <main>
 	<List {tasks} {showNewInput} />
 	{#if showNewInput}
-		<InputForm />
+		<InputForm value={false} />
 	{/if}
 </main>
 

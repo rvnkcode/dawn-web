@@ -8,7 +8,9 @@ const sample: Prisma.TaskCreateInput = {
 	title: `This is the sample task.`,
 	isDone: false,
 	archive: false,
-	trash: false
+	trash: false,
+	urls: `https://github.com/users/rvnkcode/projects/3/views/1,https://github.com/rvnkcode/dawn-web`,
+	comments: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra massa massa ultricies mi quis. Velit ut tortor pretium viverra suspendisse. Fringilla est ullamcorper eget nulla facilisi etiam. Ac turpis egestas sed tempus urna. At imperdiet dui accumsan sit. Felis bibendum ut tristique et. Tellus rutrum tellus pellentesque eu. Tristique magna sit amet purus gravida quis blandit turpis cursus. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Consectetur lorem donec massa sapien faucibus et molestie ac. Lacus laoreet non curabitur gravida arcu ac.`
 };
 
 const completed: Prisma.TaskCreateInput = {
