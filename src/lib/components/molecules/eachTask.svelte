@@ -7,7 +7,7 @@
 	import { format } from 'date-fns';
 	import { trpc } from '$lib/trpc/client';
 	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
-	import InputForm from './inputForm.svelte';
+	import InputForm from '../organisms/inputForm.svelte';
 
 	export let task: Task;
 
