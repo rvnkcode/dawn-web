@@ -2,6 +2,7 @@
 	import { z } from 'zod';
 	import type { Task } from '@prisma/client';
 	import { enhance } from '$app/forms';
+	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 
 	export let task: Task | undefined = undefined;
 
@@ -40,28 +41,10 @@
 <form action={task ? '/?/updateTask' : '/?/createTask'} method="post" use:enhance={afterSubmit}>
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
-		<!-- svelte-ignore a11y-autofocus -->
-		<input
-			type="text"
-			name="title"
-			required
-			placeholder="New To-Do"
-			autocomplete="off"
-			autofocus
-			class="inputTitle"
-			bind:value={task.title}
-		/>
+		<TaskTitleInput value={task.title} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
-		<input
-			type="text"
-			name="title"
-			required
-			placeholder="New To-Do"
-			autocomplete="off"
-			autofocus
-			class="inputTitle"
-		/>
+		<TaskTitleInput />
 	{/if}
 
 	{#if urlList.length > 0}
