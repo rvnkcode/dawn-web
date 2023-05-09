@@ -159,6 +159,7 @@
 	ion-icon {
 		font-size: smaller;
 		vertical-align: middle;
+		color: gray;
 	}
 
 	.tooltip + .tooltipText {
