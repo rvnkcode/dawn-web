@@ -29,4 +29,5 @@ model Task {
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
   urls        String?
+  comments    String?
 }
