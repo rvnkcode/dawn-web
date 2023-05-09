@@ -19,19 +19,21 @@ const handleUrls = (url: string | undefined, rawUrls: string | undefined): strin
 	} else return null;
 };
 
+// TODO: Markdown parser
 export const actions = {
 	createTask: async ({ request }) => {
-		const { title, rawUrls, url } = Object.fromEntries(await request.formData()) as {
+		const { title, rawUrls, url, comments } = Object.fromEntries(await request.formData()) as {
 			title: string;
 			rawUrls: string;
 			url: string;
+			comments: string;
 		};
 
 		const urls = handleUrls(url, rawUrls);
 
 		try {
 			await prisma.task.create({
-				data: { title, urls }
+				data: { title, urls, comments }
 			});
 		} catch (error) {
 			console.error(error);
@@ -39,11 +41,12 @@ export const actions = {
 	},
 
 	updateTask: async ({ request }) => {
-		const { id, title, rawUrls, url } = Object.fromEntries(await request.formData()) as {
+		const { id, title, rawUrls, url, comments } = Object.fromEntries(await request.formData()) as {
 			id: string;
 			title: string;
 			rawUrls: string;
 			url: string;
+			comments: string;
 		};
 
 		const urls = handleUrls(url, rawUrls);
@@ -51,10 +54,7 @@ export const actions = {
 		try {
 			await prisma.task.update({
 				where: { id: +id },
-				data: {
-					title,
-					urls
-				}
+				data: { title, urls, comments }
 			});
 		} catch (error) {
 			console.error(error);
