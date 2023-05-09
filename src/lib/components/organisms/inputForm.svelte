@@ -3,6 +3,7 @@
 	import type { Task } from '@prisma/client';
 	import { enhance } from '$app/forms';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
+	import CommentsInput from '../atoms/commentsInput.svelte';
 
 	export let task: Task | undefined = undefined;
 
@@ -42,9 +43,11 @@
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
 		<TaskTitleInput value={task.title} />
+		<CommentsInput value={task.comments ? task.comments : undefined} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
+		<CommentsInput />
 	{/if}
 
 	{#if urlList.length > 0}
@@ -87,6 +90,10 @@
 </form>
 
 <style>
+	form {
+		margin-left: 1.25rem;
+	}
+
 	ul {
 		margin-top: 0.5rem;
 	}

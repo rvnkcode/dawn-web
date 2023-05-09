@@ -13,3 +13,10 @@
 	class="inputTitle"
 	bind:value
 />
+
+<style>
+	input {
+		border: none;
+		border-bottom: 0.5px solid gray;
+	}
+</style>
