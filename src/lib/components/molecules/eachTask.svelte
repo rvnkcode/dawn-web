@@ -214,5 +214,9 @@
 		.uncheckedItem:has(> input[type='checkbox']:checked) {
 			background: none;
 		}
+
+		span.tooltipText {
+			display: none;
+		}
 	}
 </style>

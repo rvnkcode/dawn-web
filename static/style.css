@@ -1,12 +1,16 @@
 body {
 	display: flex;
 	font-family: sans-serif;
+	/* Debug */
+	/* border: 1px solid violet; */
 }
 
 main {
 	/* Fixed footer's height */
 	margin-bottom: 3rem;
 	margin-top: 1.5rem;
+	/* Debug */
+	/* border: 1px solid red; */
 }
 
 button {
