@@ -29,6 +29,14 @@ const archivedTask: Prisma.TaskCreateInput = {
 	completedAt: new Date()
 };
 
+const archivedTaskTime: Prisma.TaskCreateInput = {
+	title: '애매한 시간에 완료된 태스크',
+	isDone: true,
+	archive: true,
+	trash: false,
+	completedAt: new Date('2023-05-09T23:24:00')
+};
+
 const archivedTask4: Prisma.TaskCreateInput = {
 	title: 'Archived task yesterday',
 	isDone: true,
@@ -85,7 +93,8 @@ const tasks: Prisma.TaskCreateInput[] = [
 	archivedTask4,
 	trashedTask,
 	trashedCompletedTask,
-	archivedAndTrashedTask
+	archivedAndTrashedTask,
+	archivedTaskTime
 ];
 
 async function main() {
