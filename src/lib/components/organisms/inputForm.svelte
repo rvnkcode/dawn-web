@@ -16,7 +16,7 @@
 
 	$: urls = urlList.toString();
 
-	let urlInput: string = '';
+	let urlInput = '';
 
 	const urlSchema = z.string().url();
 
