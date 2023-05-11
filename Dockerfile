@@ -10,7 +10,7 @@ FROM base AS build
 
 RUN export NODE_ENV=production
 
-RUN yarn config delete proxy && yarn config delete https-proxy
+RUN yarn config delete proxy && yarn config delete https-proxy && yarn config set "strict-ssl" false -g
 RUN yarn install --frozen-lockfile --network-timeout 1000000
 
 COPY . .
