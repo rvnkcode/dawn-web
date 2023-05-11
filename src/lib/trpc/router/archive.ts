@@ -4,7 +4,6 @@ import type { Task } from '@prisma/client';
 import {
 	endOfDay,
 	endOfMonth,
-	format,
 	getYear,
 	startOfDay,
 	startOfMonth,
@@ -13,6 +12,7 @@ import {
 	subMonths
 } from 'date-fns';
 import { z } from 'zod';
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
 
 type pastMonthType = {
 	year: string;
@@ -31,7 +31,8 @@ const defaultArchiveFilter = {
 };
 
 export const archiveRouter = router({
-	getArchive: publicProcedure.query(async () => {
+	getArchive: publicProcedure.input(z.string()).query(async (opts) => {
+		const timeZone = opts.input;
 		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
 			await Promise.all([
 				// Today
@@ -39,7 +40,7 @@ export const archiveRouter = router({
 					where: {
 						...defaultArchiveFilter,
 						completedAt: {
-							gte: startOfDay(today)
+							gte: zonedTimeToUtc(startOfDay(today), timeZone)
 						}
 					},
 					orderBy: {
@@ -54,12 +55,12 @@ export const archiveRouter = router({
 						AND: [
 							{
 								completedAt: {
-									gte: startOfDay(yesterday)
+									gte: zonedTimeToUtc(startOfDay(yesterday), timeZone)
 								}
 							},
 							{
 								completedAt: {
-									lte: endOfDay(yesterday)
+									lte: zonedTimeToUtc(endOfDay(yesterday), timeZone)
 								}
 							}
 						]
@@ -76,12 +77,12 @@ export const archiveRouter = router({
 						AND: [
 							{
 								completedAt: {
-									gte: startOfMonth(today)
+									gte: zonedTimeToUtc(startOfMonth(today), timeZone)
 								}
 							},
 							{
 								completedAt: {
-									lt: startOfDay(yesterday)
+									lt: zonedTimeToUtc(startOfDay(yesterday), timeZone)
 								}
 							}
 						]
@@ -100,7 +101,7 @@ export const archiveRouter = router({
 							},
 							{
 								completedAt: {
-									lt: startOfMonth(lastMonth)
+									lt: zonedTimeToUtc(startOfMonth(lastMonth), timeZone)
 								}
 							}
 						]
@@ -118,7 +119,7 @@ export const archiveRouter = router({
 							},
 							{
 								completedAt: {
-									lte: endOfMonth(lastMonth)
+									lte: zonedTimeToUtc(endOfMonth(lastMonth), timeZone)
 								}
 							}
 						]
@@ -150,13 +151,17 @@ export const archiveRouter = router({
 
 		const monthOfThisYear = [
 			...new Set(
-				thisYear.map((task: Task) => (task.completedAt ? format(task.completedAt, 'MMM') : ''))
+				thisYear.map((task: Task) =>
+					task.completedAt ? formatInTimeZone(task.completedAt, timeZone, 'MMM') : ''
+				)
 			)
 		];
 
 		const years = [
 			...new Set(
-				others.map((task: Task) => (task.completedAt ? format(task.completedAt, 'y') : ''))
+				others.map((task: Task) =>
+					task.completedAt ? formatInTimeZone(task.completedAt, timeZone, 'y') : ''
+				)
 			)
 		];
 
@@ -174,7 +179,9 @@ export const archiveRouter = router({
 										return getYear(t.completedAt) === +years[i];
 									}
 								})
-								.map((t: Task) => (t.completedAt ? format(t.completedAt, 'MMM') : ''))
+								.map((t: Task) =>
+									t.completedAt ? formatInTimeZone(t.completedAt, timeZone, 'MMM') : ''
+								)
 						)
 					]
 				});
