@@ -50,7 +50,7 @@ const archivedTask2: Prisma.TaskCreateInput = {
 	isDone: true,
 	archive: true,
 	trash: false,
-	completedAt: new Date('2023-03-05')
+	completedAt: new Date('2023-02-28T23:30:00')
 };
 
 const archivedTask3: Prisma.TaskCreateInput = {
