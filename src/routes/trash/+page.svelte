@@ -1,11 +1,11 @@
 <script lang="ts">
 	import List from '$lib/components/organisms/list.svelte';
 	import Header from '$lib/components/organisms/header.svelte';
-	import type { PageData } from './$types';
+	import type { PageServerData } from './$types';
 	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
-	export let data: PageData;
+	export let data: PageServerData;
 	$: ({ tasks } = data);
 
 	let open = false;
