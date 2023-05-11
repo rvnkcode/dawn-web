@@ -2,9 +2,9 @@
 	import Nav from '$lib/components/organisms/nav.svelte';
 	import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
 	import { showSidebar } from '$lib/stores';
-	import type { LayoutData } from './$types';
+	import type { LayoutServerData } from './$types';
 
-	export let data: LayoutData;
+	export let data: LayoutServerData;
 
 	$: ({ count } = data);
 </script>

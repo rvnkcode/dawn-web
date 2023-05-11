@@ -2,15 +2,19 @@
 	import Header from '$lib/components/organisms/header.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 	import List from '$lib/components/organisms/list.svelte';
-	import type { PageData } from './$types';
+	import type { PageServerData } from './$types';
 	import { format } from 'date-fns';
-	import { trpc } from '$lib/trpc/client';
-	import type { RouterOutputs } from '$lib/trpc/router';
 	import type { Task } from '@prisma/client';
+	import { onMount } from 'svelte';
+
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	onMount(() => {
+		document.cookie = `timeZone=${timeZone}`;
+	});
 
 	const today = new Date();
 
-	export let data: PageData;
+	export let data: PageServerData;
 	$: ({
 		todayList,
 		yesterdayList,
@@ -24,7 +28,6 @@
 	} = data);
 
 	$: showMore = false;
-	// RouterOutputs['name of router']['name of procedure']
 
 	const handleFilter = (arr: Task[], month: string) => {
 		return arr.filter((t) => {
