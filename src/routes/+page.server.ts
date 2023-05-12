@@ -108,7 +108,9 @@ export const actions = {
 										}
 									}
 							  }
-							: undefined
+							: {
+									disconnect: true
+							  }
 				}
 			});
 		} catch (error) {
