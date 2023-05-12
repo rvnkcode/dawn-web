@@ -22,6 +22,17 @@
 				<span>{count}</span>
 			{/if}
 		</li>
+		<li class={current === '/waiting_for' ? 'current' : ''}>
+			<div>
+				<ion-icon name="chatbox-ellipses" class="title" />
+				<a
+					href="/waiting_for"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Waiting for</a
+				>
+			</div>
+		</li>
 		<li class={current === '/archive' ? 'current' : ''}>
 			<div>
 				<ion-icon name="save" class="archive title" />
