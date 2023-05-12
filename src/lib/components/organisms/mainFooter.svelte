@@ -66,7 +66,12 @@
 	{/if}
 
 	<!-- Move button -->
-	<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+	<div class="moveContainer">
+		{#if showMoveMenu}
+			<MoveMenu bind:value={showMoveMenu} />
+		{/if}
+		<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+	</div>
 
 	<!-- Archive button -->
 	{#if current !== '/trash' && current !== '/archive'}
@@ -87,11 +92,6 @@
 		<MobileOnlyFooter />
 	{/if}
 </footer>
-
-{#if showMoveMenu}
-	<MoveMenu bind:value={showMoveMenu} />
-{/if}
-
 <svelte:window on:keydown={handleKeyboard} />
 
 <style>
@@ -111,12 +111,17 @@
 			background-color: white;
 			display: flex;
 			justify-content: space-evenly;
+			align-items: flex-end;
 			/* Debug */
 			/* border: 2px solid burlywood; */
 		}
 
 		footer > button:hover {
 			border: 1px solid #eeeef0;
+		}
+
+		div.moveContainer {
+			width: 100%;
 		}
 
 		ion-icon {
