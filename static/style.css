@@ -2,6 +2,7 @@ body {
 	display: flex;
 	font-family: sans-serif;
 	overflow-x: hidden;
+	font-size: 14px;
 	/* Debug */
 	/* border: 1px solid violet; */
 }

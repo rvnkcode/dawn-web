@@ -72,6 +72,7 @@
 	a {
 		text-decoration: none;
 		color: #292e34;
+		font-size: 1rem;
 		/* font-weight: bold; */
 	}
 
