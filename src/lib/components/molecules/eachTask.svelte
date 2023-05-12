@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
 	import { invalidateAll } from '$app/navigation';
-	import { selected } from '$lib/stores';
-	import { isSelectModeOnMobile } from '$lib/stores';
+	import { selected, isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
 	import { format } from 'date-fns';
 	import { trpc } from '$lib/trpc/client';
 	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
 	import InputForm from '../organisms/inputForm.svelte';
+	import { tooltip } from '$lib/actions/tooltip';
 
 	export let task: Task;
 
@@ -69,13 +69,11 @@
 					></button
 				>
 				{#if task.comments}
-					<ion-icon name="document-outline" class="tooltip" />
-					<span class="tooltipText">{task.comments}</span>
+					<ion-icon name="document-outline" use:tooltip tooltipText={task.comments} />
 				{/if}
 				{#each urls as u}
 					<a href={u} target="_blank">
-						<ion-icon name="link-outline" class="tooltip" />
-						<span class="tooltipText">{u}</span>
+						<ion-icon name="link-outline" use:tooltip tooltipText={u} />
 					</a>
 				{/each}
 			</div>
@@ -162,21 +160,6 @@
 		color: gray;
 	}
 
-	.tooltip + .tooltipText {
-		visibility: hidden;
-		font-size: smaller;
-		position: absolute;
-		z-index: 1;
-		background-color: #f2f3f5;
-		padding: 0.3rem;
-		border-radius: 0.25rem;
-		color: black;
-	}
-
-	.tooltip:hover + .tooltipText {
-		visibility: visible;
-	}
-
 	@media (min-width: 481px) {
 		li > input[type='checkbox'] {
 			display: none;
@@ -213,10 +196,6 @@
 
 		.uncheckedItem:has(> input[type='checkbox']:checked) {
 			background: none;
-		}
-
-		span.tooltipText {
-			display: none;
 		}
 	}
 </style>
