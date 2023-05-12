@@ -19,6 +19,12 @@ const handleUrls = (url: string | undefined, rawUrls: string | undefined): strin
 	} else return null;
 };
 
+const handleDateInput = (dateInput: string | undefined): Date | undefined => {
+	if (dateInput) {
+		return new Date(dateInput);
+	}
+};
+
 // TODO: Markdown parser
 export const actions = {
 	createTask: async ({ request }) => {
@@ -41,20 +47,29 @@ export const actions = {
 	},
 
 	updateTask: async ({ request }) => {
-		const { id, title, rawUrls, url, comments } = Object.fromEntries(await request.formData()) as {
+		const {
+			id,
+			title,
+			rawUrls,
+			url,
+			comments,
+			completedAt: completedAtString
+		} = Object.fromEntries(await request.formData()) as {
 			id: string;
 			title: string;
 			rawUrls: string;
 			url: string;
 			comments: string;
+			completedAt: string;
 		};
 
 		const urls = handleUrls(url, rawUrls);
+		const completedAt = handleDateInput(completedAtString);
 
 		try {
 			await prisma.task.update({
 				where: { id: +id },
-				data: { title, urls, comments }
+				data: { title, urls, comments, completedAt }
 			});
 		} catch (error) {
 			console.error(error);
