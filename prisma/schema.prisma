@@ -30,4 +30,15 @@ model Task {
   trash       Boolean   @default(false)
   urls        String?
   comments    String?
+  who         Contact?  @relation(fields: [allocatedTo], references: [name])
+  allocatedTo String?
+}
+
+model Contact {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  Task Task[]
+
+  @@map("Who")
 }
