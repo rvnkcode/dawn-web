@@ -4,8 +4,12 @@
 	import { enhance } from '$app/forms';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
+	import { page } from '$app/stores';
+	import CompletedAtInput from '../atoms/completedAtInput.svelte';
 
 	export let task: Task | undefined = undefined;
+
+	$: current = $page.url.pathname;
 
 	let showUrlInput = false;
 
@@ -43,6 +47,9 @@
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
 		<TaskTitleInput value={task.title} />
+		{#if current === '/archive'}
+			<CompletedAtInput date={task.completedAt} />
+		{/if}
 		<CommentsInput value={task.comments ? task.comments : undefined} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
@@ -115,10 +122,6 @@
 	input[type='url'] {
 		width: calc(100% - 68px);
 		margin-top: 0.5rem;
-	}
-
-	a {
-		font-size: 14px;
 	}
 
 	button[type='submit'] {

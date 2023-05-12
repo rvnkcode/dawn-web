@@ -8,7 +8,6 @@
 	textarea {
 		width: 100%;
 		font-family: sans-serif;
-		font-size: 14px;
 		border: none;
 		margin-top: 0.25rem;
 	}

@@ -125,7 +125,6 @@
 
 	span.date {
 		color: #0061c2;
-		font-size: 14px;
 		max-width: max-content;
 		width: 100%;
 		margin-left: 0.5rem;
