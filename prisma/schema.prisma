@@ -30,7 +30,7 @@ model Task {
   trash       Boolean   @default(false)
   urls        String?
   comments    String?
-  who         Contact?  @relation(fields: [allocatedTo], references: [name])
+  contact     Contact?  @relation(fields: [allocatedTo], references: [name])
   allocatedTo String?
 }
 
@@ -39,6 +39,4 @@ model Contact {
   name String @unique
 
   Task Task[]
-
-  @@map("Who")
 }

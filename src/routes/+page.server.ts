@@ -46,7 +46,7 @@ export const actions = {
 					title,
 					urls,
 					comments,
-					who:
+					contact:
 						allocatedTo.length > 0
 							? {
 									connectOrCreate: {
@@ -96,7 +96,7 @@ export const actions = {
 					urls,
 					comments,
 					completedAt,
-					who:
+					contact:
 						allocatedTo.length > 0
 							? {
 									connectOrCreate: {
