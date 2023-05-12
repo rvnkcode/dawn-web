@@ -46,16 +46,19 @@ export const actions = {
 					title,
 					urls,
 					comments,
-					who: {
-						connectOrCreate: {
-							where: {
-								name: allocatedTo
-							},
-							create: {
-								name: allocatedTo
-							}
-						}
-					}
+					who:
+						allocatedTo.length > 0
+							? {
+									connectOrCreate: {
+										where: {
+											name: allocatedTo
+										},
+										create: {
+											name: allocatedTo
+										}
+									}
+							  }
+							: undefined
 				}
 			});
 		} catch (error) {
@@ -93,16 +96,19 @@ export const actions = {
 					urls,
 					comments,
 					completedAt,
-					who: {
-						connectOrCreate: {
-							where: {
-								name: allocatedTo
-							},
-							create: {
-								name: allocatedTo
-							}
-						}
-					}
+					who:
+						allocatedTo.length > 0
+							? {
+									connectOrCreate: {
+										where: {
+											name: allocatedTo
+										},
+										create: {
+											name: allocatedTo
+										}
+									}
+							  }
+							: undefined
 				}
 			});
 		} catch (error) {

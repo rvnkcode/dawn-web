@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { RouterOutputs } from '../../trpc/router';
 
-	export let value = '';
+	export let value: string | undefined = undefined;
 
 	let list: RouterOutputs['contact']['getContacts'] = [];
 

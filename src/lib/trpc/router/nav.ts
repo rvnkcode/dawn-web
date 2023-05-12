@@ -8,7 +8,8 @@ export const countRouter = router({
 				status: 'inbox',
 				trash: false,
 				archive: false,
-				isDone: false
+				isDone: false,
+				allocatedTo: null
 			}
 		});
 	})
