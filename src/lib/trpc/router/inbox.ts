@@ -8,6 +8,9 @@ export const inboxRouter = router({
 				status: 'inbox',
 				trash: false,
 				archive: false
+			},
+			orderBy: {
+				isDone: 'asc'
 			}
 		});
 	})

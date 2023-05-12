@@ -39,10 +39,7 @@
 
 <style>
 	div {
-		bottom: 0;
-		margin-bottom: 3rem;
 		text-align: center;
-		left: 0;
 	}
 
 	header {
@@ -65,7 +62,8 @@
 
 	@media (min-width: 481px) {
 		div {
-			margin-left: 55%;
+			max-width: fit-content;
+			margin: 0 auto 0.5rem auto;
 		}
 
 		li:hover {
@@ -80,6 +78,7 @@
 			border-radius: 1rem;
 			left: 0;
 			right: 0;
+			bottom: 0;
 			margin: 0 auto 3rem auto;
 		}
 
