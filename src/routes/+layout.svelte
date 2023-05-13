@@ -9,7 +9,9 @@
 	$: ({ count } = data);
 </script>
 
-<Nav {count} />
+<aside class={$showSidebar ? 'show' : ''}>
+	<Nav {count} />
+</aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
 	<section>
@@ -18,10 +20,35 @@
 {/if}
 
 <style>
+	aside {
+		background-color: #f9fafb;
+		min-height: 100vh;
+		width: 100%;
+	}
+
 	section {
 		max-width: 1020px;
 		width: 100%;
 		margin: 0 auto;
 		padding: 0 1rem;
+	}
+
+	@media (min-width: 481px) {
+		aside {
+			max-width: 233px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		aside {
+			display: none;
+		}
+
+		aside.show {
+			position: absolute;
+			left: 0;
+			display: block;
+			z-index: 1;
+		}
 	}
 </style>

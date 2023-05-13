@@ -59,8 +59,6 @@
 
 <style>
 	nav {
-		background-color: #f9fafb;
-		min-height: 100vh;
 		width: 100%;
 	}
 
@@ -93,10 +91,6 @@
 	}
 
 	@media (min-width: 481px) {
-		nav {
-			max-width: 233px;
-		}
-
 		ul {
 			position: fixed;
 			width: inherit;
@@ -110,15 +104,12 @@
 	}
 
 	@media (max-width: 480px) {
-		nav {
-			display: none;
+		li {
+			font-size: large;
 		}
 
-		nav.show {
-			position: absolute;
-			left: 0;
-			display: block;
-			z-index: 1;
+		a {
+			font-size: large;
 		}
 	}
 </style>
