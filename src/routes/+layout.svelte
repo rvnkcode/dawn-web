@@ -2,6 +2,7 @@
 	import Nav from '$lib/components/organisms/nav.svelte';
 	import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
 	import { showSidebar } from '$lib/stores';
+	import SideFooter from '../lib/components/organisms/sideFooter.svelte';
 	import type { LayoutServerData } from './$types';
 
 	export let data: LayoutServerData;
@@ -11,6 +12,7 @@
 
 <aside class={$showSidebar ? 'show' : ''}>
 	<Nav {count} />
+	<SideFooter />
 </aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
