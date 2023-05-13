@@ -7,7 +7,6 @@
 		position: fixed;
 		z-index: 1;
 		bottom: 0;
-		max-width: 233px; /* nav width */
 		width: 100%;
 		left: 0;
 		display: flex;
@@ -28,6 +27,10 @@
 	}
 
 	@media (min-width: 481px) {
+		footer {
+			max-width: 233px; /* nav width */
+		}
+
 		footer > button:hover {
 			border: 1px solid #eeeef0;
 		}
