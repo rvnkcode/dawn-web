@@ -71,5 +71,14 @@ export const contactRouter = router({
 					name: input.name
 				}
 			});
-		})
+		}),
+
+	deleteContact: publicProcedure.input(z.number()).mutation(async (opts) => {
+		const { input } = opts;
+		await prisma.contact.delete({
+			where: {
+				id: input
+			}
+		});
+	})
 });
