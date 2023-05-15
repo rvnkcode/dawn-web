@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { showSidebar } from '$lib/stores';
+	import type { RouterOutputs } from '../../trpc/router';
 
 	$: current = $page.url.pathname;
 
-	export let count: number;
+	export let count: RouterOutputs['count']['getCounts'];
 </script>
 
 <nav class={$showSidebar ? 'show' : ''}>
@@ -18,8 +19,8 @@
 					}}>Inbox</a
 				>
 			</div>
-			{#if count > 0}
-				<span>{count}</span>
+			{#if count.inboxCount > 0}
+				<span>{count.inboxCount}</span>
 			{/if}
 		</li>
 		<li class={current === '/waiting_for' ? 'current' : ''}>
@@ -32,6 +33,9 @@
 					}}>Waiting for</a
 				>
 			</div>
+			{#if count.waitingForCount > 0}
+				<span>{count.waitingForCount}</span>
+			{/if}
 		</li>
 		<li class={current === '/archive' ? 'current' : ''}>
 			<div>
