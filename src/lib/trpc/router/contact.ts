@@ -1,5 +1,6 @@
 import { publicProcedure, router } from '$lib/trpc/trpc';
 import { prisma } from '$lib/server/prisma';
+import { z } from 'zod';
 
 export const contactRouter = router({
 	getContacts: publicProcedure.query(async () => {
@@ -26,5 +27,35 @@ export const contactRouter = router({
 		]);
 
 		return { disabled, activated };
+	}),
+
+	deactivateSelectedContacts: publicProcedure.input(z.number().array()).mutation(async (opts) => {
+		const { input } = opts;
+		await prisma.contact.updateMany({
+			where: {
+				id: {
+					in: input
+				},
+				activate: true
+			},
+			data: {
+				activate: false
+			}
+		});
+	}),
+
+	activateSelectedContacts: publicProcedure.input(z.number().array()).mutation(async (opts) => {
+		const { input } = opts;
+		await prisma.contact.updateMany({
+			where: {
+				id: {
+					in: input
+				},
+				activate: false
+			},
+			data: {
+				activate: true
+			}
+		});
 	})
 });

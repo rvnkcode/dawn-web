@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Contact } from '@prisma/client';
+	import EachContact from '../molecules/eachContact.svelte';
 
 	export let list: Contact[];
 </script>
@@ -7,8 +8,8 @@
 <ul>
 	<header><label><input type="checkbox" /><span>Select all</span></label></header>
 	<hr />
-	{#each list as c}
-		<li><label><input type="checkbox" />{c.name}<button>edit</button></label></li>
+	{#each list as contact}
+		<EachContact {contact} />
 	{/each}
 </ul>
 
@@ -19,10 +20,6 @@
 	}
 
 	ul > header {
-		padding: 0 0.25rem;
-	}
-
-	li {
 		padding: 0 0.25rem;
 	}
 </style>
