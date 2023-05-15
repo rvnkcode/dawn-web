@@ -3,7 +3,8 @@ import type { Prisma, Contact } from '@prisma/client';
 export async function contact(tx: Prisma.TransactionClient) {
 	const test: Contact = {
 		id: 1,
-		name: 'test'
+		name: 'test',
+		activate: true
 	};
 
 	const contacts = [test];
