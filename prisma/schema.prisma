@@ -24,8 +24,6 @@ model Task {
   isDone      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   completedAt DateTime?
-  // inbox 
-  status      String    @default("inbox")
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
   urls        String?

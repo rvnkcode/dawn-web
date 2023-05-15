@@ -222,8 +222,7 @@ export const archiveRouter = router({
 			await prisma.task.updateMany({
 				where: {
 					isDone: true,
-					trash: false,
-					status: 'inbox'
+					trash: false
 				},
 				data: {
 					archive: true

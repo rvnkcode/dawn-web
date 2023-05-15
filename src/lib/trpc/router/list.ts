@@ -14,7 +14,6 @@ export const listRouter = router({
 				await prisma.task.updateMany({
 					where: { id: { in: input.ids } },
 					data: {
-						status: input.dest,
 						trash: false,
 						archive: false
 					}
