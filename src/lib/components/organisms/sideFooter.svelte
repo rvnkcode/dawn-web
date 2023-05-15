@@ -1,5 +1,5 @@
 <footer>
-	<button><ion-icon name="options" /></button>
+	<a href="/preferences/contacts"><ion-icon name="options" /></a>
 </footer>
 
 <style>
@@ -14,9 +14,10 @@
 		align-items: flex-end;
 		/* Debug */
 		/* border: 2px solid burlywood; */
+		text-align: center;
 	}
 
-	button {
+	a {
 		width: 100%;
 		padding: 0.25rem 0;
 	}
@@ -31,7 +32,7 @@
 			max-width: 233px; /* nav width */
 		}
 
-		footer > button:hover {
+		footer > a:hover {
 			border: 1px solid #eeeef0;
 		}
 	}
