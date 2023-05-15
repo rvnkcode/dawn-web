@@ -7,7 +7,13 @@ export async function contact(tx: Prisma.TransactionClient) {
 		activate: true
 	};
 
-	const contacts = [test];
+	const disabled: Contact = {
+		id: 2,
+		name: 'disabled contact',
+		activate: false
+	};
+
+	const contacts = [test, disabled];
 
 	for await (const contact of contacts) {
 		await tx.contact.upsert({
