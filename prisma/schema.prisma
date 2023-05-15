@@ -33,8 +33,9 @@ model Task {
 }
 
 model Contact {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  activate Boolean @default(true)
 
   Task Task[]
 }
