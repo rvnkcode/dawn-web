@@ -13,6 +13,7 @@ import {
 } from 'date-fns';
 import { z } from 'zod';
 import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
+import { zPathEnum } from '$lib/zod';
 
 type pastMonthType = {
 	year: string;
@@ -217,12 +218,18 @@ export const archiveRouter = router({
 		}
 	}),
 
-	archiveChecked: publicProcedure.mutation(async () => {
+	archiveChecked: publicProcedure.input(z.string(zPathEnum)).mutation(async (opt) => {
+		const { input } = opt;
+
 		try {
 			await prisma.task.updateMany({
 				where: {
 					isDone: true,
-					trash: false
+					trash: false,
+					NOT: {
+						allocatedTo: input === '/waiting_for' ? null : undefined // waiting_for
+					},
+					allocatedTo: input !== '/waiting_for' ? null : undefined // inbox
 				},
 				data: {
 					archive: true
