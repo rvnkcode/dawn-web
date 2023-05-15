@@ -57,5 +57,19 @@ export const contactRouter = router({
 				activate: true
 			}
 		});
-	})
+	}),
+
+	updateContactName: publicProcedure
+		.input(z.object({ id: z.number(), name: z.string().min(1) }))
+		.mutation(async (opts) => {
+			const { input } = opts;
+			await prisma.contact.update({
+				where: {
+					id: input.id
+				},
+				data: {
+					name: input.name
+				}
+			});
+		})
 });
