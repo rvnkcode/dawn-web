@@ -47,14 +47,17 @@
 				editMode = true;
 			}}><ion-icon name="ellipsis-horizontal-circle" /></button
 		>
+		<button type="button"><ion-icon name="trash" /></button>
 	{:else}
 		<input type="text" bind:value />
 		<button
+			type="button"
 			on:click={() => {
 				editMode = false;
 			}}><ion-icon name="close-circle" class="cancel" /></button
 		>
 		<button
+			type="button"
 			on:click={async () => {
 				await updateContact(contact.id, value);
 			}}><ion-icon name="checkbox" class="confirm" /></button
