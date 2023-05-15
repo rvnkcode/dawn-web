@@ -1,4 +1,4 @@
-import { Prisma, Task } from '@prisma/client';
+import type { Prisma, Task } from '@prisma/client';
 
 import { subDays } from 'date-fns';
 
@@ -16,7 +16,7 @@ const archiveCondition = {
 export async function archive(tx: Prisma.TransactionClient) {
 	const archivedToday: Task = {
 		id: 7,
-		title: 'Archived today',
+		title: 'Archived at today',
 		allocatedTo: null,
 		...archiveCondition,
 		completedAt: today
@@ -24,7 +24,7 @@ export async function archive(tx: Prisma.TransactionClient) {
 
 	const archivedYesterday: Task = {
 		id: 8,
-		title: 'Archived today',
+		title: 'Archived at yesterday',
 		allocatedTo: null,
 		...archiveCondition,
 		completedAt: subDays(today, 1)
@@ -40,7 +40,7 @@ export async function archive(tx: Prisma.TransactionClient) {
 
 	const testCompletedAtTime: Task = {
 		id: 10,
-		title: 'Archived this month',
+		title: 'Archived task',
 		allocatedTo: null,
 		...archiveCondition,
 		comments: 'Should display completed date Mar 1 at Asia/Tokyo time zone',
@@ -49,7 +49,7 @@ export async function archive(tx: Prisma.TransactionClient) {
 
 	const archivedLastYear: Task = {
 		id: 11,
-		title: 'Archived last year',
+		title: 'Archived at last year',
 		allocatedTo: null,
 		...archiveCondition,
 		completedAt: new Date('2022-02-02')

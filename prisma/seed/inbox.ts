@@ -1,4 +1,4 @@
-import { Prisma, Task } from '@prisma/client';
+import type { Prisma, Task } from '@prisma/client';
 
 const date = new Date();
 
