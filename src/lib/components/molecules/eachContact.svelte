@@ -2,8 +2,9 @@
 	import type { Contact } from '@prisma/client';
 	import { selectedContacts } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { trpc } from '../../trpc/client';
+	import { trpc } from '$lib/trpc/client';
 	import { invalidateAll } from '$app/navigation';
+	import DeleteContactConfirmModal from '../templates/deleteContactConfirmModal.svelte';
 
 	export let contact: Contact;
 
@@ -22,6 +23,8 @@
 		invalidateAll();
 		editMode = false;
 	};
+
+	let openModal = false;
 
 	onMount(() => {
 		value = contact.name;
@@ -47,7 +50,12 @@
 				editMode = true;
 			}}><ion-icon name="ellipsis-horizontal-circle" /></button
 		>
-		<button type="button"><ion-icon name="trash" /></button>
+		<button
+			type="button"
+			on:click={() => {
+				openModal = true;
+			}}><ion-icon name="trash" /></button
+		>
 	{:else}
 		<input type="text" bind:value />
 		<button
@@ -64,6 +72,8 @@
 		>
 	{/if}
 </li>
+
+<DeleteContactConfirmModal bind:value={openModal} id={contact.id} />
 
 <style>
 	li {
