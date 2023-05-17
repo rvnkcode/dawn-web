@@ -12,18 +12,13 @@ import {
 	subMonths
 } from 'date-fns';
 import { z } from 'zod';
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
+import { formatInTimeZone, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { zPathEnum } from '$lib/zod';
 
 type pastMonthType = {
 	year: string;
 	month: string[];
 };
-
-const today = new Date();
-const yesterday = subDays(today, 1);
-const lastMonth = subMonths(today, 1);
-const startOfThisYear = startOfYear(today);
 
 const defaultArchiveFilter = {
 	isDone: true,
@@ -34,6 +29,12 @@ const defaultArchiveFilter = {
 export const archiveRouter = router({
 	getArchive: publicProcedure.input(z.string()).query(async (opts) => {
 		const timeZone = opts.input;
+
+		const today = utcToZonedTime(new Date(), timeZone);
+		const yesterday = subDays(today, 1);
+		const lastMonth = subMonths(today, 1);
+		const startOfThisYear = startOfYear(today);
+
 		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
 			await Promise.all([
 				// Today
