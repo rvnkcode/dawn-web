@@ -8,6 +8,8 @@
 
 	export let data: PageServerData;
 
+	let clientWidth: number;
+
 	$: ({ disabled, activated } = data);
 
 	const deactivateContacts = async (ids: Set<number>) => {
@@ -28,29 +30,34 @@
 
 	onMount(() => {
 		$selectedContacts.clear();
-		// console.log($selectedContacts);
 	});
 </script>
 
-<main>
-	<ContactList list={disabled} />
+<main bind:clientWidth>
+	<ContactList list={disabled} title={'Deactivated contacts'} />
 
 	<div>
 		<button
 			class="general"
 			on:click={async () => {
 				await activateContacts($selectedContacts);
-			}}><ion-icon name="chevron-forward-outline" /></button
+			}}
+			><ion-icon
+				name={clientWidth > 480 ? 'chevron-forward-outline' : 'chevron-up-outline'}
+			/></button
 		>
 		<button
 			class="general"
 			on:click={async () => {
 				await deactivateContacts($selectedContacts);
-			}}><ion-icon name="chevron-back-outline" /></button
+			}}
+			><ion-icon
+				name={clientWidth > 480 ? 'chevron-back-outline' : 'chevron-down-outline'}
+			/></button
 		>
 	</div>
 
-	<ContactList list={activated} />
+	<ContactList list={activated} title={'Activated contacts'} />
 </main>
 
 <style>
@@ -61,5 +68,16 @@
 	main > div {
 		display: flex;
 		flex-direction: column;
+	}
+
+	@media (max-width: 480px) {
+		main {
+			flex-direction: column;
+		}
+
+		main > div {
+			flex-direction: row;
+			margin: 0 auto;
+		}
 	}
 </style>

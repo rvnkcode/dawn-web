@@ -7,34 +7,43 @@
 	import DeleteContactConfirmModal from '../templates/deleteContactConfirmModal.svelte';
 
 	export let contact: Contact;
+	export let value: boolean;
 
-	let value = '';
+	let name = '';
 
 	let editMode = false;
+	let openModal = false;
+
+	$: checked = $selectedContacts.has(contact.id);
 
 	const handleSelected = (id: number) => {
 		$selectedContacts.has(id) ? $selectedContacts.delete(id) : $selectedContacts.add(id);
 		console.log($selectedContacts);
+
+		if ($selectedContacts.size < 1) {
+			value = false;
+		}
+
+		invalidateAll();
 	};
 
 	const updateContact = async (id: number, name: string) => {
-		if (value.length < 1) return;
+		if (name.length < 1) return;
 		await trpc().contact.updateContactName.mutate({ id, name });
 		invalidateAll();
+		$selectedContacts.clear();
 		editMode = false;
 	};
 
-	let openModal = false;
-
 	onMount(() => {
-		value = contact.name;
+		name = contact.name;
 	});
 </script>
 
 <li>
 	<input
 		type="checkbox"
-		checked={$selectedContacts.has(contact.id)}
+		bind:checked
 		on:change={() => {
 			handleSelected(contact.id);
 		}}
@@ -57,7 +66,7 @@
 			}}><ion-icon name="trash" /></button
 		>
 	{:else}
-		<input type="text" bind:value />
+		<input type="text" bind:value={name} />
 		<button
 			type="button"
 			on:click={() => {
@@ -67,7 +76,7 @@
 		<button
 			type="button"
 			on:click={async () => {
-				await updateContact(contact.id, value);
+				await updateContact(contact.id, name);
 			}}><ion-icon name="checkbox" class="confirm" /></button
 		>
 	{/if}
