@@ -35,9 +35,12 @@
 </script>
 
 {#if tasks.length < 1}
-	{#if !showNewInput && current === '/'}
-		<!-- TODO: Add empty list image -->
-		<p>Your list is empty - time to celebrate!</p>
+	<!-- {#if !showNewInput && current === '/'} -->
+	{#if !showNewInput}
+		<!-- <p>Your list is empty - time to celebrate!</p> -->
+		<div>
+			<ion-icon name="checkbox" />
+		</div>
 	{/if}
 {:else}
 	<ul>
@@ -50,8 +53,21 @@
 <svelte:window on:keydown={trashSelectedTasks} />
 
 <style>
+	div {
+		text-align: center;
+		height: calc(100vh - 182px);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	ion-icon {
+		font-size: 100px;
+		color: rgba(0, 0, 0, 0.1);
+	}
+	/* 
 	p {
 		text-align: center;
 		color: #b0b4b7;
-	}
+	} */
 </style>
