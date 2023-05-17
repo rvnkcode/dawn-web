@@ -24,10 +24,18 @@ model Task {
   isDone      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   completedAt DateTime?
-  // inbox 
-  status      String    @default("inbox")
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
   urls        String?
   comments    String?
+  contact     Contact?  @relation(fields: [allocatedTo], references: [name])
+  allocatedTo String?
+}
+
+model Contact {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  activate Boolean @default(true)
+
+  Task Task[]
 }

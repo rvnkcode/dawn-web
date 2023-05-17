@@ -28,18 +28,38 @@ const handleDateInput = (dateInput: string | undefined): Date | undefined => {
 // TODO: Markdown parser
 export const actions = {
 	createTask: async ({ request }) => {
-		const { title, rawUrls, url, comments } = Object.fromEntries(await request.formData()) as {
+		const { title, rawUrls, url, comments, allocatedTo } = Object.fromEntries(
+			await request.formData()
+		) as {
 			title: string;
 			rawUrls: string;
 			url: string;
 			comments: string;
+			allocatedTo: string;
 		};
 
 		const urls = handleUrls(url, rawUrls);
 
 		try {
 			await prisma.task.create({
-				data: { title, urls, comments }
+				data: {
+					title,
+					urls,
+					comments,
+					contact:
+						allocatedTo.length > 0
+							? {
+									connectOrCreate: {
+										where: {
+											name: allocatedTo
+										},
+										create: {
+											name: allocatedTo
+										}
+									}
+							  }
+							: undefined
+				}
 			});
 		} catch (error) {
 			console.error(error);
@@ -53,7 +73,8 @@ export const actions = {
 			rawUrls,
 			url,
 			comments,
-			completedAt: completedAtString
+			completedAt: completedAtString,
+			allocatedTo
 		} = Object.fromEntries(await request.formData()) as {
 			id: string;
 			title: string;
@@ -61,6 +82,7 @@ export const actions = {
 			url: string;
 			comments: string;
 			completedAt: string;
+			allocatedTo: string;
 		};
 
 		const urls = handleUrls(url, rawUrls);
@@ -69,7 +91,27 @@ export const actions = {
 		try {
 			await prisma.task.update({
 				where: { id: +id },
-				data: { title, urls, comments, completedAt }
+				data: {
+					title,
+					urls,
+					comments,
+					completedAt,
+					contact:
+						allocatedTo.length > 0
+							? {
+									connectOrCreate: {
+										where: {
+											name: allocatedTo
+										},
+										create: {
+											name: allocatedTo
+										}
+									}
+							  }
+							: {
+									disconnect: true
+							  }
+				}
 			});
 		} catch (error) {
 			console.error(error);

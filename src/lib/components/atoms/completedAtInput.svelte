@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { format, formatISO } from 'date-fns';
+	import { format } from 'date-fns';
 
 	export let date: Date | null;
 	let value = '';

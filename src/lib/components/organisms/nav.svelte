@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { showSidebar } from '$lib/stores';
+	import type { RouterOutputs } from '../../trpc/router';
 
 	$: current = $page.url.pathname;
 
-	export let count: number;
+	export let count: RouterOutputs['count']['getCounts'];
 </script>
 
 <nav class={$showSidebar ? 'show' : ''}>
@@ -18,8 +19,22 @@
 					}}>Inbox</a
 				>
 			</div>
-			{#if count > 0}
-				<span>{count}</span>
+			{#if count.inboxCount > 0}
+				<span>{count.inboxCount}</span>
+			{/if}
+		</li>
+		<li class={current === '/waiting_for' ? 'current' : ''}>
+			<div>
+				<ion-icon name="chatbox-ellipses" class="title" />
+				<a
+					href="/waiting_for"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Waiting for</a
+				>
+			</div>
+			{#if count.waitingForCount > 0}
+				<span>{count.waitingForCount}</span>
 			{/if}
 		</li>
 		<li class={current === '/archive' ? 'current' : ''}>
@@ -48,8 +63,6 @@
 
 <style>
 	nav {
-		background-color: #f9fafb;
-		min-height: 100vh;
 		width: 100%;
 	}
 
@@ -82,10 +95,6 @@
 	}
 
 	@media (min-width: 481px) {
-		nav {
-			max-width: 233px;
-		}
-
 		ul {
 			position: fixed;
 			width: inherit;
@@ -99,15 +108,12 @@
 	}
 
 	@media (max-width: 480px) {
-		nav {
-			display: none;
+		li {
+			font-size: large;
 		}
 
-		nav.show {
-			position: absolute;
-			left: 0;
-			display: block;
-			z-index: 1;
+		a {
+			font-size: large;
 		}
 	}
 </style>

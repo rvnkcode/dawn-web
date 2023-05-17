@@ -27,18 +27,3 @@
 		<button on:click={async () => await handleOk()} class="general blue">Empty Trash</button>
 	</footer>
 </dialog>
-
-<style>
-	header {
-		font-weight: bold;
-		margin-bottom: 1rem;
-	}
-
-	footer {
-		margin-top: 1rem;
-	}
-
-	p {
-		font-size: smaller;
-	}
-</style>

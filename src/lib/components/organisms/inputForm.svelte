@@ -6,6 +6,7 @@
 	import CommentsInput from '../atoms/commentsInput.svelte';
 	import { page } from '$app/stores';
 	import CompletedAtInput from '../atoms/completedAtInput.svelte';
+	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 
 	export let task: Task | undefined = undefined;
 
@@ -50,10 +51,12 @@
 		{#if current === '/archive'}
 			<CompletedAtInput date={task.completedAt} />
 		{/if}
+		<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
 		<CommentsInput value={task.comments ? task.comments : undefined} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
+		<AllocatedToInput />
 		<CommentsInput />
 	{/if}
 
@@ -89,11 +92,9 @@
 		>
 	</div>
 
-	{#if urls.length > 0 || showUrlInput}
-		<div>
-			<button type="submit" class="blue general">submit</button>
-		</div>
-	{/if}
+	<div>
+		<button type="submit" class="blue general">Add</button>
+	</div>
 </form>
 
 <style>
