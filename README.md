@@ -26,7 +26,7 @@ docker-compose down && docker image rm rvnk/dawn:latest && docker-compose up -d
 
 ## Known Issues
 
-- Selected task won't display properly on firefox browser because of `:has()` CSS selector([link](https://developer.mozilla.org/en-US/docs/Web/CSS/:has))
+- Selected task won't display properly on firefox browser because of `:has()` CSS selector issue([read more](https://developer.mozilla.org/en-US/docs/Web/CSS/:has))
 
 ## Keyboard Shortcuts
 
