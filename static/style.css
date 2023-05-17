@@ -18,6 +18,7 @@ main {
 button {
 	border: none;
 	background: none;
+	padding: 0;
 }
 
 button:disabled > ion-icon {
