@@ -2,7 +2,7 @@
 	import type { Contact } from '@prisma/client';
 	import EachContact from '../molecules/eachContact.svelte';
 	import { selectedContacts } from '$lib/stores';
-	import { invalidate, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 
 	export let list: Contact[];
 	export let title: string;
