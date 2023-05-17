@@ -34,7 +34,6 @@ const defaultArchiveFilter = {
 export const archiveRouter = router({
 	getArchive: publicProcedure.input(z.string()).query(async (opts) => {
 		const timeZone = opts.input;
-		// console.log(`timeZone on archive.ts:${timeZone}`); // Debug
 		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
 			await Promise.all([
 				// Today
