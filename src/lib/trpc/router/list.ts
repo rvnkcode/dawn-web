@@ -15,7 +15,8 @@ export const listRouter = router({
 					where: { id: { in: input.ids } },
 					data: {
 						trash: false,
-						archive: false
+						archive: false,
+						allocatedTo: null
 					}
 				});
 			} catch (error) {
