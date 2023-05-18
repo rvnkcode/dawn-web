@@ -5,12 +5,6 @@
 	import type { PageServerData } from './$types';
 	import { format } from 'date-fns';
 	import type { Task } from '@prisma/client';
-	import { onMount } from 'svelte';
-
-	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-	onMount(() => {
-		document.cookie = `timeZone=${timeZone}`;
-	});
 
 	const today = new Date();
 
