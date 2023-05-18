@@ -27,8 +27,8 @@ const defaultArchiveFilter = {
 };
 
 export const archiveRouter = router({
-	getArchive: publicProcedure.input(z.string()).query(async (opts) => {
-		const timeZone = opts.input;
+	getArchive: publicProcedure.query(async (opts) => {
+		const timeZone = opts.ctx.timeZone;
 
 		const today = utcToZonedTime(new Date(), timeZone);
 		const yesterday = subDays(today, 1);
