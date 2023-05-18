@@ -23,6 +23,16 @@
 				<span>{count.inboxCount}</span>
 			{/if}
 		</li>
+		<li class={current === '/today' ? 'current' : ''}>
+			<div>
+				<ion-icon name="receipt" class="title today" /><a
+					href="/today"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Today</a
+				>
+			</div>
+		</li>
 		<li class={current === '/waiting_for' ? 'current' : ''}>
 			<div>
 				<ion-icon name="chatbox-ellipses" class="title" />

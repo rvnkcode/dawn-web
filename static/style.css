@@ -47,6 +47,10 @@ ion-icon.trashIcon {
 	color: #c2c6cc;
 }
 
+ion-icon.today {
+	color: #ffd400;
+}
+
 button.general {
 	border-radius: 0.25rem;
 	padding: 0.5rem 0.75rem;
