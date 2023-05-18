@@ -13,8 +13,8 @@
 </script>
 
 <label
-	><span>Allocated to:</span>
-	<input name="allocatedTo" bind:value list="names" autocomplete="off" />
+	><ion-icon name="person-add" />
+	<input name="allocatedTo" bind:value list="names" autocomplete="off" placeholder="Allocated to" />
 </label>
 
 <datalist id="names">
@@ -24,6 +24,10 @@
 </datalist>
 
 <style>
+	ion-icon {
+		vertical-align: middle;
+	}
+
 	input {
 		margin: 0.5rem 0 0.25rem 0;
 	}
