@@ -8,6 +8,7 @@ import { taskRouter } from './task';
 import { trashRouter } from './trash';
 import { contactRouter } from './contact';
 import { waitingForRouter } from './waitingFor';
+import { todayRouter } from './today';
 
 export const appRouter = router({
 	inbox: inboxRouter,
@@ -17,7 +18,8 @@ export const appRouter = router({
 	task: taskRouter,
 	list: listRouter,
 	contact: contactRouter,
-	waitingFor: waitingForRouter
+	waitingFor: waitingForRouter,
+	today: todayRouter
 });
 
 export type AppRouter = typeof appRouter;
