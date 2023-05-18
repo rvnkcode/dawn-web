@@ -23,6 +23,7 @@ model Task {
   title       String
   isDone      Boolean   @default(false)
   createdAt   DateTime  @default(now())
+  startedAt   DateTime?
   completedAt DateTime?
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
