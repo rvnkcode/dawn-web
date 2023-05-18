@@ -3,8 +3,8 @@ import type { Actions, PageServerLoad } from './$types';
 import { createContext } from '$lib/trpc/context';
 import { appRouter } from '$lib/trpc/router/index';
 
-export const load: PageServerLoad = async () => ({
-	tasks: appRouter.createCaller(await createContext()).inbox.getInbox()
+export const load: PageServerLoad = async (event) => ({
+	tasks: appRouter.createCaller(await createContext(event)).inbox.getInbox()
 });
 
 const handleUrls = (url: string | undefined, rawUrls: string | undefined): string | null => {
