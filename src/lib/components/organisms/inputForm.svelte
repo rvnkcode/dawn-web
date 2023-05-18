@@ -93,6 +93,7 @@
 	{/if}
 
 	<div>
+		<button type="button"><ion-icon name="calendar" class="button" /></button>
 		<button type="button" on:click={() => (showAllocatedTo = !showAllocatedTo)}
 			><ion-icon name="person-add" class="button" /></button
 		>
