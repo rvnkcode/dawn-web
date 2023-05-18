@@ -54,7 +54,6 @@
 </script>
 
 <footer>
-	<!-- TODO: When click outside of input(out of focus), hide input -->
 	<!-- Add button -->
 	{#if current !== '/trash' && current !== '/archive'}
 		<button

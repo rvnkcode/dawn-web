@@ -8,12 +8,12 @@
 
 	$: current = $page.url.pathname;
 
+	// TODO: Add another category or projects someday...
 	const moveItems = async (category: string) => {
 		if ($selected.size < 1) {
 			return;
 		}
 
-		// TODO: Add another category
 		if (current === '/') {
 			return;
 		}

@@ -25,7 +25,6 @@ const handleDateInput = (dateInput: string | undefined): Date | undefined => {
 	}
 };
 
-// TODO: Markdown parser
 export const actions = {
 	createTask: async ({ request }) => {
 		const { title, rawUrls, url, comments, allocatedTo } = Object.fromEntries(

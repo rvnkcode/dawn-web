@@ -10,4 +10,6 @@
 	<ion-icon name="options" class="title" /><span>Preferences</span>
 </Header>
 
+<!-- TODO: Add sub menu navigation tab  -->
+
 <slot />

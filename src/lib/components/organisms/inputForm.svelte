@@ -1,3 +1,4 @@
+<!-- TODO: Parse markdown? -->
 <script lang="ts">
 	import { z } from 'zod';
 	import type { Task } from '@prisma/client';
