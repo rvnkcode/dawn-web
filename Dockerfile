@@ -21,7 +21,7 @@ RUN yarn build
 # Production build stage
 FROM base AS prod-build
 
-RUN yarn --prod
+RUN yarn --prod --network-timeout 1000000
 RUN yarn cache clean
 
 COPY prisma prisma
@@ -38,6 +38,7 @@ COPY --from=build /app/prisma ./prisma
 
 RUN mkdir /memo && chown node /memo
 
+# TODO: Change exposed port number?
 ENV ORIGIN=http://localhost:3000
 EXPOSE 3000
 
