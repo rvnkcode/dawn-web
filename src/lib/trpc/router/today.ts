@@ -16,9 +16,7 @@ export const todayRouter = router({
 					lte: zonedTimeToUtc(today, timeZone)
 				}
 			},
-			orderBy: {
-				isDone: 'asc'
-			}
+			orderBy: [{ isDone: 'asc' }, { startedAt: 'asc' }]
 		});
 
 		return { tasks };
