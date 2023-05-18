@@ -14,7 +14,8 @@ export const countRouter = router({
 			await prisma.task.count({
 				where: {
 					...filter,
-					allocatedTo: null
+					allocatedTo: null,
+					startedAt: null
 				}
 			}),
 
