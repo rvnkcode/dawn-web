@@ -1,11 +1,11 @@
 <script lang="ts">
-	import List from '$lib/components/list.svelte';
-	import Header from '$lib/components/header.svelte';
-	import type { PageData } from './$types';
-	import DeleteConfirmModal from '$lib/components/deleteConfirmModal.svelte';
-	import MainFooter from '$lib/components/mainFooter.svelte';
+	import List from '$lib/components/organisms/list.svelte';
+	import Header from '$lib/components/organisms/header.svelte';
+	import type { PageServerData } from './$types';
+	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
+	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
-	export let data: PageData;
+	export let data: PageServerData;
 	$: ({ tasks } = data);
 
 	let open = false;
@@ -16,7 +16,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="trash-bin" class="trashIcon" /><span>Trash</span>
+	<ion-icon name="trash" class="trashIcon title" /><span>Trash</span>
 </Header>
 
 <main>
@@ -33,7 +33,7 @@
 
 <MainFooter value={false} />
 
-<DeleteConfirmModal bind:value={open} />
+<EmptyTrashConfirmModal bind:value={open} />
 
 <style>
 	button {

@@ -1,12 +1,7 @@
-import { prisma } from '$lib/server/prisma';
 import type { LayoutServerLoad } from './$types';
+import { createContext } from '$lib/trpc/context';
+import { appRouter } from '$lib/trpc/router/index';
 
-export const load = (async () => {
-	return {
-		count: await prisma.task.count({
-			where: {
-				trash: false
-			}
-		})
-	};
-}) satisfies LayoutServerLoad;
+export const load: LayoutServerLoad = async () => ({
+	count: appRouter.createCaller(await createContext()).count.getCounts()
+});

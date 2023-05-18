@@ -5,15 +5,37 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// only for dev
+// TODO: using .env?
+// generator zod {
+//   provider  = "zod-prisma"
+//   // output   = "../src/zod"
+//   modelCase = "camelCase"
+// }
+
 datasource db {
   provider = "sqlite"
   url      = "file:/memo/dawn.db"
 }
 
 model Task {
-  id        Int      @id @default(autoincrement())
-  title     String
-  isDone    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  trash     Boolean  @default(false)
+  id          Int       @id @default(autoincrement())
+  title       String
+  isDone      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+  archive     Boolean   @default(false)
+  trash       Boolean   @default(false)
+  urls        String?
+  comments    String?
+  contact     Contact?  @relation(fields: [allocatedTo], references: [name])
+  allocatedTo String?
+}
+
+model Contact {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  activate Boolean @default(true)
+
+  Task Task[]
 }

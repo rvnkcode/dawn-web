@@ -15,3 +15,5 @@ img
 Dockerfile*
 docker-compose.yml
 prisma/seed.ts
+sql
+prisma/zod

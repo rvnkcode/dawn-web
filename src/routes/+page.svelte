@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import List from '$lib/components/list.svelte';
-	import NewInput from '$lib/components/newInput.svelte';
-	import MainFooter from '$lib/components/mainFooter.svelte';
-	import Header from '$lib/components/header.svelte';
+	import type { PageServerData } from './$types';
+	import Header from '$lib/components/organisms/header.svelte';
+	import List from '$lib/components/organisms/list.svelte';
+	import InputForm from '$lib/components/organisms/inputForm.svelte';
+	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
-	export let data: PageData;
+	export let data: PageServerData;
 
 	$: ({ tasks } = data);
 
@@ -17,13 +17,13 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="file-tray" class="inbox" /><span>Inbox</span>
+	<ion-icon name="file-tray" class="inbox title" /><span>Inbox</span>
 </Header>
 
 <main>
 	<List {tasks} {showNewInput} />
 	{#if showNewInput}
-		<NewInput />
+		<InputForm value={false} />
 	{/if}
 </main>
 

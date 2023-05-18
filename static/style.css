@@ -1,39 +1,50 @@
 body {
 	display: flex;
 	font-family: sans-serif;
+	overflow-x: hidden;
+	font-size: 14px;
+	/* Debug */
+	/* border: 1px solid violet; */
 }
 
 main {
 	/* Fixed footer's height */
 	margin-bottom: 3rem;
 	margin-top: 1.5rem;
+	/* Debug */
+	/* border: 1px solid red; */
 }
 
 button {
 	border: none;
 	background: none;
+	padding: 0;
+}
+
+button:disabled > ion-icon {
+	color: #cbcbcb !important;
 }
 
 ion-icon {
-	/* Bug? */
-	visibility: inherit;
+	visibility: inherit; /* Bug? */
+}
+
+ion-icon.title {
+	vertical-align: bottom;
+	margin-right: 0.25rem;
+	font-size: smaller;
 }
 
 ion-icon.inbox {
-	vertical-align: text-top;
-	margin-right: 0.25rem;
 	color: #1aa9f8;
 }
 
-ion-icon.trashIcon {
-	vertical-align: bottom;
-	margin-right: 0.25rem;
-	color: #c2c6cc;
+ion-icon.archive {
+	color: #4bbd5e;
 }
 
-.inputTitle {
-	width: 95%;
-	margin-left: 1.25rem;
+ion-icon.trashIcon {
+	color: #c2c6cc;
 }
 
 button.general {
@@ -57,13 +68,25 @@ button.cancel {
 
 dialog {
 	position: fixed;
-	top: 0;
-	margin-top: 50%;
+	top: 50%;
 	z-index: 2;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border: none;
 	border-radius: 0.5rem;
 	text-align: center;
+}
+
+dialog > header {
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+
+dialog > p {
+	font-size: smaller;
+}
+
+dialog > footer {
+	margin-top: 1rem;
 }
 
 div.backdrop {
@@ -80,13 +103,22 @@ div.backdrop {
 	background-color: #292c37;
 	border-radius: 0.25rem;
 	z-index: 1;
-	position: fixed;
 	padding: 0.6rem;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 @media (min-width: 481px) {
+	.popup {
+		position: relative;
+	}
+
 	button:hover {
 		cursor: pointer;
+	}
+}
+
+@media (max-width: 480px) {
+	.popup {
+		position: fixed;
 	}
 }
