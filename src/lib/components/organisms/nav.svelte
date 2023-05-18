@@ -32,6 +32,9 @@
 					}}>Today</a
 				>
 			</div>
+			{#if count.todayCount > 0}
+				<span>{count.todayCount}</span>
+			{/if}
 		</li>
 		<li class={current === '/waiting_for' ? 'current' : ''}>
 			<div>
