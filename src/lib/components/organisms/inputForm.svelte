@@ -14,6 +14,7 @@
 	$: current = $page.url.pathname;
 
 	let showUrlInput = false;
+	let showAllocatedTo = false;
 
 	let urlList: Array<string> = [];
 	if (task && task.urls) {
@@ -52,12 +53,16 @@
 		{#if current === '/archive'}
 			<CompletedAtInput date={task.completedAt} />
 		{/if}
-		<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
+		{#if showAllocatedTo || task.allocatedTo}
+			<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
+		{/if}
 		<CommentsInput value={task.comments ? task.comments : undefined} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
-		<AllocatedToInput />
+		{#if showAllocatedTo}
+			<AllocatedToInput />
+		{/if}
 		<CommentsInput />
 	{/if}
 
@@ -88,6 +93,9 @@
 	{/if}
 
 	<div>
+		<button type="button" on:click={() => (showAllocatedTo = !showAllocatedTo)}
+			><ion-icon name="person-add" class="button" /></button
+		>
 		<button type="button" on:click={() => (showUrlInput = !showUrlInput)}
 			><ion-icon name="link-outline" class="button" /></button
 		>
