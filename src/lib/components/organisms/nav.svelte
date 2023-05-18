@@ -8,6 +8,7 @@
 	export let count: RouterOutputs['count']['getCounts'];
 </script>
 
+<!-- TODO: Separate nav lists  -->
 <nav class={$showSidebar ? 'show' : ''}>
 	<ul>
 		<li class={current === '/' ? 'current' : ''}>
