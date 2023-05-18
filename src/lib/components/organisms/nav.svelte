@@ -50,7 +50,7 @@
 		</li>
 		<li class={current === '/trash' ? 'current' : ''}>
 			<div>
-				<ion-icon name="trash-bin" class="trashIcon title" /><a
+				<ion-icon name="trash" class="trashIcon title" /><a
 					href="/trash"
 					on:click={() => {
 						$showSidebar = false;

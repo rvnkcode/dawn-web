@@ -84,7 +84,7 @@
 			on:click={async () => {
 				await trashSelectedTasks();
 			}}
-			class="hide"><ion-icon name="trash-bin" /></button
+			class="hide"><ion-icon name="trash" /></button
 		>
 	{/if}
 

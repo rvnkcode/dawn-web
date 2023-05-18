@@ -16,7 +16,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="trash-bin" class="trashIcon title" /><span>Trash</span>
+	<ion-icon name="trash" class="trashIcon title" /><span>Trash</span>
 </Header>
 
 <main>
