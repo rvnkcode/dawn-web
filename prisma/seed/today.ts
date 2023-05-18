@@ -1,4 +1,5 @@
 import { Prisma, Task } from '@prisma/client';
+import { subDays } from 'date-fns';
 
 const date = new Date();
 
@@ -21,7 +22,23 @@ export async function today(tx: Prisma.TransactionClient) {
 		...todayCondition
 	};
 
-	const tasks = [today];
+	const yesterday: Task = {
+		id: 15,
+		title: `Started at yesterday`,
+		startedAt: subDays(date, 1),
+		...todayCondition
+	};
+
+	const startedAndDone: Task = {
+		id: 16,
+		title: `Started and done task`,
+		startedAt: date,
+		...todayCondition,
+		isDone: true,
+		completedAt: date
+	};
+
+	const tasks = [today, yesterday, startedAndDone];
 
 	for await (const task of tasks) {
 		await tx.task.upsert({
