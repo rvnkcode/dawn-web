@@ -6,7 +6,8 @@ const trashCondition = {
 	trash: true,
 	createdAt: date,
 	urls: null,
-	comments: null
+	comments: null,
+	startedAt: null
 };
 
 export async function trash(tx: Prisma.TransactionClient) {

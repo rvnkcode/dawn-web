@@ -7,7 +7,8 @@ const waitingForCondition = {
 	trash: false,
 	createdAt: date,
 	urls: null,
-	comments: null
+	comments: null,
+	startedAt: null
 };
 
 export async function waitingFor(tx: Prisma.TransactionClient) {
