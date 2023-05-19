@@ -8,13 +8,16 @@
 	import { page } from '$app/stores';
 	import CompletedAtInput from '../atoms/completedAtInput.svelte';
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
+	import InputButtons from '../molecules/inputButtons.svelte';
 
 	export let task: Task | undefined = undefined;
 
 	$: current = $page.url.pathname;
 
-	let showUrlInput = false;
-	let showAllocatedTo = false;
+	let props = {
+		showUrlInput: false,
+		showAllocatedTo: false
+	};
 
 	let urlList: Array<string> = [];
 	if (task && task.urls) {
@@ -31,7 +34,7 @@
 		if (urlSchema.parse(value) && urlList.indexOf(value) === -1) {
 			urlList = [...urlList, value];
 			urlInput = '';
-			showUrlInput = false;
+			props.showUrlInput = false;
 		}
 	};
 
@@ -42,7 +45,7 @@
 	export let value: boolean; //showEdit
 
 	const afterSubmit = () => {
-		value = false;
+		value = false; // showEdit
 	};
 </script>
 
@@ -53,14 +56,14 @@
 		{#if current === '/archive'}
 			<CompletedAtInput date={task.completedAt} />
 		{/if}
-		{#if showAllocatedTo || task.allocatedTo}
+		{#if props.showAllocatedTo || task.allocatedTo}
 			<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
 		{/if}
 		<CommentsInput value={task.comments ? task.comments : undefined} />
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
-		{#if showAllocatedTo}
+		{#if props.showAllocatedTo}
 			<AllocatedToInput />
 		{/if}
 		<CommentsInput />
@@ -81,7 +84,7 @@
 		<input type="hidden" bind:value={urls} name="rawUrls" />
 	{/if}
 
-	{#if showUrlInput}
+	{#if props.showUrlInput}
 		<ion-icon name="link-outline" />
 		<input type="url" required bind:value={urlInput} placeholder="http://example.com" name="url" />
 		<button
@@ -92,15 +95,7 @@
 		>
 	{/if}
 
-	<div>
-		<button type="button"><ion-icon name="calendar" class="button" /></button>
-		<button type="button" on:click={() => (showAllocatedTo = !showAllocatedTo)}
-			><ion-icon name="person-add" class="button" /></button
-		>
-		<button type="button" on:click={() => (showUrlInput = !showUrlInput)}
-			><ion-icon name="link-outline" class="button" /></button
-		>
-	</div>
+	<InputButtons bind:value={props} />
 
 	<div>
 		<button type="submit" class="blue general">Add</button>
@@ -124,10 +119,6 @@
 	ion-icon {
 		font-size: large;
 		vertical-align: middle;
-	}
-
-	ion-icon.button {
-		color: #a9aeb2;
 	}
 
 	input[type='url'] {
