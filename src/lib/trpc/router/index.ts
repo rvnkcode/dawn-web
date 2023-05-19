@@ -1,14 +1,15 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+
 import { router } from '../trpc';
 import { archiveRouter } from './archive';
+import { contactRouter } from './contact';
 import { inboxRouter } from './inbox';
 import { listRouter } from './list';
 import { countRouter } from './nav';
 import { taskRouter } from './task';
-import { trashRouter } from './trash';
-import { contactRouter } from './contact';
-import { waitingForRouter } from './waitingFor';
 import { todayRouter } from './today';
+import { trashRouter } from './trash';
+import { waitingForRouter } from './waitingFor';
 
 export const appRouter = router({
 	inbox: inboxRouter,

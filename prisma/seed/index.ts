@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+
+import { archive } from './archive';
 import { contact } from './contact';
 import { inbox } from './inbox';
-import { trash } from './trash';
-import { archive } from './archive';
-import { waitingFor } from './waitingFor';
 import { today } from './today';
+import { trash } from './trash';
+import { waitingFor } from './waitingFor';
 
 const prisma = new PrismaClient();
 

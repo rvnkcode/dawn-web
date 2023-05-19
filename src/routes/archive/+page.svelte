@@ -1,10 +1,12 @@
 <script lang="ts">
-	import Header from '$lib/components/organisms/header.svelte';
-	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
-	import List from '$lib/components/organisms/list.svelte';
-	import type { PageServerData } from './$types';
-	import { format } from 'date-fns';
 	import type { Task } from '@prisma/client';
+	import { format } from 'date-fns';
+
+	import Header from '$lib/components/organisms/header.svelte';
+	import List from '$lib/components/organisms/list.svelte';
+	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+
+	import type { PageServerData } from './$types';
 
 	const today = new Date();
 

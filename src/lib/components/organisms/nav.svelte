@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { showSidebar } from '$lib/stores';
+
 	import type { RouterOutputs } from '../../trpc/router';
 
 	$: current = $page.url.pathname;

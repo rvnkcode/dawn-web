@@ -1,10 +1,12 @@
-import { prisma } from '$lib/server/prisma';
-import type { Actions, PageServerLoad } from './$types';
-import { createContext } from '$lib/trpc/context';
-import { appRouter } from '$lib/trpc/router/index';
-import { zTaskCreateInput, zTaskUpdateInput } from '../lib/zod';
 import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
+
+import { prisma } from '$lib/server/prisma';
+import { createContext } from '$lib/trpc/context';
+import { appRouter } from '$lib/trpc/router/index';
+
+import { zTaskCreateInput, zTaskUpdateInput } from '../lib/zod';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => ({
 	tasks: appRouter.createCaller(await createContext(event)).inbox.getInbox()

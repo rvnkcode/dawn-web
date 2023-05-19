@@ -1,9 +1,10 @@
 <script lang="ts">
-	import List from '$lib/components/organisms/list.svelte';
 	import Header from '$lib/components/organisms/header.svelte';
-	import type { PageServerData } from './$types';
-	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
+	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
+
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	$: ({ tasks } = data);

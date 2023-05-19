@@ -1,7 +1,8 @@
 <script async script lang="ts">
-	import { trpc } from '$lib/trpc/client';
 	import { onMount } from 'svelte';
-	import type { RouterOutputs } from '../../trpc/router';
+
+	import { trpc } from '$lib/trpc/client';
+	import type { RouterOutputs } from '$lib/trpc/router';
 
 	export let value: string | undefined = undefined;
 

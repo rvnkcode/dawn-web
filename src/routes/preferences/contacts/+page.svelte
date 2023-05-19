@@ -1,10 +1,12 @@
 <script lang="ts">
-	import ContactList from '$lib/components/organisms/contactList.svelte';
-	import type { PageServerData } from './$types';
-	import { selectedContacts } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { trpc } from '$lib/trpc/client';
+
 	import { invalidateAll } from '$app/navigation';
+	import ContactList from '$lib/components/organisms/contactList.svelte';
+	import { selectedContacts } from '$lib/stores';
+	import { trpc } from '$lib/trpc/client';
+
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 

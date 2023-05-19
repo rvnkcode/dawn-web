@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { z, type ZodIssue } from 'zod';
 	import { getNotificationsContext } from 'svelte-notifications';
+	import { z, type ZodIssue } from 'zod';
+
 	import { notificationOptions } from '$lib/const';
 
 	export let value: {

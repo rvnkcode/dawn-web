@@ -1,19 +1,21 @@
 <!-- TODO: Parse markdown? -->
 <script lang="ts">
 	import type { Task } from '@prisma/client';
+	import type { ActionResult } from '@sveltejs/kit';
+	import { getNotificationsContext } from 'svelte-notifications';
+	import type { ZodIssue } from 'zod';
+
 	import { enhance } from '$app/forms';
-	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
-	import CommentsInput from '../atoms/commentsInput.svelte';
+	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import CompletedAtInput from '../atoms/completedAtInput.svelte';
+	import { notificationOptions } from '$lib/const';
+
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
+	import CommentsInput from '../atoms/commentsInput.svelte';
+	import CompletedAtInput from '../atoms/completedAtInput.svelte';
+	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
-	import { getNotificationsContext } from 'svelte-notifications';
-	import type { ActionResult } from '@sveltejs/kit';
-	import type { ZodIssue } from 'zod';
-	import { invalidateAll } from '$app/navigation';
-	import { notificationOptions } from '$lib/const';
 
 	export let task: Task | undefined = undefined;
 

@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
-	import { invalidateAll } from '$app/navigation';
-	import { selected, isSelectModeOnMobile } from '$lib/stores';
-	import { page } from '$app/stores';
 	import { format } from 'date-fns';
-	import { trpc } from '$lib/trpc/client';
-	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
-	import InputForm from '../organisms/inputForm.svelte';
+
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { tooltip } from '$lib/actions/tooltip';
+	import { isSelectModeOnMobile, selected } from '$lib/stores';
+	import { trpc } from '$lib/trpc/client';
+
+	import InputForm from '../organisms/inputForm.svelte';
+	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
 
 	export let task: Task;
 

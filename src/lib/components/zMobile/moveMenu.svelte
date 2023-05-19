@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { selected } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
 
 	export let value: boolean;

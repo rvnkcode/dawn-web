@@ -1,8 +1,10 @@
 <script lang="ts">
 	import type { Contact } from '@prisma/client';
-	import EachContact from '../molecules/eachContact.svelte';
-	import { selectedContacts } from '$lib/stores';
+
 	import { invalidateAll } from '$app/navigation';
+	import { selectedContacts } from '$lib/stores';
+
+	import EachContact from '../molecules/eachContact.svelte';
 
 	export let list: Contact[];
 	export let title: string;

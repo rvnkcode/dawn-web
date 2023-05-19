@@ -1,6 +1,7 @@
-import { publicProcedure, router } from '$lib/trpc/trpc';
-import { prisma } from '$lib/server/prisma';
 import { z } from 'zod';
+
+import { prisma } from '$lib/server/prisma';
+import { publicProcedure, router } from '$lib/trpc/trpc';
 
 const CategoryEnum = z.enum(['inbox']);
 

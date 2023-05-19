@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
+	import MobileOnlyFooter from '$lib/components/zMobile/mobileOnlyFooter.svelte';
+	import MoveMenu from '$lib/components/zMobile/moveMenu.svelte';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
-	import MobileOnlyFooter from '$lib/components/zMobile/mobileOnlyFooter.svelte';
-	import { page } from '$app/stores';
-	import MoveMenu from '$lib/components/zMobile/moveMenu.svelte';
 	import { trpc } from '$lib/trpc/client';
 
 	export let value: boolean; //showNewInput

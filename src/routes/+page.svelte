@@ -1,9 +1,10 @@
 <script lang="ts">
-	import type { PageServerData } from './$types';
 	import Header from '$lib/components/organisms/header.svelte';
-	import List from '$lib/components/organisms/list.svelte';
 	import InputForm from '$lib/components/organisms/inputForm.svelte';
+	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 
 	$: current = $page.url.pathname;
