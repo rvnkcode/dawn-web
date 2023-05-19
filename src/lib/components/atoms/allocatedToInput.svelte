@@ -15,14 +15,7 @@
 
 <label
 	><ion-icon name="person-add" />
-	<input
-		name="allocatedTo"
-		bind:value
-		list="names"
-		autocomplete="off"
-		placeholder="Allocated to"
-		required
-	/>
+	<input name="allocatedTo" bind:value list="names" autocomplete="off" placeholder="Allocated to" />
 </label>
 
 <datalist id="names">
