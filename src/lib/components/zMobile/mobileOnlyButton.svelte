@@ -20,7 +20,7 @@
 	};
 
 	const archiveChecked = async () => {
-		await trpc().archive.archiveChecked.mutate();
+		await trpc().archive.archiveChecked.mutate(current);
 		invalidateAll();
 		menuEnabled = !menuEnabled;
 	};
