@@ -30,7 +30,7 @@ ion-icon {
 }
 
 ion-icon.title {
-	vertical-align: bottom;
+	vertical-align: baseline;
 	margin-right: 0.25rem;
 	font-size: smaller;
 }
