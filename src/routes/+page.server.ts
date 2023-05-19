@@ -2,6 +2,7 @@ import { prisma } from '$lib/server/prisma';
 import type { Actions, PageServerLoad } from './$types';
 import { createContext } from '$lib/trpc/context';
 import { appRouter } from '$lib/trpc/router/index';
+import { zTaskCreateInput, zTaskUpdateInput } from '../lib/zod';
 
 export const load: PageServerLoad = async (event) => ({
 	tasks: appRouter.createCaller(await createContext(event)).inbox.getInbox()
@@ -19,34 +20,20 @@ const handleUrls = (url: string | undefined, rawUrls: string | undefined): strin
 	} else return null;
 };
 
-const handleDateInput = (dateInput: string | undefined): Date | undefined => {
-	if (dateInput) {
-		return new Date(dateInput);
-	}
-};
-
-export const actions = {
+export const actions: Actions = {
 	createTask: async ({ request }) => {
-		const { title, rawUrls, url, comments, allocatedTo } = Object.fromEntries(
-			await request.formData()
-		) as {
-			title: string;
-			rawUrls: string;
-			url: string;
-			comments: string;
-			allocatedTo: string;
-		};
+		const input = await zTaskCreateInput.parseAsync(Object.fromEntries(await request.formData()));
 
+		const { rawUrls, url, allocatedTo, ...data } = input;
 		const urls = handleUrls(url, rawUrls);
 
 		try {
 			await prisma.task.create({
 				data: {
-					title,
+					...data,
 					urls,
-					comments,
 					contact:
-						allocatedTo.length > 0
+						allocatedTo != null
 							? {
 									connectOrCreate: {
 										where: {
@@ -66,37 +53,23 @@ export const actions = {
 	},
 
 	updateTask: async ({ request }) => {
-		const {
-			id,
-			title,
-			rawUrls,
-			url,
-			comments,
-			completedAt: completedAtString,
-			allocatedTo
-		} = Object.fromEntries(await request.formData()) as {
-			id: string;
-			title: string;
-			rawUrls: string;
-			url: string;
-			comments: string;
-			completedAt: string;
-			allocatedTo: string;
-		};
+		// TODO: error handling
+		const input = await zTaskUpdateInput.parseAsync(Object.fromEntries(await request.formData()));
+		console.log(input);
 
+		const { id, rawUrls, url, allocatedTo, ...data } = input;
 		const urls = handleUrls(url, rawUrls);
-		const completedAt = handleDateInput(completedAtString);
 
 		try {
 			await prisma.task.update({
-				where: { id: +id },
+				where: {
+					id
+				},
 				data: {
-					title,
+					...data,
 					urls,
-					comments,
-					completedAt,
 					contact:
-						allocatedTo.length > 0
+						allocatedTo != null
 							? {
 									connectOrCreate: {
 										where: {
@@ -116,4 +89,4 @@ export const actions = {
 			console.error(error);
 		}
 	}
-} satisfies Actions;
+};
