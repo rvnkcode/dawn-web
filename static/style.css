@@ -25,6 +25,10 @@ button:disabled > ion-icon {
 	color: #cbcbcb !important;
 }
 
+input[type='date'] {
+	font-family: sans-serif;
+}
+
 ion-icon {
 	visibility: inherit; /* Bug? */
 }
