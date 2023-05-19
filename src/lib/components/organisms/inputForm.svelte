@@ -9,37 +9,34 @@
 	import CompletedAtInput from '../atoms/completedAtInput.svelte';
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
+	import UrlInput from '../molecules/urlInput.svelte';
 
 	export let task: Task | undefined = undefined;
 
 	$: current = $page.url.pathname;
 
-	let props = {
-		showUrlInput: false,
-		showAllocatedTo: false
-	};
-
-	let urlList: Array<string> = [];
-	if (task && task.urls) {
-		urlList = task.urls.split(',');
+	interface Props {
+		showUrlInput: boolean;
+		showAllocatedTo: boolean;
+		urlList: Array<string>;
 	}
 
-	$: urls = urlList.toString();
-
-	let urlInput = '';
-
-	const urlSchema = z.string().url();
-
-	const addUrl = (value: string) => {
-		if (urlSchema.parse(value) && urlList.indexOf(value) === -1) {
-			urlList = [...urlList, value];
-			urlInput = '';
-			props.showUrlInput = false;
-		}
+	let props: Props = {
+		showUrlInput: false,
+		showAllocatedTo: false,
+		urlList: []
 	};
 
+	if (task && task.urls) {
+		props.urlList = task.urls.split(',');
+	}
+
+	$: urls = props.urlList.toString();
+
+	// let urlInput = '';
+
 	const deleteUrl = (value: string) => {
-		urlList = urlList.filter((e: string) => e !== value);
+		props.urlList = props.urlList.filter((e: string) => e !== value);
 	};
 
 	export let value: boolean; //showEdit
@@ -69,9 +66,9 @@
 		<CommentsInput />
 	{/if}
 
-	{#if urlList.length > 0}
+	{#if props.urlList.length > 0}
 		<ul>
-			{#each urlList as url}
+			{#each props.urlList as url}
 				<li>
 					<ion-icon name="link-outline" />
 					<a href={url} target="_blank">{url}</a>
@@ -85,14 +82,7 @@
 	{/if}
 
 	{#if props.showUrlInput}
-		<ion-icon name="link-outline" />
-		<input type="url" required bind:value={urlInput} placeholder="http://example.com" name="url" />
-		<button
-			type="button"
-			on:click={() => {
-				addUrl(urlInput);
-			}}><ion-icon name="add-circle-outline" /></button
-		>
+		<UrlInput bind:value={props} />
 	{/if}
 
 	<InputButtons bind:value={props} />
@@ -119,11 +109,6 @@
 	ion-icon {
 		font-size: large;
 		vertical-align: middle;
-	}
-
-	input[type='url'] {
-		width: calc(100% - 68px);
-		margin-top: 0.5rem;
 	}
 
 	button[type='submit'] {
