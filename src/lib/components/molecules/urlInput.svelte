@@ -1,20 +1,42 @@
 <script lang="ts">
-	import { z } from 'zod';
+	import { z, type ZodIssue } from 'zod';
+	import { getNotificationsContext } from 'svelte-notifications';
+	import { notificationOptions } from '$lib/const';
 
 	export let value: {
 		urlList: Array<string>;
 		showUrlInput: boolean;
 	};
 
+	const { addNotification } = getNotificationsContext();
+
 	let urlInput = '';
 
 	const addUrl = (input: string) => {
 		const urlSchema = z.string().url();
 
-		if (urlSchema.parse(input) && value.urlList.indexOf(input) === -1) {
-			value.urlList = [...value.urlList, input];
-			urlInput = '';
-			value.showUrlInput = false;
+		try {
+			urlSchema.parse(input);
+
+			if (value.urlList.indexOf(input) === -1) {
+				value.urlList = [...value.urlList, input];
+				urlInput = '';
+				value.showUrlInput = false;
+			} else {
+				addNotification({
+					text: 'URL already exists',
+					...notificationOptions
+				});
+			}
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				const message = error.issues.map((err: ZodIssue) => err.message);
+
+				addNotification({
+					text: message,
+					...notificationOptions
+				});
+			}
 		}
 	};
 </script>

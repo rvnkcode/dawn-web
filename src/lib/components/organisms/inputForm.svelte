@@ -13,14 +13,11 @@
 	import type { ActionResult } from '@sveltejs/kit';
 	import type { ZodIssue } from 'zod';
 	import { invalidateAll } from '$app/navigation';
+	import { notificationOptions } from '$lib/const';
 
 	export let task: Task | undefined = undefined;
 
 	const { addNotification } = getNotificationsContext();
-	const notificationOptions = {
-		position: 'top-right',
-		type: 'error'
-	};
 
 	$: current = $page.url.pathname;
 
