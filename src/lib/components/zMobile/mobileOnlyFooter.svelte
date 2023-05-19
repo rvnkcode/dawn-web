@@ -4,7 +4,7 @@
 	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
 
-	import MoveMenu from './moveMenu.svelte';
+	import MoveMenu from '../templates/moveMenu.svelte';
 
 	$: current = $page.url.pathname;
 
