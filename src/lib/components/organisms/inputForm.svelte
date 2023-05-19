@@ -1,6 +1,5 @@
 <!-- TODO: Parse markdown? -->
 <script lang="ts">
-	import { z } from 'zod';
 	import type { Task } from '@prisma/client';
 	import { enhance } from '$app/forms';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
@@ -10,8 +9,18 @@
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
+	import { getNotificationsContext } from 'svelte-notifications';
+	import type { ActionResult } from '@sveltejs/kit';
+	import type { ZodIssue } from 'zod';
+	import { invalidateAll } from '$app/navigation';
 
 	export let task: Task | undefined = undefined;
+
+	const { addNotification } = getNotificationsContext();
+	const notificationOptions = {
+		position: 'top-right',
+		type: 'error'
+	};
 
 	$: current = $page.url.pathname;
 
@@ -33,8 +42,6 @@
 
 	$: urls = props.urlList.toString();
 
-	// let urlInput = '';
-
 	const deleteUrl = (value: string) => {
 		props.urlList = props.urlList.filter((e: string) => e !== value);
 	};
@@ -43,6 +50,29 @@
 
 	const afterSubmit = () => {
 		value = false; // showEdit
+
+		return async ({ result }: { result: ActionResult }) => {
+			// https://zod.dev/ERROR_HANDLING?id=zodissue
+			if (result.type === 'failure') {
+				const errorData = result.data?.error;
+				if (result.status === 400 && errorData) {
+					const path = errorData.map((error: ZodIssue) => error.path);
+					const message = errorData.map((error: ZodIssue) => error.message);
+
+					addNotification({
+						text: `${path}: ${message}`,
+						...notificationOptions
+					});
+				} else {
+					addNotification({
+						text: 'Error',
+						...notificationOptions
+					});
+				}
+			}
+
+			await invalidateAll();
+		};
 	};
 </script>
 

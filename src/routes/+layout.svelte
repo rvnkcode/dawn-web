@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import SideFooter from '$lib/components/organisms/sideFooter.svelte';
 	import type { LayoutServerData } from './$types';
+	import Notifications from 'svelte-notifications';
 
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	onMount(() => {
@@ -22,9 +23,11 @@
 </aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
-	<section>
-		<slot />
-	</section>
+	<Notifications>
+		<section>
+			<slot />
+		</section>
+	</Notifications>
 {/if}
 
 <style>

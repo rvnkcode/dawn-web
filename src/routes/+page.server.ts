@@ -3,6 +3,8 @@ import type { Actions, PageServerLoad } from './$types';
 import { createContext } from '$lib/trpc/context';
 import { appRouter } from '$lib/trpc/router/index';
 import { zTaskCreateInput, zTaskUpdateInput } from '../lib/zod';
+import { fail } from '@sveltejs/kit';
+import { z } from 'zod';
 
 export const load: PageServerLoad = async (event) => ({
 	tasks: appRouter.createCaller(await createContext(event)).inbox.getInbox()
@@ -22,12 +24,12 @@ const handleUrls = (url: string | undefined, rawUrls: string | undefined): strin
 
 export const actions: Actions = {
 	createTask: async ({ request }) => {
-		const input = await zTaskCreateInput.parseAsync(Object.fromEntries(await request.formData()));
-
-		const { rawUrls, url, allocatedTo, ...data } = input;
-		const urls = handleUrls(url, rawUrls);
-
 		try {
+			const input = await zTaskCreateInput.parseAsync(Object.fromEntries(await request.formData()));
+
+			const { rawUrls, url, allocatedTo, ...data } = input;
+			const urls = handleUrls(url, rawUrls);
+
 			await prisma.task.create({
 				data: {
 					...data,
@@ -49,18 +51,22 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			console.error(error);
+
+			if (error instanceof z.ZodError) {
+				return fail(400, { error: error.issues });
+			} else {
+				return fail(500);
+			}
 		}
 	},
 
 	updateTask: async ({ request }) => {
-		// TODO: error handling
-		const input = await zTaskUpdateInput.parseAsync(Object.fromEntries(await request.formData()));
-		console.log(input);
-
-		const { id, rawUrls, url, allocatedTo, ...data } = input;
-		const urls = handleUrls(url, rawUrls);
-
 		try {
+			const input = await zTaskUpdateInput.parseAsync(Object.fromEntries(await request.formData()));
+
+			const { id, rawUrls, url, allocatedTo, ...data } = input;
+			const urls = handleUrls(url, rawUrls);
+
 			await prisma.task.update({
 				where: {
 					id
@@ -87,6 +93,12 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			console.error(error);
+
+			if (error instanceof z.ZodError) {
+				return fail(400, { error: error.issues });
+			} else {
+				return fail(500);
+			}
 		}
 	}
 };
