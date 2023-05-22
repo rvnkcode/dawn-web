@@ -38,7 +38,6 @@
 {#if tasks.length < 1}
 	<!-- {#if !showNewInput && current === '/'} -->
 	{#if !showNewInput}
-		<!-- <p>Your list is empty - time to celebrate!</p> -->
 		<div>
 			<ion-icon name="checkbox" />
 		</div>
