@@ -14,5 +14,6 @@
 		color: black;
 		padding: 0.3rem;
 		border-radius: 0.25rem;
+		line-height: 0.9rem;
 	}
 </style>
