@@ -12,10 +12,10 @@
 
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
-	import CompletedAtInput from '../atoms/completedAtInput.svelte';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
+	import DateInput from '../atoms/dateInput.svelte';
 
 	export let task: Task | undefined = undefined;
 
@@ -27,12 +27,14 @@
 		showUrlInput: boolean;
 		showAllocatedTo: boolean;
 		urlList: Array<string>;
+		showStartedAt: boolean;
 	}
 
 	let props: Props = {
 		showUrlInput: false,
 		showAllocatedTo: false,
-		urlList: []
+		urlList: [],
+		showStartedAt: false
 	};
 
 	if (task && task.urls) {
@@ -76,19 +78,28 @@
 </script>
 
 <form action={task ? '/?/updateTask' : '/?/createTask'} method="post" use:enhance={afterSubmit}>
+	<!-- Edit mode -->
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
 		<TaskTitleInput value={task.title} />
+		{#if props.showStartedAt || task.startedAt}
+			<DateInput date={task.startedAt} attributeType="started" />
+		{/if}
 		{#if current === '/archive'}
-			<CompletedAtInput date={task.completedAt} />
+			<DateInput date={task.completedAt} attributeType="completed" />
 		{/if}
 		{#if props.showAllocatedTo || task.allocatedTo}
 			<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
 		{/if}
 		<CommentsInput value={task.comments ? task.comments : undefined} />
+
+		<!-- Create mode -->
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
+		{#if props.showStartedAt}
+			<DateInput attributeType="started" />
+		{/if}
 		{#if props.showAllocatedTo}
 			<AllocatedToInput />
 		{/if}

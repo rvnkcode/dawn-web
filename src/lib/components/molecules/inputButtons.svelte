@@ -2,11 +2,17 @@
 	export let value: {
 		showAllocatedTo: boolean;
 		showUrlInput: boolean;
+		showStartedAt: boolean;
 	};
 </script>
 
 <div>
-	<button type="button"><ion-icon name="calendar" /></button>
+	<button
+		type="button"
+		on:click={() => {
+			value.showStartedAt = !value.showStartedAt;
+		}}><ion-icon name="calendar" /></button
+	>
 	<button type="button" on:click={() => (value.showAllocatedTo = !value.showAllocatedTo)}
 		><ion-icon name="person-add" /></button
 	>
