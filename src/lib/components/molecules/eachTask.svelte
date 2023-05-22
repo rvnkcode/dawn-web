@@ -20,7 +20,6 @@
 	}
 
 	let urls: Array<string> = [];
-
 	$: if (task.urls) {
 		urls = task.urls?.split(',');
 	}
@@ -71,11 +70,14 @@
 					></button
 				>
 				{#if task.comments}
-					<ion-icon name="document-outline" use:tooltip tooltipText={task.comments} />
+					<!-- Recreate tooltip when comment(task) has updated -->
+					{#key task.comments}
+						<ion-icon name="document-outline" use:tooltip={task.comments} />
+					{/key}
 				{/if}
-				{#each urls as u}
-					<a href={u} target="_blank">
-						<ion-icon name="link-outline" use:tooltip tooltipText={u} />
+				{#each urls as url}
+					<a href={url} target="_blank">
+						<ion-icon name="link-outline" use:tooltip={url} />
 					</a>
 				{/each}
 			</div>
