@@ -24,7 +24,7 @@
 <main>
 	<List {tasks} {showNewInput} />
 	{#if showNewInput}
-		<InputForm value={false} />
+		<InputForm bind:value={showNewInput} />
 	{/if}
 </main>
 
