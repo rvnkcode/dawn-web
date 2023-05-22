@@ -21,7 +21,7 @@
 
 	let urls: Array<string> = [];
 
-	if (task.urls) {
+	$: if (task.urls) {
 		urls = task.urls?.split(',');
 	}
 
