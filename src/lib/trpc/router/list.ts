@@ -17,7 +17,8 @@ export const listRouter = router({
 					data: {
 						trash: false,
 						archive: false,
-						allocatedTo: null
+						allocatedTo: null,
+						startedAt: null
 					}
 				});
 			} catch (error) {
