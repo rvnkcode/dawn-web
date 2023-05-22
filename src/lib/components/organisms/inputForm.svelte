@@ -106,6 +106,7 @@
 		<CommentsInput />
 	{/if}
 
+	<!-- TODO: Separate url list component -->
 	{#if props.urlList.length > 0}
 		<ul>
 			{#each props.urlList as url}
