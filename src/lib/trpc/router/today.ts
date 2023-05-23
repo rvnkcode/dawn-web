@@ -1,3 +1,4 @@
+import { endOfDay } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 
 import { prisma } from '$lib/server/prisma';
@@ -14,7 +15,7 @@ export const todayRouter = router({
 				archive: false,
 				allocatedTo: null,
 				startedAt: {
-					lte: zonedTimeToUtc(today, timeZone)
+					lte: zonedTimeToUtc(endOfDay(today), timeZone)
 				}
 			},
 			orderBy: [{ isDone: 'asc' }, { startedAt: 'asc' }, { createdAt: 'desc' }]
