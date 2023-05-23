@@ -2,37 +2,46 @@
 	import { showSidebar } from '$lib/stores';
 	import type { RouterOutputs } from '$lib/trpc/router';
 	import NavItem from '../molecules/navItem.svelte';
+	import NavSubList from '../molecules/navSubList.svelte';
 
 	export let count: RouterOutputs['count']['getCounts'];
 </script>
 
 <!-- TODO: Separate nav lists  -->
 <nav class={$showSidebar ? 'show' : ''}>
-	<ul>
-		<NavItem
-			path="/"
-			iconName="file-tray"
-			iconClass="inbox"
-			label="Inbox"
-			count={count.inboxCount}
-		/>
-		<NavItem
-			path="/today"
-			iconName="receipt"
-			iconClass="today"
-			label="Today"
-			count={count.todayCount}
-		/>
-		<NavItem path="/upcoming" iconName="calendar" iconClass="upcoming" label="Upcoming" />
-		<NavItem
-			path="/waiting_for"
-			iconName="chatbox-ellipses"
-			iconClass=""
-			label="Waiting for"
-			count={count.waitingForCount}
-		/>
-		<NavItem path="/archive" iconName="save" iconClass="archive" label="Archive" />
-		<NavItem path="/trash" iconName="trash" iconClass="trashIcon" label="Trash" />
+	<ul class="container">
+		<NavSubList>
+			<NavItem
+				path="/"
+				iconName="file-tray"
+				iconClass="inbox"
+				label="Inbox"
+				count={count.inboxCount}
+			/>
+		</NavSubList>
+		<NavSubList>
+			<NavItem
+				path="/today"
+				iconName="receipt"
+				iconClass="today"
+				label="Today"
+				count={count.todayCount}
+			/>
+			<NavItem path="/upcoming" iconName="calendar" iconClass="upcoming" label="Upcoming" />
+		</NavSubList>
+		<NavSubList>
+			<NavItem
+				path="/waiting_for"
+				iconName="chatbox-ellipses"
+				iconClass=""
+				label="Waiting for"
+				count={count.waitingForCount}
+			/>
+		</NavSubList>
+		<NavSubList>
+			<NavItem path="/archive" iconName="save" iconClass="archive" label="Archive" />
+			<NavItem path="/trash" iconName="trash" iconClass="trashIcon" label="Trash" />
+		</NavSubList>
 	</ul>
 </nav>
 
@@ -41,12 +50,12 @@
 		width: 100%;
 	}
 
-	ul {
+	ul.container {
 		margin: 3rem 1rem 0 1rem;
 	}
 
 	@media (min-width: 481px) {
-		ul {
+		ul.container {
 			position: fixed;
 			width: inherit;
 			max-width: calc(233px - 2rem);
