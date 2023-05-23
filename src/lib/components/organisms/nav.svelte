@@ -48,9 +48,6 @@
 					}}>Upcoming</a
 				>
 			</div>
-			{#if count.upcomingCount > 0}
-				<span>{count.upcomingCount}</span>
-			{/if}
 		</li>
 		<li class={current === '/waiting_for' ? 'current' : ''}>
 			<div>
