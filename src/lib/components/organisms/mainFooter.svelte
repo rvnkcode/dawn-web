@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import MobileOnlyFooter from '$lib/components/zMobile/mobileOnlyFooter.svelte';
 	import MoveMenu from '$lib/components/templates/moveMenu.svelte';
+	import MobileOnlyFooter from '$lib/components/zMobile/mobileOnlyFooter.svelte';
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';

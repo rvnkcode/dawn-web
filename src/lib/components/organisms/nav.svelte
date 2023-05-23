@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { showSidebar } from '$lib/stores';
 	import type { RouterOutputs } from '$lib/trpc/router';
+	
 	import NavItem from '../molecules/navItem.svelte';
 	import NavSubList from '../molecules/navSubList.svelte';
 

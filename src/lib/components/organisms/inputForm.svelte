@@ -12,10 +12,10 @@
 
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
+	import DateInput from '../atoms/dateInput.svelte';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
-	import DateInput from '../atoms/dateInput.svelte';
 	import UrlList from './urlList.svelte';
 
 	export let task: Task | undefined = undefined;
