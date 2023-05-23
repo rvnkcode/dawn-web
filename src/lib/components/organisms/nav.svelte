@@ -38,6 +38,17 @@
 				<span>{count.todayCount}</span>
 			{/if}
 		</li>
+		<li class={current === '/upcoming' ? 'current' : ''}>
+			<div>
+				<ion-icon name="calendar" class="title upcoming" />
+				<a
+					href="/upcoming"
+					on:click={() => {
+						$showSidebar = false;
+					}}>Upcoming</a
+				>
+			</div>
+		</li>
 		<li class={current === '/waiting_for' ? 'current' : ''}>
 			<div>
 				<ion-icon name="chatbox-ellipses" class="title" />

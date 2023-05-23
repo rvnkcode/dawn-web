@@ -55,6 +55,10 @@ ion-icon.today {
 	color: #ffd400;
 }
 
+ion-icon.upcoming {
+	color: #e75777;
+}
+
 button.general {
 	border-radius: 0.25rem;
 	padding: 0.5rem 0.75rem;

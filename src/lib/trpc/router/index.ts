@@ -9,6 +9,7 @@ import { countRouter } from './nav';
 import { taskRouter } from './task';
 import { todayRouter } from './today';
 import { trashRouter } from './trash';
+import { upcomingRouter } from './upcoming';
 import { waitingForRouter } from './waitingFor';
 
 export const appRouter = router({
@@ -20,7 +21,8 @@ export const appRouter = router({
 	list: listRouter,
 	contact: contactRouter,
 	waitingFor: waitingForRouter,
-	today: todayRouter
+	today: todayRouter,
+	upcoming: upcomingRouter
 });
 
 export type AppRouter = typeof appRouter;

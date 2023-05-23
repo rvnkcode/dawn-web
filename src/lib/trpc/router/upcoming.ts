@@ -1,12 +1,13 @@
+import { addDays, startOfDay } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 
 import { prisma } from '$lib/server/prisma';
 import { publicProcedure, router } from '$lib/trpc/trpc';
 
-export const todayRouter = router({
-	getToday: publicProcedure.query(async (opts) => {
+export const upcomingRouter = router({
+	getUpcoming: publicProcedure.query(async (opts) => {
 		const timeZone = opts.ctx.timeZone;
-		const today = utcToZonedTime(new Date(), timeZone);
+		const tomorrow = utcToZonedTime(addDays(new Date(), 1), timeZone);
 
 		const tasks = await prisma.task.findMany({
 			where: {
@@ -14,7 +15,7 @@ export const todayRouter = router({
 				archive: false,
 				allocatedTo: null,
 				startedAt: {
-					lte: zonedTimeToUtc(today, timeZone)
+					gte: zonedTimeToUtc(startOfDay(tomorrow), timeZone)
 				}
 			},
 			orderBy: [{ isDone: 'asc' }, { startedAt: 'asc' }, { createdAt: 'desc' }]
