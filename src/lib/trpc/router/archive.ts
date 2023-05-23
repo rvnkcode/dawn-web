@@ -95,6 +95,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// Count of more archives
 				await prisma.task.count({
 					where: {
 						...defaultArchiveFilter,
@@ -111,6 +112,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// This year
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
@@ -132,6 +134,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// Null
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
@@ -139,6 +142,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// ~last year
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
