@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { format } from 'date-fns';
 
+	import { page } from '$app/stores';
+
+	$: current = $page.url.pathname;
+
 	type DateKind = 'started' | 'completed';
 
 	export let date: Date | null = null;
@@ -41,7 +45,7 @@
 		type="date"
 		bind:value
 		name={handleName(attributeType)}
-		max={attributeType == 'completed' ? today : null}
+		max={attributeType == 'completed' || current === '/archive' ? today : null}
 	/>
 </label>
 
