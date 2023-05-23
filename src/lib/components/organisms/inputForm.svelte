@@ -16,6 +16,7 @@
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
 	import DateInput from '../atoms/dateInput.svelte';
+	import UrlList from './urlList.svelte';
 
 	export let task: Task | undefined = undefined;
 
@@ -40,12 +41,6 @@
 	if (task && task.urls) {
 		props.urlList = task.urls.split(',');
 	}
-
-	$: urls = props.urlList.toString();
-
-	const deleteUrl = (value: string) => {
-		props.urlList = props.urlList.filter((e: string) => e !== value);
-	};
 
 	export let value: boolean; //showEdit
 
@@ -106,20 +101,8 @@
 		<CommentsInput />
 	{/if}
 
-	<!-- TODO: Separate url list component -->
 	{#if props.urlList.length > 0}
-		<ul>
-			{#each props.urlList as url}
-				<li>
-					<ion-icon name="link-outline" />
-					<a href={url} target="_blank">{url}</a>
-					<button type="button" on:click={() => deleteUrl(url)}
-						><ion-icon name="remove-circle-outline" /></button
-					>
-				</li>
-			{/each}
-		</ul>
-		<input type="hidden" bind:value={urls} name="rawUrls" />
+		<UrlList bind:value={props.urlList} />
 	{/if}
 
 	{#if props.showUrlInput}
@@ -138,18 +121,9 @@
 		margin-left: 1.25rem;
 	}
 
-	ul {
-		margin-top: 0.5rem;
-	}
-
 	div {
 		margin-top: 0.5rem;
 		text-align: right;
-	}
-
-	ion-icon {
-		font-size: large;
-		vertical-align: middle;
 	}
 
 	button[type='submit'] {
