@@ -1,3 +1,4 @@
+import { addDays, endOfDay, startOfDay } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 
 import { prisma } from '$lib/server/prisma';
@@ -14,7 +15,7 @@ export const countRouter = router({
 		const timeZone = opts.ctx.timeZone;
 		const today = utcToZonedTime(new Date(), timeZone);
 
-		const [inboxCount, todayCount, waitingForCount] = await Promise.all([
+		const [inboxCount, todayCount, waitingForCount, upcomingCount] = await Promise.all([
 			// inbox count
 			await prisma.task.count({
 				where: {
@@ -30,7 +31,7 @@ export const countRouter = router({
 					...filter,
 					allocatedTo: null,
 					startedAt: {
-						lte: zonedTimeToUtc(today, timeZone)
+						lte: zonedTimeToUtc(endOfDay(today), timeZone)
 					}
 				}
 			}),
@@ -43,9 +44,20 @@ export const countRouter = router({
 						allocatedTo: null
 					}
 				}
+			}),
+
+			// upcoming count
+			await prisma.task.count({
+				where: {
+					...filter,
+					allocatedTo: null,
+					startedAt: {
+						gte: zonedTimeToUtc(startOfDay(addDays(today, 1)), timeZone)
+					}
+				}
 			})
 		]);
 
-		return { inboxCount, todayCount, waitingForCount };
+		return { inboxCount, todayCount, waitingForCount, upcomingCount };
 	})
 });
