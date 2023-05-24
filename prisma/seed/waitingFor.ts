@@ -12,7 +12,8 @@ const waitingForCondition = {
 	startedAt: null,
 	isDone: false,
 	completedAt: null,
-	allocatedTo: `test`
+	allocatedTo: `test`,
+	status: null
 };
 
 export async function waitingFor(tx: Prisma.TransactionClient) {

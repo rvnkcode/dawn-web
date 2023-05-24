@@ -11,7 +11,8 @@ const todayCondition = {
 	isDone: false,
 	completedAt: null,
 	urls: null,
-	comments: null
+	comments: null,
+	status: null
 };
 
 export async function today(tx: Prisma.TransactionClient) {

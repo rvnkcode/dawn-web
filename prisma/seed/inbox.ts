@@ -7,7 +7,8 @@ const inboxCondition = {
 	trash: false,
 	allocatedTo: null,
 	createdAt: date,
-	startedAt: null
+	startedAt: null,
+	status: null
 };
 
 export async function inbox(tx: Prisma.TransactionClient) {

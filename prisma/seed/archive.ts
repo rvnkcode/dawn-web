@@ -10,7 +10,8 @@ const archiveCondition = {
 	comments: null,
 	createdAt: today,
 	trash: false,
-	startedAt: null
+	startedAt: null,
+	status: null
 };
 
 export async function archive(tx: Prisma.TransactionClient) {
