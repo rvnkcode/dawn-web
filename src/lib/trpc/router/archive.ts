@@ -234,11 +234,13 @@ export const archiveRouter = router({
 					trash: false,
 					NOT: {
 						allocatedTo: input === '/waiting_for' ? null : undefined, // waiting_for
-						startedAt: input === '/today' ? null : undefined // today
+						startedAt: input === '/today' ? null : undefined, // today
+						status: input === '/someday' ? null : undefined // someday
 					},
 					// inbox
 					allocatedTo: input !== '/waiting_for' ? null : undefined,
-					startedAt: input !== '/today' ? null : undefined
+					startedAt: input !== '/today' ? null : undefined,
+					status: input !== '/someday' ? null : undefined
 				},
 				data: {
 					archive: true
