@@ -39,8 +39,9 @@ export const zTaskUpdateInput = z
 			.transform((arg) => (arg != null && arg?.length < 1 ? undefined : arg)),
 		completedAt: z.coerce.date().optional()
 	})
-	// Condition of correct(what data should be)
-	.refine((data) => data.completedAt && data.startedAt && data.completedAt >= data.startedAt, {
-		message: 'Completion date cannot be earlier than the started date',
-		path: ['startedAt', 'completedAt']
+	.refine((data) => {
+		if (data.completedAt && data.startedAt && data.completedAt < data.startedAt) {
+			return false;
+		}
+		return true;
 	});

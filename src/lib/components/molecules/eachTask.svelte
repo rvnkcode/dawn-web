@@ -30,8 +30,13 @@
 		// console.log($selected);
 	};
 
-	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
-		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
+	const toggleCompleted = async (
+		id: number,
+		checked: boolean,
+		archive: boolean,
+		startedAt?: Date
+	) => {
+		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive, startedAt });
 		invalidateAll();
 	};
 
@@ -57,7 +62,12 @@
 			type="checkbox"
 			checked={task.isDone}
 			on:change={async (e) => {
-				await toggleCompleted(task.id, e.currentTarget.checked, task.archive);
+				await toggleCompleted(
+					task.id,
+					e.currentTarget.checked,
+					task.archive,
+					task.startedAt ?? undefined
+				);
 			}}
 		/>
 		{#if current === '/archive' && task.completedAt != null}
