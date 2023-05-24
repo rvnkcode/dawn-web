@@ -22,6 +22,11 @@
 		await trpc().trash.undoTrash.mutate(id);
 		invalidateAll();
 	};
+
+	const undoArchive = async (id: number) => {
+		await trpc().archive.undoArchive.mutate(id);
+		invalidateAll();
+	};
 </script>
 
 <div>
@@ -31,16 +36,22 @@
 			><ion-icon name="save" /></button
 		>
 	{/if}
-	<!-- Trash single task button -->
-	{#if current != '/trash'}
-		<button on:click={async () => await deleteTask(id)} class="overlay"
-			><ion-icon name="trash" /></button
-		>
-	{/if}
 	<!-- Undo trash button -->
 	{#if current === '/trash'}
 		<button on:click={async () => await undoTrash(id)} class="overlay"
 			><ion-icon name="arrow-undo" /></button
+		>
+	{/if}
+	<!-- Undo archive button -->
+	{#if current === '/archive'}
+		<button on:click={async () => await undoArchive(id)} class="overlay"
+			><ion-icon name="arrow-undo" /></button
+		>
+	{/if}
+	<!-- Trash single task button -->
+	{#if current != '/trash'}
+		<button on:click={async () => await deleteTask(id)} class="overlay"
+			><ion-icon name="trash" /></button
 		>
 	{/if}
 </div>

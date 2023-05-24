@@ -247,5 +247,18 @@ export const archiveRouter = router({
 		} catch (error) {
 			console.error(error);
 		}
+	}),
+
+	undoArchive: publicProcedure.input(z.number()).mutation(async (opts) => {
+		const { input } = opts;
+
+		try {
+			await prisma.task.update({
+				where: { id: input },
+				data: { archive: false }
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	})
 });
