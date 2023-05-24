@@ -99,6 +99,9 @@
 			<AllocatedToInput />
 		{/if}
 		<CommentsInput />
+		{#if current === '/someday'}
+			<input type="hidden" value="someday" name="status" />
+		{/if}
 	{/if}
 
 	{#if props.urlList.length > 0}

@@ -29,7 +29,7 @@ export const actions: Actions = {
 		try {
 			const input = await zTaskCreateInput.parseAsync(Object.fromEntries(await request.formData()));
 
-			const { rawUrls, url, allocatedTo, ...data } = input;
+			const { rawUrls, url, allocatedTo, status, ...data } = input;
 			const urls = handleUrls(url, rawUrls);
 
 			await prisma.task.create({
@@ -48,7 +48,8 @@ export const actions: Actions = {
 										}
 									}
 							  }
-							: undefined
+							: undefined,
+					status: data.startedAt || allocatedTo ? null : status
 				}
 			});
 		} catch (error) {

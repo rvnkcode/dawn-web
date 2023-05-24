@@ -9,7 +9,9 @@ export const zTaskCreateInput = z.object({
 		.string()
 		.optional()
 		.transform((arg) =>
-			arg != null && arg?.length < 1 ? null : parse(arg ?? '', 'yyyy-MM-dd', new Date())
+			arg == undefined || (arg !== undefined && arg?.length < 1)
+				? null
+				: parse(arg, 'yyyy-MM-dd', new Date())
 		),
 	comments: z.string().transform((arg) => (arg?.length < 1 ? undefined : arg)),
 	rawUrls: z.string().optional(),
@@ -17,7 +19,8 @@ export const zTaskCreateInput = z.object({
 	allocatedTo: z
 		.string()
 		.optional()
-		.transform((arg) => (arg != null && arg?.length < 1 ? undefined : arg))
+		.transform((arg) => (arg != null && arg?.length < 1 ? undefined : arg)),
+	status: z.string().optional()
 });
 
 export const zTaskUpdateInput = z
@@ -28,7 +31,9 @@ export const zTaskUpdateInput = z
 			.string()
 			.optional()
 			.transform((arg) =>
-				arg != null && arg?.length < 1 ? null : parse(arg ?? '', 'yyyy-MM-dd', new Date())
+				arg == undefined || (arg !== undefined && arg?.length < 1)
+					? null
+					: parse(arg, 'yyyy-MM-dd', new Date())
 			),
 		comments: z.string().transform((arg) => (arg?.length < 1 ? null : arg)),
 		rawUrls: z.string().optional(),
