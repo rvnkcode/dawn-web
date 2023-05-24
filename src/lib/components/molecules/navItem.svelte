@@ -4,7 +4,7 @@
 
 	export let path: string;
 	export let iconName: string;
-	export let iconClass: string;
+	export let iconClass = '';
 	export let label: string;
 	export let count: number | undefined = undefined;
 

@@ -34,7 +34,6 @@
 			<NavItem
 				path="/waiting_for"
 				iconName="chatbox-ellipses"
-				iconClass=""
 				label="Waiting for"
 				count={count.waitingForCount}
 			/>
