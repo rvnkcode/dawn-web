@@ -66,7 +66,7 @@ export const actions: Actions = {
 		try {
 			const input = await zTaskUpdateInput.parseAsync(Object.fromEntries(await request.formData()));
 
-			const { id, rawUrls, url, allocatedTo, ...data } = input;
+			const { id, rawUrls, url, allocatedTo, status, ...data } = input;
 			const urls = handleUrls(url, rawUrls);
 
 			await prisma.task.update({
@@ -90,7 +90,8 @@ export const actions: Actions = {
 							  }
 							: {
 									disconnect: true
-							  }
+							  },
+					status: data.startedAt || allocatedTo ? null : status
 				}
 			});
 		} catch (error) {

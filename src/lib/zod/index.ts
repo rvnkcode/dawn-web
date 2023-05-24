@@ -37,7 +37,8 @@ export const zTaskUpdateInput = z
 			.string()
 			.optional()
 			.transform((arg) => (arg != null && arg?.length < 1 ? undefined : arg)),
-		completedAt: z.coerce.date().optional()
+		completedAt: z.coerce.date().optional(),
+		status: z.string().optional()
 	})
 	.refine((data) => {
 		if (data.completedAt && data.startedAt && data.completedAt < data.startedAt) {
