@@ -14,6 +14,7 @@ export const todayRouter = router({
 				trash: false,
 				archive: false,
 				allocatedTo: null,
+				status: null,
 				startedAt: {
 					lte: zonedTimeToUtc(endOfDay(today), timeZone)
 				}

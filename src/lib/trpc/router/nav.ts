@@ -7,7 +7,8 @@ import { publicProcedure, router } from '$lib/trpc/trpc';
 const filter = {
 	trash: false,
 	archive: false,
-	isDone: false
+	isDone: false,
+	status: null
 };
 
 export const countRouter = router({

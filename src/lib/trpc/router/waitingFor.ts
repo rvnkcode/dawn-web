@@ -8,6 +8,7 @@ export const waitingForRouter = router({
 			where: {
 				trash: false,
 				archive: false,
+				status: null,
 				NOT: {
 					allocatedTo: null
 				}

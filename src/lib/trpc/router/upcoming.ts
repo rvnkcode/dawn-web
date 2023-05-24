@@ -14,6 +14,7 @@ export const upcomingRouter = router({
 				trash: false,
 				archive: false,
 				allocatedTo: null,
+				status: null,
 				startedAt: {
 					gte: zonedTimeToUtc(startOfDay(tomorrow), timeZone)
 				}

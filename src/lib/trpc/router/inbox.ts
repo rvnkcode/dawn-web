@@ -8,7 +8,8 @@ export const inboxRouter = router({
 				trash: false,
 				archive: false,
 				allocatedTo: null,
-				startedAt: null
+				startedAt: null,
+				status: null
 			},
 			orderBy: {
 				isDone: 'asc'
