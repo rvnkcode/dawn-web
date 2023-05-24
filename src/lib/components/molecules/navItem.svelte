@@ -28,7 +28,6 @@
 
 <style>
 	li {
-		margin-bottom: 0.25rem;
 		border-radius: 0.25rem;
 		padding: 0.25rem 0.25rem;
 		display: flex;
