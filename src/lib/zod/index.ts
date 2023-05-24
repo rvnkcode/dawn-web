@@ -1,7 +1,7 @@
 import { parse } from 'date-fns';
 import * as z from 'zod';
 
-export const zPathEnum = z.enum(['/inbox', '/waiting_for']);
+export const zPathEnum = z.enum(['/waiting_for', '/today', '/someday']);
 
 export const zTaskCreateInput = z.object({
 	title: z.string(),
