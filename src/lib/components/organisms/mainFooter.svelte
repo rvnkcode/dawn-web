@@ -64,6 +64,8 @@
 		>
 	{/if}
 
+	<!-- TODO: Add calendar button -->
+
 	<!-- Move button -->
 	<div class="moveContainer">
 		{#if showMoveMenu}
