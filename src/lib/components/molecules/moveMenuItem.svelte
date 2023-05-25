@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
-
-	import { page } from '$app/stores';
 
 	$: current = $page.url.pathname;
 	export let dest: string;

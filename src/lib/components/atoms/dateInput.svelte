@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { addDays, format } from 'date-fns';
-
+import { onMount } from 'svelte';
+	
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 
 	$: current = $page.url.pathname;
 

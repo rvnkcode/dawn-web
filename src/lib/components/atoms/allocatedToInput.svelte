@@ -1,9 +1,9 @@
 <script async script lang="ts">
 	import { onMount } from 'svelte';
 
+	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 	import type { RouterOutputs } from '$lib/trpc/router';
-	import { page } from '$app/stores';
 
 	export let value: string | undefined = undefined;
 
