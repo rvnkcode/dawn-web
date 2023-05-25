@@ -7,6 +7,8 @@
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
 	import type { PageServerData } from './$types';
+	import { trpc } from '../../lib/trpc/client';
+	import { invalidateAll } from '$app/navigation';
 
 	const today = new Date();
 
@@ -20,7 +22,8 @@
 		monthOfThisYear,
 		nulls,
 		others,
-		pastMonth
+		pastMonth,
+		canBeArchived
 	} = data);
 
 	$: showMore = false;
@@ -31,6 +34,11 @@
 				return format(t.completedAt, 'MMM') === month;
 			} else return null;
 		});
+	};
+
+	const archiveMore = async () => {
+		await trpc().archive.archiveMore.mutate();
+		invalidateAll();
 	};
 </script>
 
@@ -44,6 +52,15 @@
 </Header>
 
 <main>
+	{#if canBeArchived > 0}
+		<button
+			class="general blue"
+			on:click={async () => {
+				await archiveMore();
+			}}>Archive more</button
+		>
+	{/if}
+
 	{#if todayList.length > 0}
 		<h2>Today</h2>
 		<hr />
@@ -64,7 +81,7 @@
 
 	{#if more > 0}
 		{#if !showMore}
-			<button class="general" on:click={() => (showMore = true)}>More</button>
+			<button class="general more" on:click={() => (showMore = true)}>More</button>
 		{:else}
 			{#if thisYear.length > 0}
 				<h2>{format(today, 'y')}</h2>
@@ -113,7 +130,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	button {
+	button.more {
 		border: 1px solid black;
 	}
 

@@ -36,7 +36,7 @@ export const archiveRouter = router({
 		const lastMonth = subMonths(today, 1);
 		const startOfThisYear = startOfYear(today);
 
-		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
+		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others, canBeArchived] =
 			await Promise.all([
 				// Today
 				await prisma.task.findMany({
@@ -153,6 +153,15 @@ export const archiveRouter = router({
 					orderBy: {
 						completedAt: 'desc'
 					}
+				}),
+
+				// Can be archived
+				await prisma.task.count({
+					where: {
+						isDone: true,
+						trash: false,
+						archive: false
+					}
 				})
 			]);
 
@@ -207,7 +216,8 @@ export const archiveRouter = router({
 			monthOfThisYear,
 			nulls,
 			others,
-			pastMonth
+			pastMonth,
+			canBeArchived
 		};
 	}),
 
@@ -270,6 +280,23 @@ export const archiveRouter = router({
 			await prisma.task.update({
 				where: { id: input },
 				data: { archive: false }
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}),
+
+	archiveMore: publicProcedure.mutation(async () => {
+		try {
+			await prisma.task.updateMany({
+				where: {
+					isDone: true,
+					trash: false,
+					archive: false
+				},
+				data: {
+					archive: true
+				}
 			});
 		} catch (error) {
 			console.error(error);
