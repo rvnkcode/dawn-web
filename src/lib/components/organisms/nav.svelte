@@ -27,7 +27,12 @@
 				label="Today"
 				count={count.todayCount}
 			/>
-			<NavItem path="/upcoming" iconName="play-forward" iconClass="upcoming" label="Upcoming" />
+			<NavItem
+				path="/upcoming"
+				iconName="play-skip-forward"
+				iconClass="upcoming"
+				label="Upcoming"
+			/>
 			<NavItem path="/anytime" iconName="stop" iconClass="anytime" label="Anytime" />
 			<NavItem path="/someday" iconName="archive" iconClass="someday" label="Someday" />
 		</NavSubList>
