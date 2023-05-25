@@ -63,6 +63,10 @@ ion-icon.someday {
 	color: #cdc181;
 }
 
+ion-icon.anytime {
+	color: #3aa69b;
+}
+
 button.general {
 	border-radius: 0.25rem;
 	padding: 0.5rem 0.75rem;

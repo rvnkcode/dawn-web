@@ -18,7 +18,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="calendar" class="title upcoming" /><span>Upcoming</span>
+	<ion-icon name="play-forward" class="title upcoming" /><span>Upcoming</span>
 </Header>
 
 <main>

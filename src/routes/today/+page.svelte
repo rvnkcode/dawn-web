@@ -18,7 +18,7 @@
 </svelte:head>
 
 <Header>
-	<ion-icon name="receipt" class="title today" /><span>Today</span>
+	<ion-icon name="pause" class="title today" /><span>Today</span>
 </Header>
 
 <main>

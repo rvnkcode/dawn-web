@@ -22,12 +22,13 @@
 		<NavSubList>
 			<NavItem
 				path="/today"
-				iconName="receipt"
+				iconName="pause"
 				iconClass="today"
 				label="Today"
 				count={count.todayCount}
 			/>
-			<NavItem path="/upcoming" iconName="calendar" iconClass="upcoming" label="Upcoming" />
+			<NavItem path="/upcoming" iconName="play-forward" iconClass="upcoming" label="Upcoming" />
+			<NavItem path="/anytime" iconName="stop" iconClass="anytime" label="Anytime" />
 			<NavItem path="/someday" iconName="archive" iconClass="someday" label="Someday" />
 		</NavSubList>
 		<NavSubList>
