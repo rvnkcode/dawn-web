@@ -1,10 +1,15 @@
+import { fail } from '@sveltejs/kit';
+import { z } from 'zod';
+
 import { prisma } from '$lib/server/prisma';
-import type { Actions, PageServerLoad } from './$types';
 import { createContext } from '$lib/trpc/context';
 import { appRouter } from '$lib/trpc/router/index';
 
-export const load: PageServerLoad = async () => ({
-	tasks: appRouter.createCaller(await createContext()).inbox.getInbox()
+import { zTaskCreateInput, zTaskUpdateInput } from '../lib/zod';
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async (event) => ({
+	tasks: appRouter.createCaller(await createContext(event)).inbox.getInbox()
 });
 
 const handleUrls = (url: string | undefined, rawUrls: string | undefined): string | null => {
@@ -19,34 +24,20 @@ const handleUrls = (url: string | undefined, rawUrls: string | undefined): strin
 	} else return null;
 };
 
-const handleDateInput = (dateInput: string | undefined): Date | undefined => {
-	if (dateInput) {
-		return new Date(dateInput);
-	}
-};
-
-export const actions = {
+export const actions: Actions = {
 	createTask: async ({ request }) => {
-		const { title, rawUrls, url, comments, allocatedTo } = Object.fromEntries(
-			await request.formData()
-		) as {
-			title: string;
-			rawUrls: string;
-			url: string;
-			comments: string;
-			allocatedTo: string;
-		};
-
-		const urls = handleUrls(url, rawUrls);
-
 		try {
+			const input = await zTaskCreateInput.parseAsync(Object.fromEntries(await request.formData()));
+
+			const { rawUrls, url, allocatedTo, status, ...data } = input;
+			const urls = handleUrls(url, rawUrls);
+
 			await prisma.task.create({
 				data: {
-					title,
+					...data,
 					urls,
-					comments,
 					contact:
-						allocatedTo.length > 0
+						allocatedTo != null
 							? {
 									connectOrCreate: {
 										where: {
@@ -57,46 +48,37 @@ export const actions = {
 										}
 									}
 							  }
-							: undefined
+							: undefined,
+					status: data.startedAt || allocatedTo ? null : status
 				}
 			});
 		} catch (error) {
 			console.error(error);
+
+			if (error instanceof z.ZodError) {
+				return fail(400, { error: error.issues });
+			} else {
+				return fail(500);
+			}
 		}
 	},
 
 	updateTask: async ({ request }) => {
-		const {
-			id,
-			title,
-			rawUrls,
-			url,
-			comments,
-			completedAt: completedAtString,
-			allocatedTo
-		} = Object.fromEntries(await request.formData()) as {
-			id: string;
-			title: string;
-			rawUrls: string;
-			url: string;
-			comments: string;
-			completedAt: string;
-			allocatedTo: string;
-		};
-
-		const urls = handleUrls(url, rawUrls);
-		const completedAt = handleDateInput(completedAtString);
-
 		try {
+			const input = await zTaskUpdateInput.parseAsync(Object.fromEntries(await request.formData()));
+
+			const { id, rawUrls, url, allocatedTo, status, ...data } = input;
+			const urls = handleUrls(url, rawUrls);
+
 			await prisma.task.update({
-				where: { id: +id },
+				where: {
+					id
+				},
 				data: {
-					title,
+					...data,
 					urls,
-					comments,
-					completedAt,
 					contact:
-						allocatedTo.length > 0
+						allocatedTo != null
 							? {
 									connectOrCreate: {
 										where: {
@@ -109,11 +91,18 @@ export const actions = {
 							  }
 							: {
 									disconnect: true
-							  }
+							  },
+					status: data.startedAt || allocatedTo ? null : status
 				}
 			});
 		} catch (error) {
 			console.error(error);
+
+			if (error instanceof z.ZodError) {
+				return fail(400, { error: error.issues });
+			} else {
+				return fail(500);
+			}
 		}
 	}
-} satisfies Actions;
+};

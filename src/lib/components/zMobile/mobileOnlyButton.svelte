@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { selected, showSidebar, isSelectModeOnMobile } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { isSelectModeOnMobile, selected, showSidebar } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
 
 	$: current = $page.url.pathname;
@@ -20,7 +20,7 @@
 	};
 
 	const archiveChecked = async () => {
-		await trpc().archive.archiveChecked.mutate();
+		await trpc().archive.archiveChecked.mutate(current);
 		invalidateAll();
 		menuEnabled = !menuEnabled;
 	};

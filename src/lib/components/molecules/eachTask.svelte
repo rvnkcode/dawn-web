@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { Task } from '@prisma/client';
-	import { invalidateAll } from '$app/navigation';
-	import { selected, isSelectModeOnMobile } from '$lib/stores';
-	import { page } from '$app/stores';
 	import { format } from 'date-fns';
-	import { trpc } from '$lib/trpc/client';
-	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
-	import InputForm from '../organisms/inputForm.svelte';
+
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { tooltip } from '$lib/actions/tooltip';
+	import { isSelectModeOnMobile, selected } from '$lib/stores';
+	import { trpc } from '$lib/trpc/client';
+
+	import InputForm from '../organisms/inputForm.svelte';
+	import HoverButtonsOnList from './hoverButtonsOnList.svelte';
 
 	export let task: Task;
 
@@ -18,8 +20,7 @@
 	}
 
 	let urls: Array<string> = [];
-
-	if (task.urls) {
+	$: if (task.urls) {
 		urls = task.urls?.split(',');
 	}
 
@@ -29,8 +30,13 @@
 		// console.log($selected);
 	};
 
-	const toggleCompleted = async (id: number, checked: boolean, archive: boolean) => {
-		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive });
+	const toggleCompleted = async (
+		id: number,
+		checked: boolean,
+		archive: boolean,
+		startedAt?: Date
+	) => {
+		await trpc().task.toggleCompleted.mutate({ id, checked, isArchived: archive, startedAt });
 		invalidateAll();
 	};
 
@@ -56,11 +62,19 @@
 			type="checkbox"
 			checked={task.isDone}
 			on:change={async (e) => {
-				await toggleCompleted(task.id, e.currentTarget.checked, task.archive);
+				await toggleCompleted(
+					task.id,
+					e.currentTarget.checked,
+					task.archive,
+					task.startedAt ?? undefined
+				);
 			}}
 		/>
 		{#if current === '/archive' && task.completedAt != null}
 			<span class="date">{format(task.completedAt, 'MMM d')}</span>
+		{/if}
+		{#if current === '/waiting_for' && task.allocatedTo}
+			<span class="date">{task.allocatedTo}</span>
 		{/if}
 		<div>
 			<div class="titleDiv">
@@ -69,11 +83,14 @@
 					></button
 				>
 				{#if task.comments}
-					<ion-icon name="document-outline" use:tooltip tooltipText={task.comments} />
+					<!-- Recreate tooltip when comment(task) has updated -->
+					{#key task.comments}
+						<ion-icon name="document-outline" use:tooltip={task.comments} />
+					{/key}
 				{/if}
-				{#each urls as u}
-					<a href={u} target="_blank">
-						<ion-icon name="link-outline" use:tooltip tooltipText={u} />
+				{#each urls as url}
+					<a href={url} target="_blank">
+						<ion-icon name="link-outline" use:tooltip={url} />
 					</a>
 				{/each}
 			</div>

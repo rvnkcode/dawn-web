@@ -1,5 +1,3 @@
-import { publicProcedure, router } from '$lib/trpc/trpc';
-import { prisma } from '$lib/server/prisma';
 import type { Task } from '@prisma/client';
 import {
 	endOfDay,
@@ -11,9 +9,12 @@ import {
 	subDays,
 	subMonths
 } from 'date-fns';
-import { z } from 'zod';
 import { formatInTimeZone, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { zPathEnum } from '$lib/zod';
+import { z } from 'zod';
+
+import { prisma } from '$lib/server/prisma';
+import { publicProcedure, router } from '$lib/trpc/trpc';
+import { zPathEnum, type zPathType } from '$lib/zod';
 
 type pastMonthType = {
 	year: string;
@@ -27,15 +28,15 @@ const defaultArchiveFilter = {
 };
 
 export const archiveRouter = router({
-	getArchive: publicProcedure.input(z.string()).query(async (opts) => {
-		const timeZone = opts.input;
+	getArchive: publicProcedure.query(async (opts) => {
+		const timeZone = opts.ctx.timeZone;
 
 		const today = utcToZonedTime(new Date(), timeZone);
 		const yesterday = subDays(today, 1);
 		const lastMonth = subMonths(today, 1);
 		const startOfThisYear = startOfYear(today);
 
-		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others] =
+		const [todayList, yesterdayList, thisMonthList, more, thisYear, nulls, others, canBeArchived] =
 			await Promise.all([
 				// Today
 				await prisma.task.findMany({
@@ -94,6 +95,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// Count of more archives
 				await prisma.task.count({
 					where: {
 						...defaultArchiveFilter,
@@ -110,6 +112,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// This year
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
@@ -131,6 +134,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// Null
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
@@ -138,6 +142,7 @@ export const archiveRouter = router({
 					}
 				}),
 
+				// ~last year
 				await prisma.task.findMany({
 					where: {
 						...defaultArchiveFilter,
@@ -147,6 +152,15 @@ export const archiveRouter = router({
 					},
 					orderBy: {
 						completedAt: 'desc'
+					}
+				}),
+
+				// Can be archived
+				await prisma.task.count({
+					where: {
+						isDone: true,
+						trash: false,
+						archive: false
 					}
 				})
 			]);
@@ -202,7 +216,8 @@ export const archiveRouter = router({
 			monthOfThisYear,
 			nulls,
 			others,
-			pastMonth
+			pastMonth,
+			canBeArchived
 		};
 	}),
 
@@ -222,15 +237,62 @@ export const archiveRouter = router({
 	archiveChecked: publicProcedure.input(z.string(zPathEnum)).mutation(async (opt) => {
 		const { input } = opt;
 
+		const handleStatus = (input: zPathType) => {
+			switch (input) {
+				case '/someday':
+					return 'someday';
+
+				case '/anytime':
+					return 'anytime';
+
+				default:
+					return null;
+			}
+		};
+
 		try {
 			await prisma.task.updateMany({
 				where: {
 					isDone: true,
 					trash: false,
 					NOT: {
-						allocatedTo: input === '/waiting_for' ? null : undefined // waiting_for
+						allocatedTo: input === '/waiting_for' ? null : undefined, // waiting_for
+						startedAt: input === '/today' ? null : undefined // today
 					},
-					allocatedTo: input !== '/waiting_for' ? null : undefined // inbox
+					status: handleStatus(input as zPathType),
+					// inbox
+					allocatedTo: input !== '/waiting_for' ? null : undefined,
+					startedAt: input !== '/today' ? null : undefined
+				},
+				data: {
+					archive: true
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}),
+
+	undoArchive: publicProcedure.input(z.number()).mutation(async (opts) => {
+		const { input } = opts;
+
+		try {
+			await prisma.task.update({
+				where: { id: input },
+				data: { archive: false }
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}),
+
+	archiveMore: publicProcedure.mutation(async () => {
+		try {
+			await prisma.task.updateMany({
+				where: {
+					isDone: true,
+					trash: false,
+					archive: false
 				},
 				data: {
 					archive: true

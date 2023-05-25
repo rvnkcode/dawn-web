@@ -25,12 +25,16 @@ button:disabled > ion-icon {
 	color: #cbcbcb !important;
 }
 
+input[type='date'] {
+	font-family: sans-serif;
+}
+
 ion-icon {
 	visibility: inherit; /* Bug? */
 }
 
 ion-icon.title {
-	vertical-align: bottom;
+	vertical-align: baseline;
 	margin-right: 0.25rem;
 	font-size: smaller;
 }
@@ -45,6 +49,22 @@ ion-icon.archive {
 
 ion-icon.trashIcon {
 	color: #c2c6cc;
+}
+
+ion-icon.today {
+	color: #ffd400;
+}
+
+ion-icon.upcoming {
+	color: #e75777;
+}
+
+ion-icon.someday {
+	color: #cdc181;
+}
+
+ion-icon.anytime {
+	color: #3aa69b;
 }
 
 button.general {

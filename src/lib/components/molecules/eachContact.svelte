@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { Contact } from '@prisma/client';
-	import { selectedContacts } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { trpc } from '$lib/trpc/client';
+
 	import { invalidateAll } from '$app/navigation';
+	import { selectedContacts } from '$lib/stores';
+	import { trpc } from '$lib/trpc/client';
+
 	import DeleteContactConfirmModal from '../templates/deleteContactConfirmModal.svelte';
 
 	export let contact: Contact;

@@ -1,9 +1,18 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import Notifications from 'svelte-notifications';
+
 	import Nav from '$lib/components/organisms/nav.svelte';
+	import SideFooter from '$lib/components/organisms/sideFooter.svelte';
 	import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
 	import { showSidebar } from '$lib/stores';
-	import SideFooter from '../lib/components/organisms/sideFooter.svelte';
+
 	import type { LayoutServerData } from './$types';
+
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	onMount(() => {
+		document.cookie = `timeZone=${timeZone}`;
+	});
 
 	export let data: LayoutServerData;
 
@@ -16,9 +25,11 @@
 </aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
-	<section>
-		<slot />
-	</section>
+	<Notifications>
+		<section>
+			<slot />
+		</section>
+	</Notifications>
 {/if}
 
 <style>

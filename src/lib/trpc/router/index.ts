@@ -1,12 +1,17 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+
 import { router } from '../trpc';
+import { anytimeRouter } from './anytime';
 import { archiveRouter } from './archive';
+import { contactRouter } from './contact';
 import { inboxRouter } from './inbox';
 import { listRouter } from './list';
 import { countRouter } from './nav';
+import { somedayRouter } from './someday';
 import { taskRouter } from './task';
+import { todayRouter } from './today';
 import { trashRouter } from './trash';
-import { contactRouter } from './contact';
+import { upcomingRouter } from './upcoming';
 import { waitingForRouter } from './waitingFor';
 
 export const appRouter = router({
@@ -17,7 +22,11 @@ export const appRouter = router({
 	task: taskRouter,
 	list: listRouter,
 	contact: contactRouter,
-	waitingFor: waitingForRouter
+	waitingFor: waitingForRouter,
+	today: todayRouter,
+	upcoming: upcomingRouter,
+	someday: somedayRouter,
+	anytime: anytimeRouter
 });
 
 export type AppRouter = typeof appRouter;

@@ -1,5 +1,4 @@
 import type { Prisma, Task } from '@prisma/client';
-
 import { subDays } from 'date-fns';
 
 const today = new Date();
@@ -10,7 +9,9 @@ const archiveCondition = {
 	urls: null,
 	comments: null,
 	createdAt: today,
-	trash: false
+	trash: false,
+	startedAt: null,
+	status: null
 };
 
 export async function archive(tx: Prisma.TransactionClient) {

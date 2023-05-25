@@ -1,7 +1,6 @@
 import Tooltip from '$lib/components/atoms/tooltip.svelte';
 
-export const tooltip = (element: HTMLElement) => {
-	const text = element.getAttribute('tooltipText');
+export const tooltip = (element: HTMLElement, text: string | null) => {
 	let component: Tooltip;
 
 	function mouseOver(event: MouseEvent) {

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Header from '$lib/components/organisms/header.svelte';
-	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
-	import List from '$lib/components/organisms/list.svelte';
 	import InputForm from '$lib/components/organisms/inputForm.svelte';
+	import List from '$lib/components/organisms/list.svelte';
+	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -23,7 +24,7 @@
 <main>
 	<List {tasks} {showNewInput} />
 	{#if showNewInput}
-		<InputForm value={false} />
+		<InputForm bind:value={showNewInput} />
 	{/if}
 </main>
 

@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { Task } from '@prisma/client';
+	import { onMount } from 'svelte';
+
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import type { Task } from '@prisma/client';
 	import EachTask from '$lib/components/molecules/eachTask.svelte';
 	import { selected } from '$lib/stores';
-	import { onMount } from 'svelte';
 	import { trpc } from '$lib/trpc/client';
 
 	export let tasks: Task[];
@@ -37,7 +38,6 @@
 {#if tasks.length < 1}
 	<!-- {#if !showNewInput && current === '/'} -->
 	{#if !showNewInput}
-		<!-- <p>Your list is empty - time to celebrate!</p> -->
 		<div>
 			<ion-icon name="checkbox" />
 		</div>

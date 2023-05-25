@@ -1,8 +1,9 @@
-import { publicProcedure, router } from '$lib/trpc/trpc';
-import { prisma } from '$lib/server/prisma';
 import { z } from 'zod';
 
-const CategoryEnum = z.enum(['inbox']);
+import { prisma } from '$lib/server/prisma';
+import { publicProcedure, router } from '$lib/trpc/trpc';
+
+const CategoryEnum = z.enum(['inbox', 'someday']);
 
 export const listRouter = router({
 	moveSelected: publicProcedure
@@ -16,7 +17,9 @@ export const listRouter = router({
 					data: {
 						trash: false,
 						archive: false,
-						allocatedTo: null
+						allocatedTo: null,
+						startedAt: null,
+						status: input.dest === 'inbox' ? null : input.dest
 					}
 				});
 			} catch (error) {

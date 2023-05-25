@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { selected } from '$lib/stores';
 	import { page } from '$app/stores';
-	import MoveMenu from './moveMenu.svelte';
+	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
+
+	import MoveMenu from '../templates/moveMenu.svelte';
 
 	$: current = $page.url.pathname;
 
@@ -54,6 +55,7 @@
 		width: 50%;
 		padding: 0.25rem;
 		display: flex;
+		gap: 0.5rem;
 		justify-content: center;
 	}
 

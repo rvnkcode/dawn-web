@@ -23,6 +23,7 @@ model Task {
   title       String
   isDone      Boolean   @default(false)
   createdAt   DateTime  @default(now())
+  startedAt   DateTime?
   completedAt DateTime?
   archive     Boolean   @default(false)
   trash       Boolean   @default(false)
@@ -30,6 +31,8 @@ model Task {
   comments    String?
   contact     Contact?  @relation(fields: [allocatedTo], references: [name])
   allocatedTo String?
+  // anytime | someday
+  status      String?
 }
 
 model Contact {
