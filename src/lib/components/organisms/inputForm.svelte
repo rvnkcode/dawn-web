@@ -92,7 +92,7 @@
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<TaskTitleInput />
-		{#if props.showStartedAt}
+		{#if props.showStartedAt || current === '/today' || current === '/upcoming'}
 			<DateInput attributeType="started" />
 		{/if}
 		{#if props.showAllocatedTo}

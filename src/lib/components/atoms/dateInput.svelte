@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { format } from 'date-fns';
+	import { addDays, format } from 'date-fns';
 
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
 	$: current = $page.url.pathname;
 
@@ -10,13 +11,18 @@
 	export let date: Date | null = null;
 	export let attributeType: DateKind;
 
-	let value = '';
-
-	if (date) {
-		value = format(date, 'yyyy-MM-dd');
-	}
-
 	const today = format(new Date(), 'yyyy-MM-dd');
+	const tomorrow = format(addDays(new Date(), 1), 'yyyy-MM-dd');
+
+	$: value = '';
+
+	onMount(() => {
+		if (date) {
+			value = format(date, 'yyyy-MM-dd');
+		} else if (current === '/today') {
+			value = today;
+		}
+	});
 
 	const handleLabel = (dateKind: DateKind) => {
 		switch (dateKind) {
@@ -45,7 +51,9 @@
 		type="date"
 		bind:value
 		name={handleName(attributeType)}
+		min={attributeType === 'started' && current === '/upcoming' ? tomorrow : null}
 		max={attributeType == 'completed' || current === '/archive' ? today : null}
+		required={attributeType === 'started' && current === '/upcoming' ? true : false}
 	/>
 </label>
 
