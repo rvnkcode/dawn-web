@@ -31,7 +31,6 @@ export const actions: Actions = {
 
 			const { rawUrls, url, allocatedTo, status, ...data } = input;
 			const urls = handleUrls(url, rawUrls);
-			console.log(data.startedAt);
 
 			await prisma.task.create({
 				data: {

@@ -22,6 +22,9 @@
 		if (current === '/someday' && dest === 'someday') {
 			return;
 		}
+		if (current === '/anytime' && dest === 'anytime') {
+			return;
+		}
 
 		value = false; // close popup move menu
 

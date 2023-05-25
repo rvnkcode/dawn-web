@@ -8,6 +8,7 @@
 	<header><span>Move</span></header>
 	<ul>
 		<MoveMenuItem dest="inbox" label="Inbox" iconName="file-tray" bind:value />
+		<MoveMenuItem dest="anytime" label="Anytime" iconName="stop" bind:value />
 		<MoveMenuItem dest="someday" label="Someday" iconName="archive" bind:value />
 	</ul>
 </div>
