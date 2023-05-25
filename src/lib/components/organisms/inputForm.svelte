@@ -95,7 +95,7 @@
 		{#if props.showStartedAt || current === '/today' || current === '/upcoming'}
 			<DateInput attributeType="started" />
 		{/if}
-		{#if props.showAllocatedTo}
+		{#if props.showAllocatedTo || current === '/waiting_for'}
 			<AllocatedToInput />
 		{/if}
 		<CommentsInput />

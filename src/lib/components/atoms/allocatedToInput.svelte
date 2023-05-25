@@ -3,8 +3,11 @@
 
 	import { trpc } from '$lib/trpc/client';
 	import type { RouterOutputs } from '$lib/trpc/router';
+	import { page } from '$app/stores';
 
 	export let value: string | undefined = undefined;
+
+	$: current = $page.url.pathname;
 
 	let list: RouterOutputs['contact']['getContacts'] = [];
 
@@ -15,7 +18,14 @@
 
 <label
 	><ion-icon name="person-add" />
-	<input name="allocatedTo" bind:value list="names" autocomplete="off" placeholder="Allocated to" />
+	<input
+		name="allocatedTo"
+		bind:value
+		list="names"
+		autocomplete="off"
+		placeholder="Allocated to"
+		required={!value && current === '/waiting_for' ? true : false}
+	/>
 </label>
 
 <datalist id="names">
