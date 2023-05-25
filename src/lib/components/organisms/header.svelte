@@ -12,6 +12,7 @@
 		padding-bottom: 0.5rem;
 		position: sticky;
 		top: 0;
+		z-index: 1;
 		/* Debug */
 		/* border: 2px solid violet; */
 	}
