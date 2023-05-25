@@ -73,6 +73,9 @@
 		{#if current === '/archive' && task.completedAt != null}
 			<span class="date">{format(task.completedAt, 'MMM d')}</span>
 		{/if}
+		{#if current === '/waiting_for' && task.allocatedTo}
+			<span class="date">{task.allocatedTo}</span>
+		{/if}
 		<div>
 			<div class="titleDiv">
 				<button on:click={() => (showEdit = !showEdit)} class="title"
