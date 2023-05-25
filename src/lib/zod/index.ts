@@ -1,7 +1,17 @@
 import { parse } from 'date-fns';
 import * as z from 'zod';
 
-export const zPathEnum = z.enum(['/waiting_for', '/today', '/someday']);
+export const zPathEnum = z.enum([
+	'/',
+	'/today',
+	'/upcoming',
+	'/anytime',
+	'/someday',
+	'/waiting_for',
+	'/archive',
+	'/trash'
+]);
+export type zPathType = z.infer<typeof zPathEnum>;
 
 export const zTaskCreateInput = z.object({
 	title: z.string(),

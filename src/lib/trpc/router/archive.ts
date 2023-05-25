@@ -14,7 +14,7 @@ import { z } from 'zod';
 
 import { prisma } from '$lib/server/prisma';
 import { publicProcedure, router } from '$lib/trpc/trpc';
-import { zPathEnum } from '$lib/zod';
+import { zPathEnum, type zPathType } from '$lib/zod';
 
 type pastMonthType = {
 	year: string;
@@ -227,6 +227,19 @@ export const archiveRouter = router({
 	archiveChecked: publicProcedure.input(z.string(zPathEnum)).mutation(async (opt) => {
 		const { input } = opt;
 
+		const handleStatus = (input: zPathType) => {
+			switch (input) {
+				case '/someday':
+					return 'someday';
+
+				case '/anytime':
+					return 'anytime';
+
+				default:
+					return null;
+			}
+		};
+
 		try {
 			await prisma.task.updateMany({
 				where: {
@@ -234,13 +247,12 @@ export const archiveRouter = router({
 					trash: false,
 					NOT: {
 						allocatedTo: input === '/waiting_for' ? null : undefined, // waiting_for
-						startedAt: input === '/today' ? null : undefined, // today
-						status: input === '/someday' ? null : undefined // someday
+						startedAt: input === '/today' ? null : undefined // today
 					},
+					status: handleStatus(input as zPathType),
 					// inbox
 					allocatedTo: input !== '/waiting_for' ? null : undefined,
-					startedAt: input !== '/today' ? null : undefined,
-					status: input !== '/someday' ? null : undefined
+					startedAt: input !== '/today' ? null : undefined
 				},
 				data: {
 					archive: true
