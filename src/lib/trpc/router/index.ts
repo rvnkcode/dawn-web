@@ -1,6 +1,7 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 import { router } from '../trpc';
+import { anytimeRouter } from './anytime';
 import { archiveRouter } from './archive';
 import { contactRouter } from './contact';
 import { inboxRouter } from './inbox';
@@ -24,7 +25,8 @@ export const appRouter = router({
 	waitingFor: waitingForRouter,
 	today: todayRouter,
 	upcoming: upcomingRouter,
-	someday: somedayRouter
+	someday: somedayRouter,
+	anytime: anytimeRouter
 });
 
 export type AppRouter = typeof appRouter;
