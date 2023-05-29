@@ -42,6 +42,7 @@
 			right: 0;
 			bottom: 0;
 			margin: 0 auto 3rem auto;
+			z-index: 2;
 		}
 
 		header {
@@ -50,6 +51,12 @@
 
 		span {
 			font-size: large;
+		}
+
+		ul {
+			text-align: left;
+			width: max-content;
+			margin: 0 auto;
 		}
 	}
 </style>
