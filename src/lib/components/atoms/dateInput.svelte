@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { addDays, format } from 'date-fns';
-import { onMount } from 'svelte';
-	
+	import { onMount } from 'svelte';
+
 	import { page } from '$app/stores';
 
 	$: current = $page.url.pathname;
@@ -53,7 +53,7 @@ import { onMount } from 'svelte';
 		name={handleName(attributeType)}
 		min={attributeType === 'started' && current === '/upcoming' ? tomorrow : null}
 		max={attributeType == 'completed' || current === '/archive' ? today : null}
-		required={attributeType === 'started' && current === '/upcoming' ? true : false}
+		required={attributeType === 'started' && current === '/upcoming' && !date ? true : false}
 	/>
 </label>
 

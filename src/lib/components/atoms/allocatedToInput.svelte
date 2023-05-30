@@ -24,7 +24,7 @@
 		list="names"
 		autocomplete="off"
 		placeholder="Allocated to"
-		required={!value && current === '/waiting_for' ? true : false}
+		required={value == undefined && current === '/waiting_for' ? true : false}
 	/>
 </label>
 
