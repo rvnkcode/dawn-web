@@ -46,4 +46,16 @@
 			margin: 0 auto 0.5rem auto;
 		}
 	}
+
+	@media (max-width: 480px) {
+		div {
+			width: 40%;
+			border-radius: 0.5rem;
+			left: 0;
+			right: 0;
+			bottom: 50%;
+			margin: 0 auto;
+			z-index: 2;
+		}
+	}
 </style>

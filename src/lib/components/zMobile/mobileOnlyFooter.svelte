@@ -3,12 +3,14 @@
 	import { page } from '$app/stores';
 	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
+	import CalendarMenu from '../templates/calendarMenu.svelte';
 
 	import MoveMenu from '../templates/moveMenu.svelte';
 
 	$: current = $page.url.pathname;
 
 	let showMoveMenu = false;
+	let showCalendarMenu = false;
 
 	const trashSelectedTasks = async () => {
 		if ($selected.size < 1) {
@@ -20,8 +22,13 @@
 		invalidateAll();
 	};
 
-	const handleClick = () => {
-		// console.log($selected.size);
+	const calendar = () => {
+		if ($selected.size > 0) {
+			showCalendarMenu = !showCalendarMenu;
+		}
+	};
+
+	const move = () => {
 		if ($selected.size > 0) {
 			showMoveMenu = !showMoveMenu;
 		}
@@ -29,7 +36,8 @@
 </script>
 
 <div>
-	<button on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+	<button on:click={calendar}><ion-icon name="calendar" /></button>
+	<button on:click={move}><ion-icon name="arrow-forward" /></button>
 	{#if current != '/trash'}
 		<button
 			on:click={async () => {
@@ -38,6 +46,10 @@
 		>
 	{/if}
 </div>
+
+{#if showCalendarMenu}
+	<CalendarMenu bind:value={showCalendarMenu} />
+{/if}
 
 {#if showMoveMenu}
 	<MoveMenu bind:value={showMoveMenu} />
@@ -55,7 +67,7 @@
 		width: 50%;
 		padding: 0.25rem;
 		display: flex;
-		gap: 0.5rem;
+		gap: 1rem;
 		justify-content: center;
 	}
 
