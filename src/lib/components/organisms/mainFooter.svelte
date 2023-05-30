@@ -6,12 +6,14 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
+	import CalendarMenu from '../templates/calendarMenu.svelte';
 
 	export let value: boolean; //showNewInput
 
 	$: current = $page.url.pathname;
 
 	let showMoveMenu = false;
+	let showCalendarMenu = false;
 
 	const trashSelectedTasks = async () => {
 		if ($selected.size < 1) {
@@ -23,10 +25,15 @@
 		invalidateAll();
 	};
 
-	const handleClick = () => {
-		// console.log($selected.size);
+	const handleMoveButtonClick = () => {
 		if ($selected.size > 0) {
 			showMoveMenu = !showMoveMenu;
+		}
+	};
+
+	const handleCalendarButtonClick = () => {
+		if ($selected.size > 0) {
+			showCalendarMenu = !showCalendarMenu;
 		}
 	};
 
@@ -44,7 +51,7 @@
 
 		switch (e.key) {
 			case 'Escape':
-				value = false;
+				value = false; // Hide new task input form
 				break;
 
 			default:
@@ -64,14 +71,20 @@
 		>
 	{/if}
 
-	<!-- TODO: Add calendar button -->
+	<!-- Calendar button -->
+	<div class="container">
+		{#if showCalendarMenu}
+			<CalendarMenu bind:value={showCalendarMenu} />
+		{/if}
+		<button class="hide" on:click={handleCalendarButtonClick}><ion-icon name="calendar" /></button>
+	</div>
 
 	<!-- Move button -->
-	<div class="moveContainer">
+	<div class="container">
 		{#if showMoveMenu}
 			<MoveMenu bind:value={showMoveMenu} />
 		{/if}
-		<button class="hide" on:click={handleClick}><ion-icon name="arrow-forward" /></button>
+		<button class="hide" on:click={handleMoveButtonClick}><ion-icon name="arrow-forward" /></button>
 	</div>
 
 	<!-- Archive button -->
@@ -121,7 +134,7 @@
 			border: 1px solid #eeeef0;
 		}
 
-		div.moveContainer {
+		div.container {
 			width: 100%;
 		}
 

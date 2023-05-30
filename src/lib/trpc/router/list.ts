@@ -25,5 +25,22 @@ export const listRouter = router({
 			} catch (error) {
 				console.error(error);
 			}
+		}),
+
+	updateStartDate: publicProcedure
+		.input(z.object({ date: z.coerce.date(), ids: z.array(z.number()) }))
+		.mutation(async (opts) => {
+			const { input } = opts;
+
+			try {
+				await prisma.task.updateMany({
+					where: { id: { in: input.ids } },
+					data: {
+						startedAt: input.date
+					}
+				});
+			} catch (error) {
+				console.error(error);
+			}
 		})
 });
