@@ -25,7 +25,7 @@
 </aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
-	<Notifications>
+	<Notifications zIndex={3}>
 		<section>
 			<slot />
 		</section>
