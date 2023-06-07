@@ -38,6 +38,12 @@
 		background-color: #e4e7ea;
 	}
 
+	div {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
 	a {
 		text-decoration: none;
 		color: #292e34;
