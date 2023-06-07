@@ -53,7 +53,12 @@
 
 <style>
 	input[type='url'] {
-		width: calc(100% - 68px);
+		width: calc(100% - 52px);
 		margin-top: 0.5rem;
+	}
+
+	ion-icon {
+		font-size: large;
+		vertical-align: middle;
 	}
 </style>
