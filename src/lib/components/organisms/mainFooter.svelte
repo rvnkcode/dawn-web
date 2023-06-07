@@ -6,6 +6,7 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
+
 	import CalendarMenu from '../templates/calendarMenu.svelte';
 
 	export let value: boolean; //showNewInput
