@@ -8,7 +8,7 @@
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { notificationOptions } from '$lib/const';
+	import { errorNotificationOptions } from '$lib/const';
 
 	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
@@ -57,12 +57,12 @@
 
 					addNotification({
 						text: `${path}: ${message}`,
-						...notificationOptions
+						...errorNotificationOptions
 					});
 				} else {
 					addNotification({
 						text: 'Error',
-						...notificationOptions
+						...errorNotificationOptions
 					});
 				}
 			}
