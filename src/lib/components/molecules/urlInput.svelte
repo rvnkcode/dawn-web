@@ -2,7 +2,7 @@
 	import { getNotificationsContext } from 'svelte-notifications';
 	import { z, type ZodIssue } from 'zod';
 
-	import { notificationOptions } from '$lib/const';
+	import { errorNotificationOptions } from '$lib/const';
 
 	export let value: {
 		urlList: Array<string>;
@@ -26,7 +26,7 @@
 			} else {
 				addNotification({
 					text: 'URL already exists',
-					...notificationOptions
+					...errorNotificationOptions
 				});
 			}
 		} catch (error) {
@@ -35,7 +35,7 @@
 
 				addNotification({
 					text: message,
-					...notificationOptions
+					...errorNotificationOptions
 				});
 			}
 		}
@@ -53,7 +53,12 @@
 
 <style>
 	input[type='url'] {
-		width: calc(100% - 68px);
+		width: calc(100% - 52px);
 		margin-top: 0.5rem;
+	}
+
+	ion-icon {
+		font-size: large;
+		vertical-align: middle;
 	}
 </style>

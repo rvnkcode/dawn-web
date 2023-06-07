@@ -144,7 +144,7 @@
 		color: #0061c2;
 		max-width: max-content;
 		width: 100%;
-		margin-left: 0.5rem;
+		margin-left: 0.25rem;
 		margin-right: 0.5rem;
 	}
 

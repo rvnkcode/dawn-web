@@ -34,9 +34,8 @@ ion-icon {
 }
 
 ion-icon.title {
-	vertical-align: baseline;
 	margin-right: 0.25rem;
-	font-size: smaller;
+	font-size: large;
 }
 
 ion-icon.inbox {

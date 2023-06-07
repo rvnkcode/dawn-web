@@ -3,8 +3,8 @@
 	import { page } from '$app/stores';
 	import { selected } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
-	import CalendarMenu from '../templates/calendarMenu.svelte';
 
+	import CalendarMenu from '../templates/calendarMenu.svelte';
 	import MoveMenu from '../templates/moveMenu.svelte';
 
 	$: current = $page.url.pathname;

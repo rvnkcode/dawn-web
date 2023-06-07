@@ -2,13 +2,13 @@
 	import type { Task } from '@prisma/client';
 	import { format } from 'date-fns';
 
+	import { invalidateAll } from '$app/navigation';
 	import Header from '$lib/components/organisms/header.svelte';
 	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
-
+import { trpc } from '$lib/trpc/client';
+	
 	import type { PageServerData } from './$types';
-	import { trpc } from '../../lib/trpc/client';
-	import { invalidateAll } from '$app/navigation';
 
 	const today = new Date();
 

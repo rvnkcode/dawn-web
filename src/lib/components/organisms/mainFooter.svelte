@@ -6,6 +6,7 @@
 	import { selected } from '$lib/stores';
 	import { isSelectModeOnMobile } from '$lib/stores';
 	import { trpc } from '$lib/trpc/client';
+
 	import CalendarMenu from '../templates/calendarMenu.svelte';
 
 	export let value: boolean; //showNewInput
@@ -69,15 +70,16 @@
 				value = !value;
 			}}><ion-icon name="add" /></button
 		>
-	{/if}
 
-	<!-- Calendar button -->
-	<div class="container">
-		{#if showCalendarMenu}
-			<CalendarMenu bind:value={showCalendarMenu} />
-		{/if}
-		<button class="hide" on:click={handleCalendarButtonClick}><ion-icon name="calendar" /></button>
-	</div>
+		<!-- Calendar button -->
+		<div class="container">
+			{#if showCalendarMenu}
+				<CalendarMenu bind:value={showCalendarMenu} />
+			{/if}
+			<button class="hide" on:click={handleCalendarButtonClick}><ion-icon name="calendar" /></button
+			>
+		</div>
+	{/if}
 
 	<!-- Move button -->
 	<div class="container">
