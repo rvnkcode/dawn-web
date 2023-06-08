@@ -14,9 +14,9 @@ const filter = {
 export const countRouter = router({
 	getCounts: publicProcedure.query(async (opts) => {
 		const timeZone = opts.ctx.timeZone;
-		const today = utcToZonedTime(new Date(), timeZone);
+		const todayDate = utcToZonedTime(new Date(), timeZone);
 
-		const [inboxCount, todayCount, waitingForCount] = await Promise.all([
+		const [inbox, today, waiting] = await Promise.all([
 			// inbox count
 			await prisma.task.count({
 				where: {
@@ -32,7 +32,7 @@ export const countRouter = router({
 					...filter,
 					allocatedTo: null,
 					startedAt: {
-						lte: zonedTimeToUtc(endOfDay(today), timeZone)
+						lte: zonedTimeToUtc(endOfDay(todayDate), timeZone)
 					}
 				}
 			}),
@@ -48,6 +48,6 @@ export const countRouter = router({
 			})
 		]);
 
-		return { inboxCount, todayCount, waitingForCount };
+		return { inbox, today, waiting };
 	})
 });
