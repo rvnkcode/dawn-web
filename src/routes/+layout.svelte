@@ -1,35 +1,36 @@
 <script lang="ts">
+	import 'carbon-components-svelte/css/all.css';
+	import { Content } from 'carbon-components-svelte';
 	import { onMount } from 'svelte';
-	import Notifications from 'svelte-notifications';
-
 	import Nav from '$lib/components/organisms/nav.svelte';
-	import SideFooter from '$lib/components/organisms/sideFooter.svelte';
-	import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
-	import { showSidebar } from '$lib/stores';
-
+	import MainHeader from '$lib/components/organisms/mainHeader.svelte';
 	import type { LayoutServerData } from './$types';
+	// import Notifications from 'svelte-notifications';
+	// import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
+	// import { showSidebar } from '$lib/stores';
 
+	// Initialize page data
+	export let data: LayoutServerData;
+	$: ({ count } = data);
+
+	// Set the time zone
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	onMount(() => {
 		document.cookie = `timeZone=${timeZone}`;
 	});
-
-	export let data: LayoutServerData;
-
-	$: ({ count } = data);
 </script>
 
-<aside class={$showSidebar ? 'show' : ''}>
-	<Nav {count} />
-	<SideFooter />
-</aside>
+<MainHeader />
+<Nav {count} />
+<Content>
+	<slot />
+</Content>
+
+<!-- 
 {#if !$showSidebar}
 	<MobileOnlyButton />
 	<Notifications zIndex={3}>
-		<section>
-			<slot />
-		</section>
-	</Notifications>
+			</Notifications>
 {/if}
 
 <style>
@@ -65,3 +66,4 @@
 		}
 	}
 </style>
+	 -->

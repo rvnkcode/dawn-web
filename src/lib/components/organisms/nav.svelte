@@ -1,75 +1,45 @@
 <script lang="ts">
-	import { showSidebar } from '$lib/stores';
+	import { SideNav, SideNavDivider, SideNavItems, SideNavLink } from 'carbon-components-svelte';
+	import {
+		Archive,
+		Box,
+		CatalogPublish,
+		CalendarHeatMap,
+		Task,
+		TaskStar,
+		TrashCan
+	} from 'carbon-icons-svelte';
 	import type { RouterOutputs } from '$lib/trpc/router';
-
-	import NavItem from '../molecules/navItem.svelte';
-	import NavSubList from '../molecules/navSubList.svelte';
 
 	export let count: RouterOutputs['count']['getCounts'];
 </script>
 
-<nav class={$showSidebar ? 'show' : ''}>
-	<ul class="container">
-		<NavSubList>
-			<NavItem
-				path="/"
-				iconName="file-tray"
-				iconClass="inbox"
-				label="Inbox"
-				count={count.inboxCount}
-			/>
-		</NavSubList>
-		<NavSubList>
-			<NavItem
-				path="/today"
-				iconName="pause"
-				iconClass="today"
-				label="Today"
-				count={count.todayCount}
-			/>
-			<NavItem
-				path="/upcoming"
-				iconName="play-skip-forward"
-				iconClass="upcoming"
-				label="Upcoming"
-			/>
-			<NavItem path="/anytime" iconName="stop" iconClass="anytime" label="Anytime" />
-			<NavItem path="/someday" iconName="archive" iconClass="someday" label="Someday" />
-		</NavSubList>
-		<NavSubList>
-			<NavItem
-				path="/waiting_for"
-				iconName="chatbox-ellipses"
-				label="Waiting for"
-				count={count.waitingForCount}
-			/>
-		</NavSubList>
-		<NavSubList>
-			<NavItem path="/archive" iconName="save" iconClass="archive" label="Archive" />
-			<NavItem path="/trash" iconName="trash" iconClass="trashIcon" label="Trash" />
-		</NavSubList>
-	</ul>
-</nav>
-
-<style>
-	nav {
-		width: 100%;
-	}
-
-	ul.container {
-		margin: 3rem 1rem 0 1rem;
-	}
-
-	@media (min-width: 481px) {
-		ul.container {
-			position: fixed;
-			width: inherit;
-			max-width: calc(233px - 2rem);
-			top: 0;
-			left: 0;
-			z-index: 1;
-			/* Debug */
-			/* border: 2px solid violet; */
-		}
-	}
-</style>
+<!-- TODO: Change rail property by its client's width -->
+<SideNav rail>
+	<SideNavItems>
+		<SideNavLink
+			icon={Task}
+			text={`Inbox ${count.inbox > 0 ? `[${count.inbox}]` : ''}`}
+			href="/"
+			isSelected
+		/>
+		<SideNavDivider />
+		<SideNavLink
+			icon={TaskStar}
+			text={`Today ${count.today > 0 ? `[${count.today}]` : ''}`}
+			href="/today"
+		/>
+		<SideNavLink icon={CalendarHeatMap} text="Upcoming" href="/upcoming" />
+		<SideNavLink icon={CatalogPublish} text="Anytime" href="/anytime" />
+		<SideNavLink icon={Box} text="Someday" href="/someday" />
+		<SideNavDivider />
+		<SideNavLink
+			icon={Box}
+			text={`Waiting for... ${count.waiting > 0 ? `[${count.waiting}]` : ''}`}
+			href="/waiting_for"
+		/>
+		<SideNavDivider />
+		<SideNavLink icon={Archive} text="Archive" href="/archive" />
+		<SideNavLink icon={TrashCan} text="Trash" href="/trash" />
+	</SideNavItems>
+</SideNav>
