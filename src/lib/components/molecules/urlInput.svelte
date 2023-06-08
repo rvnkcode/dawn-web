@@ -53,7 +53,7 @@
 
 <style>
 	input[type='url'] {
-		width: calc(100% - 52px);
+		width: calc(100% - 55px);
 		margin-top: 0.5rem;
 	}
 
