@@ -13,11 +13,11 @@
 			value.showStartedAt = !value.showStartedAt;
 		}}><ion-icon name="calendar" /></button
 	>
-	<button type="button" on:click={() => (value.showAllocatedTo = !value.showAllocatedTo)}
-		><ion-icon name="person-add" /></button
-	>
 	<button type="button" on:click={() => (value.showUrlInput = !value.showUrlInput)}
 		><ion-icon name="link-outline" /></button
+	>
+	<button type="button" on:click={() => (value.showAllocatedTo = !value.showAllocatedTo)}
+		><ion-icon name="person-add" /></button
 	>
 </div>
 
