@@ -73,32 +73,10 @@
 </script>
 
 <form action={task ? '/?/updateTask' : '/?/createTask'} method="post" use:enhance={afterSubmit}>
-	<!-- Edit mode -->
+	<!-- Hidden values -->
 	{#if task}
 		<input type="hidden" value={task.id} name="id" />
-		<TaskTitleInput value={task.title} />
-		{#if props.showStartedAt || task.startedAt}
-			<DateInput date={task.startedAt} attributeType="started" />
-		{/if}
-		{#if current === '/archive'}
-			<DateInput date={task.completedAt} attributeType="completed" />
-		{/if}
-		{#if props.showAllocatedTo || task.allocatedTo}
-			<AllocatedToInput value={task.allocatedTo ? task.allocatedTo : undefined} />
-		{/if}
-		<CommentsInput value={task.comments ? task.comments : undefined} />
-
-		<!-- Create mode -->
 	{:else}
-		<!-- svelte-ignore a11y-autofocus -->
-		<TaskTitleInput />
-		{#if props.showStartedAt || current === '/today' || current === '/upcoming'}
-			<DateInput attributeType="started" />
-		{/if}
-		{#if props.showAllocatedTo || current === '/waiting_for'}
-			<AllocatedToInput />
-		{/if}
-		<CommentsInput />
 		{#if current === '/someday'}
 			<input type="hidden" value="someday" name="status" />
 		{/if}
@@ -106,6 +84,18 @@
 			<input type="hidden" value="anytime" name="status" />
 		{/if}
 	{/if}
+
+	<TaskTitleInput value={task?.title} />
+	{#if props.showStartedAt || task?.startedAt || current === '/today' || current === '/upcoming'}
+		<DateInput date={task?.startedAt} attributeType="started" />
+	{/if}
+	{#if current === '/archive' && task?.isDone}
+		<DateInput date={task.completedAt} attributeType="completed" />
+	{/if}
+	{#if props.showAllocatedTo || task?.allocatedTo || current === '/waiting_for'}
+		<AllocatedToInput value={task?.allocatedTo ?? undefined} />
+	{/if}
+	<CommentsInput value={task?.comments ?? undefined} />
 
 	{#if props.urlList.length > 0}
 		<UrlList bind:value={props.urlList} />
@@ -118,7 +108,7 @@
 	<InputButtons bind:value={props} />
 
 	<div>
-		<button type="submit" class="blue general">Add</button>
+		<button type="submit" class="blue general">{task ? 'Update' : 'Add'}</button>
 	</div>
 </form>
 
