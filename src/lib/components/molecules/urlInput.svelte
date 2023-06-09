@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { TextInput } from 'carbon-components-svelte';
+</script>
+
+<TextInput size="sm" name="url" placeholder="https://www.example.com" />
+
+<!-- <script lang="ts">
 	import { getNotificationsContext } from 'svelte-notifications';
 	import { z, type ZodIssue } from 'zod';
 
@@ -42,7 +48,6 @@
 	};
 </script>
 
-<ion-icon name="link-outline" />
 <input type="url" required bind:value={urlInput} placeholder="http://example.com" name="url" />
 <button
 	type="button"
@@ -50,15 +55,4 @@
 		addUrl(urlInput);
 	}}><ion-icon name="add-circle-outline" /></button
 >
-
-<style>
-	input[type='url'] {
-		width: calc(100% - 55px);
-		margin-top: 0.5rem;
-	}
-
-	ion-icon {
-		font-size: large;
-		vertical-align: middle;
-	}
-</style>
+-->

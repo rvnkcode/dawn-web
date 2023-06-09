@@ -6,7 +6,7 @@
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
 	import type { PageServerData } from './$types';
-	import NewTaskForm from '$lib/components/organisms/newTaskForm.svelte';
+	import NewTaskForm from '$lib/components/organisms/taskForm.svelte';
 	import { clientWidth } from '$lib/stores';
 
 	// Initialize page data

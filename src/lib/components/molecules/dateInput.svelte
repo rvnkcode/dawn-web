@@ -1,4 +1,13 @@
 <script lang="ts">
+	import { DatePicker, DatePickerInput } from 'carbon-components-svelte';
+</script>
+
+<DatePicker datePickerType="single" dateFormat="y/m/d">
+	<DatePickerInput size="sm" />
+</DatePicker>
+
+<!--  -->
+<!-- <script lang="ts">
 	import { addDays, format } from 'date-fns';
 	import { onMount } from 'svelte';
 
@@ -62,4 +71,4 @@
 		border: none;
 		margin: 0.5rem 0 0.25rem 0;
 	}
-</style>
+</style> -->

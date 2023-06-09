@@ -10,9 +10,9 @@
 	import { page } from '$app/stores';
 	import { errorNotificationOptions } from '$lib/const';
 
-	import AllocatedToInput from '../atoms/allocatedToInput.svelte';
+	import AllocatedToInput from '../molecules/allocatedToInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
-	import DateInput from '../atoms/dateInput.svelte';
+	import DateInput from '../molecules/dateInput.svelte';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
@@ -87,13 +87,13 @@
 
 	<TaskTitleInput value={task?.title} />
 	{#if props.showStartedAt || task?.startedAt || current === '/today' || current === '/upcoming'}
-		<DateInput date={task?.startedAt} attributeType="started" />
+		<!-- <DateInput date={task?.startedAt} attributeType="started" /> -->
 	{/if}
 	{#if current === '/archive' && task?.isDone}
-		<DateInput date={task.completedAt} attributeType="completed" />
+		<!-- <DateInput date={task.completedAt} attributeType="completed" /> -->
 	{/if}
 	{#if props.showAllocatedTo || task?.allocatedTo || current === '/waiting_for'}
-		<AllocatedToInput value={task?.allocatedTo ?? undefined} />
+		<!-- <AllocatedToInput value={task?.allocatedTo ?? undefined} /> -->
 	{/if}
 	<CommentsInput value={task?.comments ?? undefined} />
 
@@ -101,11 +101,12 @@
 		<UrlList bind:value={props.urlList} />
 	{/if}
 
+	<!-- 
 	{#if props.showUrlInput}
 		<UrlInput bind:value={props} />
-	{/if}
+	{/if} -->
 
-	<InputButtons bind:value={props} />
+	<!-- <InputButtons /> -->
 
 	<div>
 		<button type="submit" class="blue general">{task ? 'Update' : 'Add'}</button>
