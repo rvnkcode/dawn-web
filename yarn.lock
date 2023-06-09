@@ -2294,6 +2294,11 @@ svelte@^3.54.0:
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.57.0.tgz#a3969cfe51f25f2a55e75f7b98dbd02c3af0980b"
   integrity sha512-WMXEvF+RtAaclw0t3bPDTUe19pplMlfyKDsixbHQYgCWi9+O9VN0kXU1OppzrB9gPAvz4NALuoca2LfW2bOjTQ==
 
+sveltekit-superforms@^1.0.0-rc.4:
+  version "1.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/sveltekit-superforms/-/sveltekit-superforms-1.0.0-rc.4.tgz#b404abfdbab58d2ee9a91e38b10248f327af33c0"
+  integrity sha512-uePmY4G+TL5UMb31qDkrSpbsnhWCrJ1OCi61Un34POwmLHEUWR3nzC9c9OoTGKoT+pcMkqKvJLhG1SlP4QvrPg==
+
 synp@^1.9.10:
   version "1.9.10"
   resolved "https://registry.yarnpkg.com/synp/-/synp-1.9.10.tgz#53163321a600418c9b06af0db499939ffce12907"
