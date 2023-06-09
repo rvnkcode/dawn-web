@@ -5,6 +5,7 @@
 	import Nav from '$lib/components/organisms/nav.svelte';
 	import MainHeader from '$lib/components/organisms/mainHeader.svelte';
 	import type { LayoutServerData } from './$types';
+	import { clientWidth } from '$lib/stores';
 
 	// Initialize page data
 	export let data: LayoutServerData;
@@ -16,13 +17,12 @@
 		document.cookie = `timeZone=${timeZone}`;
 	});
 
-	let clientWidth: number;
 	let isSideNavOpen = false;
 </script>
 
-<div bind:clientWidth>
+<div bind:clientWidth={$clientWidth}>
 	<MainHeader bind:isSideNavOpen />
-	<Nav {count} {clientWidth} bind:isOpen={isSideNavOpen} />
+	<Nav {count} clientWidth={$clientWidth} bind:isOpen={isSideNavOpen} />
 	<Content>
 		<slot />
 	</Content>
