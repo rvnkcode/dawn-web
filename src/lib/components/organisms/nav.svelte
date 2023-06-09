@@ -11,11 +11,13 @@
 	} from 'carbon-icons-svelte';
 	import type { RouterOutputs } from '$lib/trpc/router';
 
+	// Props
 	export let count: RouterOutputs['count']['getCounts'];
+	export let clientWidth: number;
+	export let isOpen: boolean;
 </script>
 
-<!-- TODO: Change rail property by its client's width -->
-<SideNav rail>
+<SideNav rail={clientWidth > 1056} bind:isOpen>
 	<SideNavItems>
 		<SideNavLink
 			icon={Task}
