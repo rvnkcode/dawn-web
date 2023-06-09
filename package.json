@@ -47,6 +47,7 @@
 		"@trpc/server": "^10.21.1",
 		"date-fns": "^2.29.3",
 		"date-fns-tz": "^2.0.0",
+		"felte": "^1.2.7",
 		"superjson": "^1.12.3",
 		"svelte-notifications": "^0.9.98",
 		"trpc-sveltekit": "^3.5.5",
