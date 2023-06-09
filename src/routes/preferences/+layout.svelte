@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/organisms/header.svelte';
+	import Header from '$lib/components/organisms/pageHeader.svelte';
 </script>
 
 <svelte:head>

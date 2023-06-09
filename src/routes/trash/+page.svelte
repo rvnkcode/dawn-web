@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/organisms/header.svelte';
+	import Header from '$lib/components/organisms/pageHeader.svelte';
 	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
