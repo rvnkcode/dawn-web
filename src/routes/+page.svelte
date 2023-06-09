@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { Task } from 'carbon-icons-svelte';
-	import PageHeader from '$lib/components/organisms/pageHeader.svelte';
+	
 	import InputForm from '$lib/components/organisms/inputForm.svelte';
 	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
-
-	import type { PageServerData } from './$types';
+	import PageHeader from '$lib/components/organisms/pageHeader.svelte';
 	import NewTaskForm from '$lib/components/organisms/taskForm.svelte';
 	import { clientWidth } from '$lib/stores';
+	
+	import type { PageServerData } from './$types';
 
 	// Initialize page data
 	export let data: PageServerData;

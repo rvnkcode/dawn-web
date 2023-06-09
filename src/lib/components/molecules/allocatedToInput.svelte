@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { TextInput } from 'carbon-components-svelte';
-
+import { onMount } from 'svelte';
+	
 	import { trpc } from '$lib/trpc/client';
 	import type { RouterOutputs } from '$lib/trpc/router';
-	import { onMount } from 'svelte';
 
 	let list: RouterOutputs['contact']['getContacts'] = [];
 

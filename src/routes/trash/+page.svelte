@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Header from '$lib/components/organisms/pageHeader.svelte';
 	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
+	import Header from '$lib/components/organisms/pageHeader.svelte';
 	import EmptyTrashConfirmModal from '$lib/components/templates/emptyTrashConfirmModal.svelte';
 
 	import type { PageServerData } from './$types';

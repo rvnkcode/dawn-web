@@ -10,10 +10,10 @@
 	import { page } from '$app/stores';
 	import { errorNotificationOptions } from '$lib/const';
 
-	import AllocatedToInput from '../molecules/allocatedToInput.svelte';
 	import CommentsInput from '../atoms/commentsInput.svelte';
-	import DateInput from '../molecules/dateInput.svelte';
 	import TaskTitleInput from '../atoms/taskTitleInput.svelte';
+	import AllocatedToInput from '../molecules/allocatedToInput.svelte';
+	import DateInput from '../molecules/dateInput.svelte';
 	import InputButtons from '../molecules/inputButtons.svelte';
 	import UrlInput from '../molecules/urlInput.svelte';
 	import UrlList from './urlList.svelte';

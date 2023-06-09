@@ -2,9 +2,9 @@
 	import { Button } from 'carbon-components-svelte';
 	import { CalendarAdd, Link, UserFollow } from 'carbon-icons-svelte';
 
+	import AllocatedToInput from './allocatedToInput.svelte';
 	import StartedAt from './startedAt.svelte';
 	import UrlInput from './urlInput.svelte';
-	import AllocatedToInput from './allocatedToInput.svelte';
 
 	let showStartedAt = false;
 	let showUrlInput = false;
