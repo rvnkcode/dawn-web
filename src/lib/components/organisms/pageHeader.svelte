@@ -1,6 +1,8 @@
 <!-- TODO: Add today's date? -->
 <header>
-	<slot />
+	<h1>
+		<slot />
+	</h1>
 </header>
 
 <style>

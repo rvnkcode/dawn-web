@@ -1,13 +1,16 @@
 <script lang="ts">
-	import Header from '$lib/components/organisms/header.svelte';
+	import { Task } from 'carbon-icons-svelte';
+	import PageHeader from '$lib/components/organisms/pageHeader.svelte';
 	import InputForm from '$lib/components/organisms/inputForm.svelte';
 	import List from '$lib/components/organisms/list.svelte';
 	import MainFooter from '$lib/components/organisms/mainFooter.svelte';
 
 	import type { PageServerData } from './$types';
+	import NewTaskForm from '$lib/components/organisms/newTaskForm.svelte';
+	import { clientWidth } from '$lib/stores';
 
+	// Initialize page data
 	export let data: PageServerData;
-
 	$: ({ tasks } = data);
 
 	let showNewInput = false;
@@ -17,15 +20,20 @@
 	<title>Dawn: Inbox</title>
 </svelte:head>
 
-<Header>
-	<ion-icon name="file-tray" class="inbox title" /><span>Inbox</span>
-</Header>
+<!-- TODO: Sticky header -->
+<PageHeader>
+	<Task size={32} /><span>Inbox</span>
+</PageHeader>
 
-<main>
-	<List {tasks} {showNewInput} />
-	{#if showNewInput}
+{#if $clientWidth > 480}
+	<NewTaskForm />
+{/if}
+
+<section>
+	<!-- <List {tasks} {showNewInput} /> -->
+	<!-- {#if showNewInput}
 		<InputForm bind:value={showNewInput} />
-	{/if}
-</main>
+	{/if} -->
+</section>
 
-<MainFooter bind:value={showNewInput} />
+<!-- <MainFooter bind:value={showNewInput} /> -->
