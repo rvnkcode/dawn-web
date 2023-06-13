@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
 	import { validator } from '@felte/validator-zod';
+	import type { Task } from '@prisma/client';
 	import { Button, TextArea, TextInput, ToastNotification } from 'carbon-components-svelte';
 	import { Add, OverflowMenuVertical } from 'carbon-icons-svelte';
 	import { createForm } from 'felte';
-
+	
 	import { invalidateAll } from '$app/navigation';
-	import { zTaskSchema, type zTaskKeys } from '$lib/zod';
-
+	import { type zTaskKeys,zTaskSchema } from '$lib/zod';
+	
 	import InputButtons from '../molecules/inputButtons.svelte';
-	import type { Task } from '@prisma/client';
 
 	export let task: Task | undefined = undefined;
 
