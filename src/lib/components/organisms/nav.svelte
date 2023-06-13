@@ -9,7 +9,7 @@
 		TaskStar,
 		TrashCan
 	} from 'carbon-icons-svelte';
-	
+
 	import type { RouterOutputs } from '$lib/trpc/router';
 
 	// Props

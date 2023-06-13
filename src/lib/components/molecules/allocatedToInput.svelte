@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { TextInput } from 'carbon-components-svelte';
-import { onMount } from 'svelte';
-	
+	import { onMount } from 'svelte';
+
 	import { trpc } from '$lib/trpc/client';
 	import type { RouterOutputs } from '$lib/trpc/router';
 
@@ -25,26 +25,3 @@ import { onMount } from 'svelte';
 		<option value={opt.name} />
 	{/each}
 </datalist>
-
-<!--
- <script async script lang="ts">
-	import { page } from '$app/stores';
-
-	export let value: string | undefined = undefined;
-
-	$: current = $page.url.pathname;
-
-</script>
-
-<label
-	>
-	<input
-		name="allocatedTo"
-		bind:value
-		list="names"
-		autocomplete="off"
-		placeholder="Allocated to"
-		required={value == undefined && current === '/waiting_for' ? true : false}
-	/>
-</label>
--->

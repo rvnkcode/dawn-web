@@ -6,11 +6,15 @@
 	import { createForm } from 'felte';
 
 	import { invalidateAll } from '$app/navigation';
-	import { zTaskSchema } from '$lib/zod';
-	
+	import { zTaskSchema, type zTaskKeys } from '$lib/zod';
+
 	import InputButtons from '../molecules/inputButtons.svelte';
+	import type { Task } from '@prisma/client';
+
+	export let task: Task | undefined = undefined;
 
 	let showMoreInputs = false;
+	const formList: zTaskKeys[] = ['title', 'comments', 'startedAt', 'url', 'allocatedTo'];
 
 	const { form, reset } = createForm({
 		extend: [validator({ schema: zTaskSchema }), reporter],
@@ -21,7 +25,7 @@
 	});
 </script>
 
-<form use:form method="post" action={'/?/createTask'}>
+<form use:form method="post" action={task ? '/?/updateTask' : '/?/createTask'}>
 	<div>
 		<TextInput placeholder="New To-Do" size="sm" name="title" autocomplete="off" />
 		<Button
@@ -34,11 +38,18 @@
 		<Button size="small" icon={Add} iconDescription="Add new To-DO" type="submit" />
 	</div>
 
-	<ValidationMessage for="title" let:messages={message}>
-		{#if message && message?.length > 0}
-			<ToastNotification subtitle={message.toString()} lowContrast class="notification" />
-		{/if}
-	</ValidationMessage>
+	{#each formList as formName}
+		<ValidationMessage for={formName} let:messages={message}>
+			{#if message && message?.length > 0}
+				<ToastNotification
+					title="error"
+					subtitle={message.toString()}
+					lowContrast
+					class="notification"
+				/>
+			{/if}
+		</ValidationMessage>
+	{/each}
 
 	{#if showMoreInputs}
 		<TextArea placeholder="Notes" name="comments" />

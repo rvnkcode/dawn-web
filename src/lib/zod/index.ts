@@ -22,3 +22,6 @@ export const zTaskSchema = z.object({
 	url: z.string().url().optional(),
 	allocatedTo: z.string().min(1).optional()
 });
+
+type zTaskType = z.infer<typeof zTaskSchema>;
+export type zTaskKeys = keyof zTaskType;
