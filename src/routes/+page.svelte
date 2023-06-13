@@ -2,8 +2,6 @@
 <script lang="ts">
 	import { Task } from 'carbon-icons-svelte';
 
-	import List from '$lib/components/organisms/list.svelte';
-	import PageHeader from '$lib/components/organisms/pageHeader.svelte';
 	import NewTaskForm from '$lib/components/organisms/taskForm.svelte';
 	import { clientWidth } from '$lib/stores';
 
@@ -19,17 +17,12 @@
 </svelte:head>
 
 <!-- TODO: Sticky header -->
-<PageHeader>
-	<Task size={32} /><span>Inbox</span>
-</PageHeader>
+<header>
+	<h1>
+		<Task size={32} /><span>Inbox</span>
+	</h1>
 
-{#if $clientWidth > 480}
-	<NewTaskForm />
-{/if}
-
-<section>
-	<List {tasks} showNewInput={false} />
-	<!-- {#if showNewInput}
-		<InputForm bind:value={showNewInput} />
-	{/if} -->
-</section>
+	{#if $clientWidth > 480}
+		<NewTaskForm />
+	{/if}
+</header>
