@@ -1,4 +1,5 @@
 export const errorNotificationOptions = {
 	position: 'top-right',
-	type: 'error'
+	type: 'error',
+	removeAfter: 2000
 };
