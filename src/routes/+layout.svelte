@@ -9,13 +9,14 @@
 
 	import type { LayoutServerData } from './$types';
 
+	// Initialize client's time zone
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	onMount(() => {
 		document.cookie = `timeZone=${timeZone}`;
 	});
 
+	// Initialize layout server data
 	export let data: LayoutServerData;
-
 	$: ({ count } = data);
 </script>
 
@@ -46,12 +47,14 @@
 		padding: 0 1rem;
 	}
 
+	/* PC */
 	@media (min-width: 481px) {
 		aside {
 			max-width: 233px;
 		}
 	}
 
+	/* Mobile */
 	@media (max-width: 480px) {
 		aside {
 			display: none;

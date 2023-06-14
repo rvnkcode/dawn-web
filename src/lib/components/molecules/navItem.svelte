@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { showSidebar } from '$lib/stores';
 
+	// Props
 	export let path: string;
 	export let iconName: string;
 	export let iconClass = '';
@@ -29,7 +30,7 @@
 <style>
 	li {
 		border-radius: 0.25rem;
-		padding: 0.25rem 0.25rem;
+		padding: 0.25rem;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -48,7 +49,6 @@
 		text-decoration: none;
 		color: #292e34;
 		font-size: 1rem;
-		/* font-weight: bold; */
 	}
 
 	span {
@@ -56,13 +56,15 @@
 		color: #989ea5;
 	}
 
+	/* Mobile  */
 	@media (max-width: 480px) {
 		li {
-			font-size: large;
+			font-size: x-large;
+			padding: 0.5rem;
 		}
 
 		a {
-			font-size: large;
+			font-size: x-large;
 		}
 	}
 </style>
