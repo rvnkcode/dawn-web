@@ -15,8 +15,9 @@
     "styled-components.vscode-styled-components",
     "folke.vscode-monorepo-workspace",
     "wix.vscode-import-cost",
-    "Prisma.prisma",
+    "prisma.prisma",
     "svelte.svelte-vscode",
-    "humao.rest-client"
+    "humao.rest-client",
+    "usernamehw.errorlens"
   ]
 }

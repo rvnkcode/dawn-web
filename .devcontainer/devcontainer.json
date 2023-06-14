@@ -32,7 +32,8 @@
 				"esbenp.prettier-vscode",
 				"Prisma.prisma",
 				"svelte.svelte-vscode",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"eamodio.gitlens"
 			],
 			"settings": {
 				"editor.formatOnPaste": true,
