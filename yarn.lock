@@ -285,11 +285,6 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.36.0.tgz#9837f768c03a1e4a30bd304a64fb8844f0e72efe"
   integrity sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==
 
-"@felte/common@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@felte/common/-/common-1.1.4.tgz#687fd13582afe63c63d6bd397caf13171639d9d5"
-  integrity sha512-4jNB4EwRpaGZppwV/YqbGF7SVRwehWw+hyTGmw2N+pL86LuqVTTSrgVOGXwPaLTju1BxAptcoAXjxZbBf0XB4Q==
-
 "@felte/common@1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@felte/common/-/common-1.1.5.tgz#03eea47b838e92a59f4931cc2e858dae87a02edd"
@@ -301,20 +296,6 @@
   integrity sha512-3xH66DQjAiQt2AXTHLIymVGPxm3KlSNaHu0QEYR1eu3O5RZfce1CF72OhsQ7le0jymyRsCd9Ut+n4I3vOiuwsA==
   dependencies:
     "@felte/common" "1.1.5"
-
-"@felte/reporter-svelte@^1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@felte/reporter-svelte/-/reporter-svelte-1.1.6.tgz#a19bcc90a76039ebec1a2559e3b08d51c55e16de"
-  integrity sha512-E9B0rSscr/QHjC9JO74+Ny/s+3aKbIzLTVe4dS+fd1wkF71WAhQulyEazSYotUmA+B6je8Fy4h9gMr4F1GEMAw==
-  dependencies:
-    "@felte/common" "1.1.5"
-
-"@felte/validator-zod@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@felte/validator-zod/-/validator-zod-1.0.13.tgz#45422cbbbb295bb1aca3055c3a9f8167038c8868"
-  integrity sha512-qrKUbXm/zqZq+307VwGvhSZlps/Pbx3mpdEg8PVR6RDGpgg0sSOOuPZc5d6C2kJszlmSkA98uHWiIcw3U9O8CQ==
-  dependencies:
-    "@felte/common" "1.1.4"
 
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
