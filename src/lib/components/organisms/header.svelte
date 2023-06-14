@@ -1,8 +1,18 @@
-<!-- TODO: Add today's date? -->
+<script lang="ts">
+	import { clientWidth } from '$lib/stores';
+	import TaskForm from './taskForm.svelte';
+</script>
+
 <header>
 	<h1>
 		<slot />
 	</h1>
+
+	<!-- TODO: Add today's date? -->
+
+	{#if $clientWidth > 481}
+		<TaskForm />
+	{/if}
 </header>
 
 <style>
@@ -20,5 +30,6 @@
 	header > h1 {
 		font-size: x-large;
 		font-weight: bold;
+		margin-bottom: 1rem;
 	}
 </style>
