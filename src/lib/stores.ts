@@ -7,3 +7,5 @@ export const isSelectModeOnMobile = writable(false);
 export const showSidebar = writable(false);
 
 export const selectedContacts = writable(new Set<number>());
+
+export const clientWidth = writable(0);
