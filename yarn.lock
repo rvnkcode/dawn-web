@@ -285,6 +285,18 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.36.0.tgz#9837f768c03a1e4a30bd304a64fb8844f0e72efe"
   integrity sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==
 
+"@felte/common@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@felte/common/-/common-1.1.5.tgz#03eea47b838e92a59f4931cc2e858dae87a02edd"
+  integrity sha512-v1BELvQ40kjUilMszMkSxzh2vMPx+MmrzcTZqjrwLbE1H9zEgpebuGIgpvrej0Cd78XyDdWqdCmE3zlL/iKHiw==
+
+"@felte/core@1.3.8":
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/@felte/core/-/core-1.3.8.tgz#2287fc9a0eba1ce89ed44aee0807956a4bde9309"
+  integrity sha512-3xH66DQjAiQt2AXTHLIymVGPxm3KlSNaHu0QEYR1eu3O5RZfce1CF72OhsQ7le0jymyRsCd9Ut+n4I3vOiuwsA==
+  dependencies:
+    "@felte/common" "1.1.5"
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -1271,6 +1283,13 @@ fastq@^1.6.0:
   integrity sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==
   dependencies:
     reusify "^1.0.4"
+
+felte@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/felte/-/felte-1.2.8.tgz#3e926f7f998c76a152f9682870b8297cce4c894b"
+  integrity sha512-YsHjw7EAvLse6MxsVsExWDd/xDnT8qlvkQai82X2uQeP0Lp/2Vla+PXpN8BVLb1B9Cvda1o77wn0VH0Qvfy9pQ==
+  dependencies:
+    "@felte/core" "1.3.8"
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
