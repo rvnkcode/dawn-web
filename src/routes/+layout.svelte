@@ -3,7 +3,7 @@
 	import Notifications from 'svelte-notifications';
 
 	import Nav from '$lib/components/organisms/nav.svelte';
-	import SideFooter from '$lib/components/organisms/sideFooter.svelte';
+	// import SideFooter from '$lib/components/organisms/sideFooter.svelte';
 	import MobileOnlyButton from '$lib/components/zMobile/mobileOnlyButton.svelte';
 	import { showSidebar } from '$lib/stores';
 
@@ -22,7 +22,7 @@
 
 <aside class={$showSidebar ? 'show' : ''}>
 	<Nav {count} />
-	<SideFooter />
+	<!-- <SideFooter /> -->
 </aside>
 {#if !$showSidebar}
 	<MobileOnlyButton />
