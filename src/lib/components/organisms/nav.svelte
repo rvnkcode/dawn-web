@@ -19,7 +19,7 @@
 				count={count.inboxCount}
 			/>
 		</NavSubList>
-		<NavSubList>
+		<!-- <NavSubList>
 			<NavItem
 				path="/today"
 				iconName="pause"
@@ -47,7 +47,7 @@
 		<NavSubList>
 			<NavItem path="/archive" iconName="save" iconClass="archive" label="Archive" />
 			<NavItem path="/trash" iconName="trash" iconClass="trashIcon" label="Trash" />
-		</NavSubList>
+		</NavSubList> -->
 	</ul>
 </nav>
 
